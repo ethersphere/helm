@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args:  ['{{ include "bee.fullname" . }}:{{ int (split ":" .Values.beeConfig.debug_api_addr )._1 }}/health']
+      args:  ['{{ include "bee.fullname" . }}:{{ .Values.service.port }}']
   restartPolicy: Never
