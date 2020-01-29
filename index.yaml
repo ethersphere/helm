@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  bee:
+  - apiVersion: v1
+    appVersion: latest
+    created: "2020-01-29T12:20:31.241129811Z"
+    description: Ethereum Swarm Bee Helm chart for Kubernetes
+    digest: ef3c7472eadcdce7918d2155d67f96a5cfe0995a757728af33165c092c039543
+    name: bee
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/bee-0.1.0/bee-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-01-29T12:20:31.093906953Z"
