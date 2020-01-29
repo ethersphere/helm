@@ -4,6 +4,7 @@
 
 image:
   repository: ethersphere/bee
+  tag: latest
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
