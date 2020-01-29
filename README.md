@@ -1,6 +1,9 @@
 # Ethersphere Helm Charts
 
-This repo contains Ethersphere Helm Charts
+[![Release](https://github.com/ethersphere/helm/workflows/Release/badge.svg)](https://github.com/ethersphere/helm/actions?query=workflow%3ARelease)
+
+This repo contains Ethersphere Helm Charts:
+* bee
 
 ## Enabling Ethersphere Helm repository
 
