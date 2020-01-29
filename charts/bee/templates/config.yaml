@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "bee.fullname" . }}
+  labels:
+    {{- include "bee.labels" . | nindent 4 }}
+data:
+  .bee.yaml: |+
+    api-addr: {{ .Values.beeConfig.api_addr }}
+    bootnode: {{ .Values.beeConfig.bootnode }}
+    connections-grace: {{ .Values.beeConfig.connections_grace }}
+    connections-high: {{ .Values.beeConfig.connections_high }}
+    connections-low: {{ .Values.beeConfig.connections_low }}
+    data-dir: {{ .Values.beeConfig.data_dir }}
+    debug-api-addr: {{ .Values.beeConfig.debug_api_addr }}
+    enable-debug-api: {{ .Values.beeConfig.enable_debug_api }}
+    network-id: {{ .Values.beeConfig.network_id }}
+    p2p-addr: {{ .Values.beeConfig.p2p_addr }}
+    p2p-disable-quic: {{ .Values.beeConfig.p2p_disable_quic }}
+    p2p-disable-ws: {{ .Values.beeConfig.p2p_disable_ws }}
+    verbosity: {{ .Values.beeConfig.verbosity }}

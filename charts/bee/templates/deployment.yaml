@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "bee.fullname" . }}
+  labels:
+    {{- include "bee.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "bee.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "bee.selectorLabels" . | nindent 8 }}
+      {{- if .Values.podAnnotations }}
+      annotations:
+        {{ toYaml .Values.podAnnotations | indent 8 }}
+      {{- end }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "bee.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - bee
+            - start
+            - --config=.bee.yaml
+          ports:
+            - containerPort: {{ int (split ":" .Values.beeConfig.api_addr )._1 }}
+              name: http
+              protocol: TCP
+            - containerPort: {{ int (split ":" .Values.beeConfig.p2p_addr )._1 }}
+              name: p2p
+              protocol: TCP
+            - containerPort: {{ int (split ":" .Values.beeConfig.debug_api_addr )._1 }}
+              name: debug
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: debug
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: debug
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          volumeMounts:
+            - name: config
+              mountPath: /home/bee/.bee.yaml
+              readOnly: true
+              subPath: .bee.yaml
+            - name: data
+              mountPath: /home/bee/.bee
+      volumes:
+        - name: config
+          configMap:
+            name: {{ template "bee.fullname" . }}
+        - name: data
+          emptyDir: {}
