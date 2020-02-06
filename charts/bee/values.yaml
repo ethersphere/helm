@@ -91,7 +91,7 @@ beeConfig:
   network_id: 1
   ## password for decrypting keys (please change it for production deployments)
   ## if not set, it will be automatically generated
-  password: "beekeeper"
+  password: beekeeper
   ## path to a file that contains password for decrypting keys is /home/bee/.secret/password
   usePasswordFile: false
   ## use existing secret (ignores previous password)
