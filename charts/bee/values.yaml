@@ -1,6 +1,6 @@
-# Default values for bee.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+## Default values for bee.
+## This is a YAML-formatted file.
+## Declare variables to be passed into your templates.
 
 image:
   repository: ethersphere/bee
@@ -12,10 +12,10 @@ nameOverride: ""
 fullnameOverride: ""
 
 serviceAccount:
-  # Specifies whether a service account should be created
+  ## Specifies whether a service account should be created
   create: false
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
+  ## The name of the service account to use.
+  ## If not set and create is true, a name is generated using the fullname template
   name:
 
 podSecurityContext: {}
@@ -49,10 +49,10 @@ ingress:
 replicaCount: 1
 
 resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  ## We usually recommend not to specify default resources and to leave this as a conscious
+  ## choice for the user. This also increases chances charts run on environments with little
+  ## resources, such as Minikube. If you do want to specify resources, uncomment the following
+  ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
   #   cpu: 1
   #   ephemeral-storage: 1Gi
@@ -71,29 +71,37 @@ affinity: {}
 tolerations: []
 
 beeConfig:
-  # HTTP API listen address
+  ## HTTP API listen address
   api_addr: :8080
-  # initial nodes to connect to
+  ## initial nodes to connect to
   bootnode: ""
-  # the amount of time a newly opened connection is given before it becomes subject to pruning
+  ## the amount of time a newly opened connection is given before it becomes subject to pruning
   connections_grace: 1m
-  # high watermark governing the number of connections that'll be maintained
+  ## high watermark governing the number of connections that'll be maintained
   connections_high: 400
-  # low watermark governing the number of connections that'll be maintained
+  ## low watermark governing the number of connections that'll be maintained
   connections_low: 200
-  # data directory
+  ## data directory
   data_dir: /home/bee/.bee
-  # debug HTTP API listen address
+  ## debug HTTP API listen address
   debug_api_addr: :6060
-  # enable debug HTTP API
+  ## enable debug HTTP API
   enable_debug_api: true
-  # ID of the Swarm network
+  ## ID of the Swarm network
   network_id: 1
-  # P2P listen address
+  ## password for decrypting keys (please change it for production deployments)
+  ## if not set, it will be automatically generated
+  password: "beekeeper"
+  ## path to a file that contains password for decrypting keys is /home/bee/.secret/password
+  usePasswordFile: false
+  ## use existing secret (ignores previous password)
+  # existingSecret: 
+  # existingSecretPasswordKey: 
+  ## P2P listen address
   p2p_addr: :7070
-  # disable P2P QUIC protocol
+  ## disable P2P QUIC protocol
   p2p_disable_quic: false
-  # disable P2P WebSocket protocol
+  ## disable P2P WebSocket protocol
   p2p_disable_ws: false
-  # log verbosity level 0=silent, 1=error, 2=warn, 3=info, 4=debug, 5=trace
+  ## log verbosity level 0=silent, 1=error, 2=warn, 3=info, 4=debug, 5=trace
   verbosity: 3
