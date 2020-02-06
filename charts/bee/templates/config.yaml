@@ -15,6 +15,11 @@ data:
     debug-api-addr: {{ .Values.beeConfig.debug_api_addr }}
     enable-debug-api: {{ .Values.beeConfig.enable_debug_api }}
     network-id: {{ .Values.beeConfig.network_id }}
+    {{- if .Values.beeConfig.usePasswordFile }}
+    password-file: /home/bee/.secret/password
+    {{- else }}
+    password: {{ include "bee.password" . }}
+    {{- end }}
     p2p-addr: {{ .Values.beeConfig.p2p_addr }}
     p2p-disable-quic: {{ .Values.beeConfig.p2p_disable_quic }}
     p2p-disable-ws: {{ .Values.beeConfig.p2p_disable_ws }}

@@ -74,9 +74,22 @@ spec:
               subPath: .bee.yaml
             - name: data
               mountPath: /home/bee/.bee
+            {{- if .Values.beeConfig.usePasswordFile }}
+            - name: bee-secret
+              mountPath: /home/bee/.secret
+              readOnly: true
+            {{- end }}
       volumes:
         - name: config
           configMap:
             name: {{ template "bee.fullname" . }}
+        {{- if .Values.beeConfig.usePasswordFile }}
+        - name: bee-secret
+          secret:
+            secretName: {{ template "bee.secretName" . }}
+            items:
+              - key: {{ template "bee.secretPasswordKey" . }}
+                path: password
+        {{- end }}
         - name: data
           emptyDir: {}
