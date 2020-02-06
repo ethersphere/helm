@@ -8,9 +8,6 @@ data:
   .bee.yaml: |+
     api-addr: {{ .Values.beeConfig.api_addr }}
     bootnode: {{ .Values.beeConfig.bootnode }}
-    connections-grace: {{ .Values.beeConfig.connections_grace }}
-    connections-high: {{ .Values.beeConfig.connections_high }}
-    connections-low: {{ .Values.beeConfig.connections_low }}
     data-dir: {{ .Values.beeConfig.data_dir }}
     debug-api-addr: {{ .Values.beeConfig.debug_api_addr }}
     enable-debug-api: {{ .Values.beeConfig.enable_debug_api }}

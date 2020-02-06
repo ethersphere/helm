@@ -75,12 +75,6 @@ beeConfig:
   api_addr: :8080
   ## initial nodes to connect to
   bootnode: ""
-  ## the amount of time a newly opened connection is given before it becomes subject to pruning
-  connections_grace: 1m
-  ## high watermark governing the number of connections that'll be maintained
-  connections_high: 400
-  ## low watermark governing the number of connections that'll be maintained
-  connections_low: 200
   ## data directory
   data_dir: /home/bee/.bee
   ## debug HTTP API listen address
