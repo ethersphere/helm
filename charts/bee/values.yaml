@@ -95,8 +95,8 @@ beeConfig:
   ## path to a file that contains password for decrypting keys is /home/bee/.secret/password
   usePasswordFile: false
   ## use existing secret (ignores previous password)
-  # existingSecret: 
-  # existingSecretPasswordKey: 
+  # existingSecret:
+  # existingSecretPasswordKey:
   ## P2P listen address
   p2p_addr: :7070
   ## disable P2P QUIC protocol
