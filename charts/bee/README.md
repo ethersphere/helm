@@ -86,6 +86,8 @@ apps:
     chart: "ethersphere/bee"
     version: "0.1.1"
     enabled: true
+    set:
+      replicaCount: 2
     wait: true
     timeout: 120
 
