@@ -98,4 +98,18 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/bee-0.1.0/bee-0.1.0.tgz
     version: 0.1.0
+  geth-swap:
+  - apiVersion: v1
+    appVersion: 1.16.0
+    created: "2020-02-18T11:57:47.53233761Z"
+    description: A Helm chart for Kubernetes
+    digest: 95deffed34a654877cd10b3efc6ffc52fb6726231c3e648da7aae7859fba6249
+    home: https://swarm.ethereum.org
+    maintainers:
+    - email: pichler.ralph@gmail.com
+      name: ralph-pichler
+    name: geth-swap
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/geth-swap-0.1.3/geth-swap-0.1.3.tgz
+    version: 0.1.3
 generated: "2020-01-29T12:20:31.093906953Z"
