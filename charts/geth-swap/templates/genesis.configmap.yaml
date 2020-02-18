@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "geth-swap.fullname" . }}-config
+data:
+  networkid: {{ .Values.geth.genesis.networkid | quote }}
+  validatorKey: {{ .Values.geth.genesis.validatorKey | quote }}
+  genesis.json: |-
+    {
+      "config": {
+        "chainId": {{ .Values.geth.genesis.networkid }},
+        "homesteadBlock": 0,
+        "eip150Block": 0,
+        "eip150Hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "eip155Block": 0,
+        "eip158Block": 0,
+        "byzantiumBlock": 0,
+        "constantinopleBlock": 0,
+        "petersburgBlock": 0,
+        "istanbulBlock": 0,
+        "clique": {
+          "period": {{ .Values.geth.genesis.clique.period }},
+          "epoch": {{ .Values.geth.genesis.clique.epoch }}
+        }
+      },
+      "nonce": "0x0",
+      "timestamp": "0x5e4bc3a6",
+      "extraData": "0x0000000000000000000000000000000000000000000000000000000000000000{{ .Values.geth.genesis.validatorAddress }}0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "gasLimit": "0x47b760",
+      "difficulty": "0x1",
+      "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "coinbase": "0x0000000000000000000000000000000000000000",
+      "alloc": {
+        {{- range $i := until 256 }}
+        {{ $i | printf "%040x" | quote }}: {
+          "balance": "0x1"
+        },
+        {{- end}}
+        {{- range $i, $account := .Values.geth.genesis.accounts }}
+        {{if $i}},{{end}}{{ $account.addr | quote }}: {
+          "balance": {{ $account.wei | quote }}
+        }
+        {{- end }}
+      },
+      "number": "0x0",
+      "gasUsed": "0x0",
+      "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
