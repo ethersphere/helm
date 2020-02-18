@@ -1,0 +1,71 @@
+# Default values for geth-swap.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: ethereum/client-go
+  tag: latest
+  pullPolicy: IfNotPresent
+
+geth:
+  genesis:
+    networkid: 12345
+    clique:
+      period: 15
+      epoch: 30000
+    validatorAddress: 62cab2b3b55f341f10348720ca18063cdb779ad5
+    validatorKey: 4663c222787e30c1994b59044aa5045377a6e79193a8ead88293926b535c722d
+    accounts:
+    - addr: "62cab2b3b55f341f10348720ca18063cdb779ad5"
+      wei: "0xf0000000000000000000000000"
+
+swap:
+  bzzaccounts:
+    - cD604B06F0A015269b34c2a8DC8C779535c24B2f
+    - c029885FCeedD27623f3293cD892460B528e33E2
+    - DCD36E29Ed55a66F6A3dB114dFcDe7ef1Fb4b346
+    - 894A9BfAf6dFe917F0F61bbDcC3096Cd5eA77F2A
+    - 666f30fD950Cc8A8Db93f9C7d86Bb0B14cb1773A
+    - CD51767481E08aa21eF38Ff346726b61521A3D37
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: false
+  annotations: {}
+  name:
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 8545
+
+ingress:
+  enabled: false
+  annotations: {}
+  tls: []
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
