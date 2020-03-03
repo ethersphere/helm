@@ -21,7 +21,6 @@ spec:
           - >
             apk add --no-cache jq curl;
             curl https://gist.githubusercontent.com/ralph-pichler/dc0386f81ffa09c220271d4389b4a139/raw -o deploy.sh;
-            while curl $BACKEND; do sleep 1; done;
+            while ! curl $BACKEND; do sleep 1; done;
             bash deploy.sh
       restartPolicy: Never
-  backoffLimit: 1
