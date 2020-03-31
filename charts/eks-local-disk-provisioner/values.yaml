@@ -27,7 +27,7 @@ securityContext:
   privileged: true
 
 resources: {}
-  # If you do want to specify resources, uncomment the following lines, 
+  # If you do want to specify resources, uncomment the following lines,
   # adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
   #   cpu: 100m
