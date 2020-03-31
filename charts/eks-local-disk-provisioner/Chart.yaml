@@ -1,0 +1,20 @@
+apiVersion: v1
+appVersion: 0.1.0
+name: eks-local-disk-provisioner
+version: 0.1.0
+description: AWS eks-local-disk-provisioner Helm chart for Kubernetes
+home: https://swarm.ethereum.org
+icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png
+keywords:
+  - aws
+  - kubernetes
+  - eks
+  - local disk provisioner
+  - local persistent volume
+  - sig-storage-local-static-provisioner
+maintainers:
+  - name: svetomir
+    email: svetomir@ethereum.org
+sources:
+  - https://github.com/ethersphere/eks-local-disk-provisioner
+type: application
