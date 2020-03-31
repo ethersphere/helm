@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ include "eks-local-disk-provisioner.fullname" . }}
+  labels:
+    {{- include "eks-local-disk-provisioner.labels" . | nindent 4 }}
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "eks-local-disk-provisioner.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "eks-local-disk-provisioner.selectorLabels" . | nindent 8 }}
+      {{- if .Values.podAnnotations }}
+      annotations:
+        {{ toYaml .Values.podAnnotations | indent 8 }}
+      {{- end }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      automountServiceAccountToken: {{ .Values.automountServiceAccountToken }}
+      priorityClassName: {{ .Values.priorityClassName }}
+      serviceAccountName: {{ include "eks-local-disk-provisioner.serviceAccountName" . }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+          - name: PARTED_SCRIPT
+            value: "{{ .Values.provisionerConfig.parted_script }}"
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+        securityContext:
+          {{- toYaml .Values.securityContext | nindent 12 }}
+        volumeMounts:
+          - name: host-dev
+            mountPath: /dev
+            mountPropagation: "Bidirectional"
+          - name: host-disks
+            mountPath: /mnt/disks
+            mountPropagation: "Bidirectional"
+          - name: host-etc-fstab
+            mountPath: /etc/fstab
+            subPath: fstab
+            mountPropagation: "Bidirectional"
+      volumes:
+        - name: host-dev
+          hostPath:
+            path: /dev
+        - name: host-disks
+          hostPath:
+            path: /mnt/disks
+        - name: host-etc-fstab
+          hostPath:
+            path: /etc

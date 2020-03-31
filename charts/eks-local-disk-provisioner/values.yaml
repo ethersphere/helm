@@ -1,0 +1,51 @@
+# Default values for eks-local-disk-provisioner.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: ethersphere/eks-local-disk-provisioner
+  tag: latest
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+namespace: kube-system
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+automountServiceAccountToken: false
+priorityClassName: system-node-critical
+
+securityContext:
+  privileged: true
+
+resources: {}
+  # If you do want to specify resources, uncomment the following lines,
+  # adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+podAnnotations: {}
+
+nodeSelector: {}
+
+affinity: {}
+
+tolerations: []
+
+provisionerConfig:
+  # Parted script for disk partitioning. For more info, see: https://www.gnu.org/software/parted/
+  # Variable will be passed to the command 'parted --script <parted_script>' for every NVME SSD disk.
+  # Example: "mklabel gpt mkpart logical 0% 50% mkpart logical 50% 100%"
+  parted_script: ""

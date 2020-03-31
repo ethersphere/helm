@@ -4,6 +4,8 @@
 
 This repo contains Ethersphere Helm Charts:
 * bee
+* eks-local-disk-provisioner
+* geth-swap
 
 ## Enabling Ethersphere Helm repository
 
