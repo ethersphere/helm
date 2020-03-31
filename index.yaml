@@ -98,6 +98,30 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/bee-0.1.0/bee-0.1.0.tgz
     version: 0.1.0
+  eks-local-disk-provisioner:
+  - apiVersion: v1
+    appVersion: 0.1.0
+    created: "2020-03-31T12:08:57.796595711Z"
+    description: AWS eks-local-disk-provisioner Helm chart for Kubernetes
+    digest: 7f0366e6f0cdf7e9ecfc55581d5307015835e15eeba3d12857bff2d3c9b636e9
+    home: https://swarm.ethereum.org
+    icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png
+    keywords:
+    - aws
+    - kubernetes
+    - eks
+    - local disk provisioner
+    - local persistent volume
+    - sig-storage-local-static-provisioner
+    maintainers:
+    - email: svetomir@ethereum.org
+      name: svetomir
+    name: eks-local-disk-provisioner
+    sources:
+    - https://github.com/ethersphere/eks-local-disk-provisioner
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/eks-local-disk-provisioner-0.1.0/eks-local-disk-provisioner-0.1.0.tgz
+    version: 0.1.0
   geth-swap:
   - apiVersion: v1
     appVersion: 1.16.0
