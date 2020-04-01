@@ -109,5 +109,11 @@ beeConfig:
   p2p_disable_quic: false
   ## disable P2P WebSocket protocol
   p2p_disable_ws: false
+  ## enable tracing
+  tracing: false
+  ## endpoint to send tracing data
+  tracing_endpoint: 127.0.0.1:6831
+  ## service name identifier for tracing
+  tracing_service_name: bee
   ## log verbosity level 0=silent, 1=error, 2=warn, 3=info, 4=debug, 5=trace
   verbosity: 3

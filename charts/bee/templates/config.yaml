@@ -20,4 +20,7 @@ data:
     p2p-addr: {{ .Values.beeConfig.p2p_addr }}
     p2p-disable-quic: {{ .Values.beeConfig.p2p_disable_quic }}
     p2p-disable-ws: {{ .Values.beeConfig.p2p_disable_ws }}
+    tracing: {{ .Values.beeConfig.tracing }}
+    tracing-endpoint: {{ .Values.beeConfig.tracing_endpoint }}
+    tracing-service-name: {{ .Values.beeConfig.tracing_service_name }}
     verbosity: {{ .Values.beeConfig.verbosity }}
