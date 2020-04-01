@@ -11,5 +11,13 @@ spec:
       port: {{ .Values.service.port }}
       protocol: TCP
       targetPort: http
+    - name: p2p
+      port: {{ int (split ":" .Values.beeConfig.p2p_addr )._1 }}
+      protocol: TCP
+      targetPort: p2p
+    - name: debug
+      port: {{ int (split ":" .Values.beeConfig.debug_api_addr )._1 }}
+      protocol: TCP
+      targetPort: debug
   selector:
     {{- include "bee.selectorLabels" . | nindent 4 }}
