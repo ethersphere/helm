@@ -62,6 +62,18 @@ resources: {}
   #   ephemeral-storage: 128Mi
   #   memory: 128Mi
 
+persistence:
+  ## this enables PVC templates that will create one per pod
+  enabled: false
+  accessMode: ReadWriteOnce
+  size: 1Gi
+  ## Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is set;
+  ## i.e. choosing the default provisioner: gp2 on AWS, standard on GKE, AWS & OpenStack, etc.
+  # storageClass: "-"
+
 podAnnotations: {}
 
 nodeSelector: {}

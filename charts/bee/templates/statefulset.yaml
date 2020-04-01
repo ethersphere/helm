@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "bee.fullname" . }}
   labels:
     {{- include "bee.labels" . | nindent 4 }}
 spec:
+  serviceName: {{ include "bee.fullname" . }}-headless
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
@@ -91,5 +92,26 @@ spec:
               - key: {{ template "bee.secretPasswordKey" . }}
                 path: password
         {{- end }}
+  {{- if not .Values.persistence.enabled }}
         - name: data
           emptyDir: {}
+  {{- else }}
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+      labels:
+        {{- include "bee.labels" . | nindent 8 }}
+    spec:
+      accessModes: 
+        - {{ .Values.persistence.accessMode | quote }}
+      resources:
+        requests:
+          storage: {{ .Values.persistence.size | quote }}
+    {{- if .Values.persistence.storageClass }}
+      {{- if (eq "-" .Values.persistence.storageClass) }}
+      storageClassName: ""
+      {{- else }}
+      storageClassName: {{ .Values.persistence.storageClass | quote }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
