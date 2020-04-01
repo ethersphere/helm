@@ -15,6 +15,10 @@ spec:
   type: NodePort
   externalTrafficPolicy: Local
   ports:
+    - name: http
+      port: {{ int (split ":" $root.Values.beeConfig.api_addr )._1 }}
+      protocol: TCP
+      targetPort: http
     - name: p2p
       port: {{ int (split ":" $root.Values.beeConfig.p2p_addr )._1 }}
       protocol: TCP
@@ -36,10 +40,6 @@ spec:
   type: NodePort
   externalTrafficPolicy: Local
   ports:
-    - name: http
-      port: {{ int (split ":" $root.Values.beeConfig.api_addr )._1 }}
-      protocol: TCP
-      targetPort: http
     - name: debug
       port: {{ int (split ":" $root.Values.beeConfig.debug_api_addr )._1 }}
       protocol: TCP

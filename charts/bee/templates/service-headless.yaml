@@ -8,7 +8,7 @@ spec:
   clusterIP: None
   ports:
     - name: http
-      port: {{ .Values.service.port }}
+      port: {{ int (split ":" .Values.beeConfig.api_addr )._1 }}
       protocol: TCP
       targetPort: http
   selector:

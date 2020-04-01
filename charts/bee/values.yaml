@@ -29,6 +29,7 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+# TODO: consider weather is needed, and/or should be optional
 service:
   type: ClusterIP
   port: 80
