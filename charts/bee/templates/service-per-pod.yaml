@@ -1,0 +1,51 @@
+{{- $root := . -}}
+
+{{- range $i, $e := until (int $root.Values.replicaCount) }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "bee.fullname" $root }}-{{ $i }}
+  labels:
+    {{- include "bee.labels" $root | nindent 4 }}
+    pod: {{ include "bee.fullname" $root }}-{{ $i }}
+    tier: public
+spec:
+  type: NodePort
+  externalTrafficPolicy: Local
+  ports:
+    - name: p2p
+      port: {{ int (split ":" $root.Values.beeConfig.p2p_addr )._1 }}
+      protocol: TCP
+      targetPort: p2p
+  selector:
+    {{- include "bee.selectorLabels" $root | nindent 4 }}
+    statefulset.kubernetes.io/pod-name: {{ include "bee.fullname" $root }}-{{ $i }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "bee.fullname" $root }}-private-{{ $i }}
+  labels:
+    {{- include "bee.labels" $root | nindent 4 }}
+    pod: {{ include "bee.fullname" $root }}-{{ $i }}
+    tier: private
+spec:
+  type: NodePort
+  externalTrafficPolicy: Local
+  ports:
+    - name: http
+      port: {{ int (split ":" $root.Values.beeConfig.api_addr )._1 }}
+      protocol: TCP
+      targetPort: http
+    - name: debug
+      port: {{ int (split ":" $root.Values.beeConfig.debug_api_addr )._1 }}
+      protocol: TCP
+      targetPort: debug
+  selector:
+    {{- include "bee.selectorLabels" $root | nindent 4 }}
+    statefulset.kubernetes.io/pod-name: {{ include "bee.fullname" $root }}-{{ $i }}
+
+{{- end }}

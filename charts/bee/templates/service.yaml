@@ -1,23 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "bee.fullname" . }}
+  name: {{ include "bee.fullname" . }}-headless
   labels:
     {{- include "bee.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  clusterIP: None
   ports:
     - name: http
       port: {{ .Values.service.port }}
       protocol: TCP
       targetPort: http
-    - name: p2p
-      port: {{ int (split ":" .Values.beeConfig.p2p_addr )._1 }}
-      protocol: TCP
-      targetPort: p2p
-    - name: debug
-      port: {{ int (split ":" .Values.beeConfig.debug_api_addr )._1 }}
-      protocol: TCP
-      targetPort: debug
   selector:
     {{- include "bee.selectorLabels" . | nindent 4 }}
+  type: {{ .Values.service.type }}
