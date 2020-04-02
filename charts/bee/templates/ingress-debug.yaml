@@ -40,7 +40,7 @@ spec:
           - path: {{ . }}
             backend:
               serviceName: {{ $fullName }}-debug-{{ $i }}
-              servicePort: api
+              servicePort: debug
         {{- end }}
   {{- end }}
 {{- end }}
