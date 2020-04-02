@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -48,7 +49,7 @@ spec:
             - --config=.bee.yaml
           ports:
             - containerPort: {{ int (split ":" .Values.beeConfig.api_addr )._1 }}
-              name: http
+              name: api
               protocol: TCP
             - containerPort: {{ int (split ":" .Values.beeConfig.p2p_addr )._1 }}
               name: p2p

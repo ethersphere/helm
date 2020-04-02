@@ -1,0 +1,25 @@
+{{- $root := . -}}
+
+{{- range $i, $e := until (int $root.Values.replicaCount) }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "bee.fullname" $root }}-debug-{{ $i }}
+  labels:
+    {{- include "bee.labels" $root | nindent 4 }}
+    pod: {{ include "bee.fullname" $root }}-{{ $i }}
+    endpoint: debug
+spec:
+  type: ClusterIP
+  ports:
+    - name: debug
+      port: {{ int (split ":" $root.Values.beeConfig.debug_api_addr )._1 }}
+      protocol: TCP
+      targetPort: debug
+  selector:
+    {{- include "bee.selectorLabels" $root | nindent 4 }}
+    statefulset.kubernetes.io/pod-name: {{ include "bee.fullname" $root }}-{{ $i }}
+
+{{- end }}

@@ -1,0 +1,42 @@
+{{- if .Values.ingressDebug.enabled -}}
+
+{{- $root := . -}}
+{{- $fullName := include "bee.fullname" $root -}}
+
+# PER POD INGRESS
+{{- range $i, $e := until (int $root.Values.replicaCount) }}
+---
+{{- if semverCompare ">=1.14-0" $root.Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: {{ $fullName }}-debug-{{ $i }}
+  labels:
+    {{- include "bee.labels" $root | nindent 4 }}
+  {{- with $root.Values.ingressDebug.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if $root.Values.ingressDebug.tls.enabled }}
+  tls:
+    - hosts:
+        - {{ $fullName }}-{{ $i }}.{{ $root.Release.Namespace }}.{{ $root.Values.ingressDebug.domain }}
+    {{- with $root.Values.ingressDebug.tls.secretName }}
+      secretName: {{ $root.Values.ingressDebug.tls.secretName }}
+    {{- end }}
+{{- end }}
+  rules:
+    - host: {{ $fullName }}-debug-{{ $i }}.{{ $root.Release.Namespace }}.{{ $root.Values.ingressDebug.domain }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ $fullName }}-debug-{{ $i }}
+              servicePort: debug
+{{- end }}
+
+{{- end }}

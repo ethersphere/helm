@@ -1,8 +1,12 @@
 {{- if .Values.ingress.enabled -}}
 
-{{- $fullName := include "bee.fullname" . -}}
-{{- $svcPort := .Values.service.port -}}
-{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+{{- $root := . -}}
+{{- $fullName := include "bee.fullname" $root -}}
+{{- $svcPort := $root.Values.service.port -}}
+
+# MAIN INGRESS
+---
+{{- if semverCompare ">=1.14-0" $root.Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1beta1
 {{- else -}}
 apiVersion: extensions/v1beta1
@@ -11,33 +15,63 @@ kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
-    {{- include "bee.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
+    {{- include "bee.labels" $root | nindent 4 }}
+  {{- with $root.Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-{{- if .Values.ingress.tls }}
+{{- if $root.Values.ingress.tls.enabled }}
   tls:
-  {{- range .Values.ingress.tls }}
     - hosts:
-      {{- range .hosts }}
-        - {{ . | quote }}
-      {{- end }}
-      secretName: {{ .secretName }}
-  {{- end }}
+        - {{ $fullName }}.{{ $root.Values.ingress.domain }}
+    {{- with $root.Values.ingress.tls.secretName }}
+      secretName: {{ $root.Values.ingress.tls.secretName }}
+    {{- end }}
 {{- end }}
   rules:
-  {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
+    - host: {{ $fullName }}.{{ $root.Values.ingress.domain }}
       http:
         paths:
-        {{- range .paths }}
-          - path: {{ . }}
+          - path: /
             backend:
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
-        {{- end }}
+
+# PER POD INGRESS
+{{- range $i, $e := until (int $root.Values.replicaCount) }}
+---
+{{- if semverCompare ">=1.14-0" $root.Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: {{ $fullName }}-{{ $i }}
+  labels:
+    {{- include "bee.labels" $root | nindent 4 }}
+  {{- with $root.Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
   {{- end }}
+spec:
+{{- if $root.Values.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        - {{ $fullName }}-{{ $i }}.{{ $root.Release.Namespace }}.{{ $root.Values.ingress.domain }}
+    {{- with $root.Values.ingress.tls.secretName }}
+      secretName: {{ $root.Values.ingress.tls.secretName }}
+    {{- end }}
+{{- end }}
+  rules:
+    - host: {{ $fullName }}-{{ $i }}.{{ $root.Release.Namespace }}.{{ $root.Values.ingress.domain }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ $fullName }}-{{ $i }}
+              servicePort: api
+{{- end }}
 
 {{- end }}
