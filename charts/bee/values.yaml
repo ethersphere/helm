@@ -40,23 +40,27 @@ ingress:
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  domain: cluster.local
-  tls:
-    enabled: false
-    # tls.secretName won't be specified if secretName is ""
-    secretName: ""
+  hosts:
+    # TODO: describe hostname build
+    - domain: cluster.local
+      paths: []
+      # tls.secretName won't be specified if tlsSecret is ""
+      tlsSecret: ""
+  tls: false
 
 # TODO: describe
 ingressDebug:
   enabled: false
   annotations: {}
-  # kubernetes.io/ingress.class: nginx
-  # kubernetes.io/tls-acme: "true"
-  domain: cluster.local
-  tls:
-    enabled: false
-    # tls.secretName won't be specified if secretName is ""
-    secretName: ""
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    # TODO: describe hostname build
+    - domain: cluster.local
+      paths: []
+      # tls.secretName won't be specified if tlsSecret is ""
+      tlsSecret: ""
+  tls: false
 
 replicaCount: 1
 

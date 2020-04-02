@@ -21,22 +21,28 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-{{- if $root.Values.ingress.tls.enabled }}
+{{- if $root.Values.ingress.tls }}
   tls:
+  {{- range $root.Values.ingress.hosts }}  
     - hosts:
-        - {{ $fullName }}.{{ $root.Values.ingress.domain }}
-    {{- with $root.Values.ingress.tls.secretName }}
-      secretName: {{ $root.Values.ingress.tls.secretName }}
+        - {{ $fullName }}.{{ .domain }}
+    {{- if .tlsSecret }}
+      secretName: {{ .tlsSecret }}
     {{- end }}
+  {{- end }}
 {{- end }}
   rules:
-    - host: {{ $fullName }}.{{ $root.Values.ingress.domain }}
+  {{- range $root.Values.ingress.hosts }}
+    - host: {{ $fullName }}.{{ .domain }}
       http:
         paths:
-          - path: /
+        {{- range .paths }}
+          - path: {{ . }}
             backend:
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
+        {{- end }}
+  {{- end }}
 
 # PER POD INGRESS
 {{- range $i, $e := until (int $root.Values.replicaCount) }}
@@ -56,22 +62,28 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-{{- if $root.Values.ingress.tls.enabled }}
+{{- if $root.Values.ingress.tls }}
   tls:
+  {{- range $root.Values.ingress.hosts }}
     - hosts:
-        - {{ $fullName }}-{{ $i }}.{{ $root.Release.Namespace }}.{{ $root.Values.ingress.domain }}
-    {{- with $root.Values.ingress.tls.secretName }}
-      secretName: {{ $root.Values.ingress.tls.secretName }}
+        - {{ $fullName }}-{{ $i }}.{{ .domain }}
+    {{- if .tlsSecret }}
+      secretName: {{ .tlsSecret }}
     {{- end }}
+  {{- end }}
 {{- end }}
   rules:
-    - host: {{ $fullName }}-{{ $i }}.{{ $root.Release.Namespace }}.{{ $root.Values.ingress.domain }}
+  {{- range $root.Values.ingress.hosts }}
+    - host: {{ $fullName }}-{{ $i }}.{{ .domain }}
       http:
         paths:
-          - path: /
+        {{- range .paths }}
+          - path: {{ . }}
             backend:
               serviceName: {{ $fullName }}-{{ $i }}
               servicePort: api
+        {{- end }}
+  {{- end }}
 {{- end }}
 
 {{- end }}

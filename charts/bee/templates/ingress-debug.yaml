@@ -21,22 +21,28 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- if $root.Values.ingressDebug.tls.enabled }}
+{{- if $root.Values.ingressDebug.tls }}
   tls:
+  {{- range $root.Values.ingressDebug.hosts }}
     - hosts:
-        - {{ $fullName }}-{{ $i }}.{{ $root.Release.Namespace }}.{{ $root.Values.ingressDebug.domain }}
-    {{- with $root.Values.ingressDebug.tls.secretName }}
-      secretName: {{ $root.Values.ingressDebug.tls.secretName }}
+        - {{ $fullName }}-debug-{{ $i }}.{{ .domain }}
+    {{- if .tlsSecret }}
+      secretName: {{ .tlsSecret }}
     {{- end }}
+  {{- end }}
 {{- end }}
   rules:
-    - host: {{ $fullName }}-debug-{{ $i }}.{{ $root.Release.Namespace }}.{{ $root.Values.ingressDebug.domain }}
+  {{- range $root.Values.ingressDebug.hosts }}
+    - host: {{ $fullName }}-debug-{{ $i }}.{{ .domain }}
       http:
         paths:
-          - path: /
+        {{- range .paths }}
+          - path: {{ . }}
             backend:
               serviceName: {{ $fullName }}-debug-{{ $i }}
-              servicePort: debug
+              servicePort: api
+        {{- end }}
+  {{- end }}
 {{- end }}
 
 {{- end }}
