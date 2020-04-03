@@ -51,7 +51,7 @@ ingress:
   tls: false
 
 # if enabled, creates ingress for debug api
-# creates one ingress per pod 
+# creates one ingress per pod
 # total number of created ingress objects is: replicaCount
 # hostname for 'per pod ingresses' is: <chart fullname>-debug-<i>, or <chart fullname>-debug-<i>.<domain> if domain is specified
 # tls.secretName won't be specified if tlsSecret is "", tls must be set to true
