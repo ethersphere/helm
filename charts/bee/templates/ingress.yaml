@@ -25,7 +25,11 @@ spec:
   tls:
   {{- range $root.Values.ingress.hosts }}  
     - hosts:
+      {{- if .domain }}
         - {{ $fullName }}.{{ .domain }}
+      {{- else }}
+        - {{ $fullName }}
+      {{- end }}
     {{- if .tlsSecret }}
       secretName: {{ .tlsSecret }}
     {{- end }}
@@ -33,7 +37,11 @@ spec:
 {{- end }}
   rules:
   {{- range $root.Values.ingress.hosts }}
+    {{- if .domain }}
     - host: {{ $fullName }}.{{ .domain }}
+    {{- else }}
+    - host: {{ $fullName }}
+    {{- end }}
       http:
         paths:
         {{- range .paths }}
@@ -66,7 +74,11 @@ spec:
   tls:
   {{- range $root.Values.ingress.hosts }}
     - hosts:
+      {{- if .domain }}
         - {{ $fullName }}-{{ $i }}.{{ .domain }}
+      {{- else }}
+        - {{ $fullName }}-{{ $i }}
+      {{- end }}
     {{- if .tlsSecret }}
       secretName: {{ .tlsSecret }}
     {{- end }}
@@ -74,7 +86,11 @@ spec:
 {{- end }}
   rules:
   {{- range $root.Values.ingress.hosts }}
+    {{- if .domain }}
     - host: {{ $fullName }}-{{ $i }}.{{ .domain }}
+    {{- else }}
+    - host: {{ $fullName }}-{{ $i }}
+    {{- end }}
       http:
         paths:
         {{- range .paths }}

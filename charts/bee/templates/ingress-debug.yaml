@@ -25,7 +25,11 @@ spec:
   tls:
   {{- range $root.Values.ingressDebug.hosts }}
     - hosts:
+      {{- if .domain }}
         - {{ $fullName }}-debug-{{ $i }}.{{ .domain }}
+      {{- else }}
+        - {{ $fullName }}-debug-{{ $i }}
+      {{- end }}
     {{- if .tlsSecret }}
       secretName: {{ .tlsSecret }}
     {{- end }}
@@ -33,7 +37,11 @@ spec:
 {{- end }}
   rules:
   {{- range $root.Values.ingressDebug.hosts }}
+    {{- if .domain }}
     - host: {{ $fullName }}-debug-{{ $i }}.{{ .domain }}
+    {{- else }}
+    - host: {{ $fullName }}-debug-{{ $i }}
+    {{- end }}
       http:
         paths:
         {{- range .paths }}
