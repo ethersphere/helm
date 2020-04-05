@@ -15,9 +15,9 @@ spec:
     metadata:
       labels:
         {{- include "bee.selectorLabels" . | nindent 8 }}
-      {{- if .Values.podAnnotations }}
+      {{- with .Values.podAnnotations }}
       annotations:
-        {{ toYaml .Values.podAnnotations | indent 8 }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
     spec:
     {{- with .Values.imagePullSecrets }}
