@@ -1,3 +1,5 @@
+{{- if .Values.beeConfig.enable_debug_api -}}
+
 {{- $root := . -}}
 
 {{- range $i, $e := until (int $root.Values.replicaCount) }}
@@ -23,3 +25,4 @@ spec:
     statefulset.kubernetes.io/pod-name: {{ include "bee.fullname" $root }}-{{ $i }}
 
 {{- end }}
+{{- end -}}
