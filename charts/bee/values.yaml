@@ -112,7 +112,7 @@ beeConfig:
   ## debug HTTP API listen address
   debug_api_addr: :6060
   ## enable debug HTTP API
-  enable_debug_api: true
+  enable_debug_api: false
   ## ID of the Swarm network
   network_id: 1
   ## password for decrypting keys (please change it for production deployments)

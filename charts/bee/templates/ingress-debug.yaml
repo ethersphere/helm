@@ -1,4 +1,4 @@
-{{- if .Values.ingressDebug.enabled -}}
+{{- if and .Values.beeConfig.enable_debug_api .Values.ingressDebug.enabled -}}
 
 {{- $root := . -}}
 {{- $fullName := include "bee.fullname" $root -}}
@@ -53,4 +53,4 @@ spec:
   {{- end }}
 {{- end }}
 
-{{- end }}
+{{- end -}}

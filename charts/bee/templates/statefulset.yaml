@@ -54,6 +54,7 @@ spec:
             - containerPort: {{ int (split ":" .Values.beeConfig.p2p_addr )._1 }}
               name: p2p
               protocol: TCP
+          {{- if .Values.beeConfig.enable_debug_api }}
             - containerPort: {{ int (split ":" .Values.beeConfig.debug_api_addr )._1 }}
               name: debug
               protocol: TCP
@@ -65,6 +66,16 @@ spec:
             httpGet:
               path: /readiness
               port: debug
+          {{- else }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: api
+          readinessProbe:
+            httpGet:
+              path: /
+              port: api
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           securityContext:
