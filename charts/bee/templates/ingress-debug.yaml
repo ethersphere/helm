@@ -13,7 +13,7 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}-debug-{{ $i }}
+  name: {{ $fullName }}-{{ $i }}-debug
   labels:
     {{- include "bee.labels" $root | nindent 4 }}
   {{- with $root.Values.ingressDebug.annotations }}
@@ -26,9 +26,9 @@ spec:
   {{- range $root.Values.ingressDebug.hosts }}
     - hosts:
       {{- if .domain }}
-        - {{ $fullName }}-debug-{{ $i }}.{{ .domain }}
+        - {{ $fullName }}-{{ $i }}-debug.{{ .domain }}
       {{- else }}
-        - {{ $fullName }}-debug-{{ $i }}
+        - {{ $fullName }}-{{ $i }}-debug
       {{- end }}
     {{- if .tlsSecret }}
       secretName: {{ .tlsSecret }}
@@ -38,16 +38,16 @@ spec:
   rules:
   {{- range $root.Values.ingressDebug.hosts }}
     {{- if .domain }}
-    - host: {{ $fullName }}-debug-{{ $i }}.{{ .domain }}
+    - host: {{ $fullName }}-{{ $i }}-debug.{{ .domain }}
     {{- else }}
-    - host: {{ $fullName }}-debug-{{ $i }}
+    - host: {{ $fullName }}-{{ $i }}-debug
     {{- end }}
       http:
         paths:
         {{- range .paths }}
           - path: {{ . }}
             backend:
-              serviceName: {{ $fullName }}-debug-{{ $i }}
+              serviceName: {{ $fullName }}-{{ $i }}-debug
               servicePort: debug
         {{- end }}
   {{- end }}
