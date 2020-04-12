@@ -13,6 +13,8 @@ metadata:
     {{- include "bee.labels" $root | nindent 4 }}
     pod: {{ include "bee.fullname" $root }}-{{ $i }}
     endpoint: debug
+    app: {{ include "bee.name" $root }}
+    release: {{ $root.Release.Name }}
 spec:
   type: ClusterIP
   ports:

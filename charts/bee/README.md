@@ -84,7 +84,7 @@ apps:
     namespace: bee
     description: "Ethereum Swarm Bee"
     chart: "ethersphere/bee"
-    version: "0.2.3"
+    version: "0.2.4"
     enabled: true
     set:
       replicaCount: 2
