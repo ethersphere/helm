@@ -14,10 +14,12 @@ fullnameOverride: ""
 serviceAccount:
   ## Specifies whether a service account should be created
   create: false
-  ## The name of the service account to use.
-  ## If not set and create is true, a name is generated using the fullname template
+  ## Name of the service account to use
+  ## if not set and create is true, a name is generated using the fullname template
   name:
 
+## Bee process inside container is run with gid/uid 999
+## fsGroup=999 enables mounting external volumes with appropriate permissions
 podSecurityContext:
   fsGroup: 999
 
@@ -33,12 +35,12 @@ service:
   type: ClusterIP
   port: 80
 
-# if enabled, creates ingress for http api
-# creates one ingress per pod and additionally one common ingress for all pods
-# total number of created ingress objects is: replicaCount + 1
-# hostname for 'per pod ingresses' is: <chart fullname>-<i>, or <chart fullname>-<i>.<domain> if domain is specified
-# hostname for 'common ingress' is: <chart fullname>, or <chart fullname>.<domain> if domain is specified
-# tls.secretName won't be specified if tlsSecret is "", tls must be set to true
+## If enabled, creates ingress for HTTP api
+## Creates one ingress per pod and additionally one common ingress for all pods
+## Total number of created ingress objects is: replicaCount + 1
+## Hostname for 'per pod ingresses' is: <chart fullname>-<i>, or <chart fullname>-<i>.<domain> if domain is specified
+## Hostname for 'common ingress' is: <chart fullname>, or <chart fullname>.<domain> if domain is specified
+## tls.secretName won't be specified if tlsSecret is "", tls must be set to true
 ingress:
   enabled: false
   annotations: {}
@@ -50,11 +52,11 @@ ingress:
       tlsSecret: ""
   tls: false
 
-# if enabled, creates ingress for debug api
-# creates one ingress per pod
-# total number of created ingress objects is: replicaCount
-# hostname for 'per pod ingresses' is: <chart fullname>-debug-<i>, or <chart fullname>-debug-<i>.<domain> if domain is specified
-# tls.secretName won't be specified if tlsSecret is "", tls must be set to true
+## If enabled and beeConfig.enable_debug_api is enabled, creates ingress for debug api
+## Creates one ingress per pod
+## Total number of created ingress objects is: replicaCount
+## Hostname for 'per pod ingresses' is: <chart fullname>-debug-<i>, or <chart fullname>-debug-<i>.<domain> if domain is specified
+## tls.secretName won't be specified if tlsSecret is "", tls must be set to true
 ingressDebug:
   enabled: false
   annotations: {}
@@ -69,9 +71,7 @@ ingressDebug:
 replicaCount: 1
 
 resources: {}
-  ## We usually recommend not to specify default resources and to leave this as a conscious
-  ## choice for the user. This also increases chances charts run on environments with little
-  ## resources, such as Minikube. If you do want to specify resources, uncomment the following
+  ## If you do want to specify resources, uncomment the following
   ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
   #   cpu: 1
@@ -83,7 +83,7 @@ resources: {}
   #   memory: 128Mi
 
 persistence:
-  ## this enables PVC templates that will create one per pod
+  ## This enables PVC templates that will create one per pod
   enabled: false
   accessMode: ReadWriteOnce
   size: 1Gi
@@ -94,7 +94,34 @@ persistence:
   ## i.e. choosing the default provisioner: gp2 on AWS, standard on GKE, AWS & OpenStack, etc.
   # storageClass: "-"
 
+## Enable this if you're using https://github.com/coreos/prometheus-operator
+## and beeConfig.enable_debug_api is enabled
+serviceMonitor:
+  enabled: false
+  additionalLabels: {}
+  ## Specify a namespace if needed
+  # namespace: monitoring
+  ## Fallback to the prometheus default unless specified
+  # scrapeInterval: 10s
+  # honorLabels: true
+  ## Set this relabels if using https://github.com/grafana/loki/tree/master/production/helm/loki-stack
+  ## for better ingregration between prometheus-operator and loki-stack
+  # relabelings:
+  # - sourceLabels:
+  #   - __meta_kubernetes_pod_name
+  #   targetLabel: instance
+  # - sourceLabels:
+  #   - __meta_kubernetes_namespace
+  #   - __meta_kubernetes_pod_label_app_kubernetes_io_name
+  #   targetLabel: job
+  #   separator: /
+  #   replacement: $1
+
 podAnnotations: {}
+## Add this annotations if you're using https://github.com/prometheus/prometheus
+## and beeConfig.enable_debug_api is enabled
+  # prometheus.io/scrape: "true"
+  # prometheus.io/port: "6060"
 
 nodeSelector: {}
 
@@ -105,35 +132,35 @@ tolerations: []
 beeConfig:
   ## HTTP API listen address
   api_addr: :8080
-  ## initial nodes to connect to
+  ## Initial nodes to connect to
   bootnode: ""
-  ## data directory
+  ## Data directory
   data_dir: /home/bee/.bee
-  ## debug HTTP API listen address
+  ## Debug HTTP API listen address
   debug_api_addr: :6060
-  ## enable debug HTTP API
+  ## Enable debug HTTP API
   enable_debug_api: false
   ## ID of the Swarm network
   network_id: 1
-  ## password for decrypting keys (please change it for production deployments)
-  ## if not set, it will be automatically generated
+  ## Password for decrypting keys (please change it for production deployments)
+  ## If not set, it will be automatically generated
   password: beekeeper
-  ## path to a file that contains password for decrypting keys is /home/bee/.secret/password
+  ## Path to a file that contains password for decrypting keys is /home/bee/.secret/password
   usePasswordFile: false
-  ## use existing secret (ignores previous password)
+  ## Use existing secret (ignores previous password)
   # existingSecret:
   # existingSecretPasswordKey:
   ## P2P listen address
   p2p_addr: :7070
-  ## disable P2P QUIC protocol
+  ## Disable P2P QUIC protocol
   p2p_disable_quic: false
-  ## disable P2P WebSocket protocol
+  ## Disable P2P WebSocket protocol
   p2p_disable_ws: false
-  ## enable tracing
+  ## Enable tracing
   tracing: false
-  ## endpoint to send tracing data
+  ## Endpoint to send tracing data
   tracing_endpoint: 127.0.0.1:6831
-  ## service name identifier for tracing
+  ## Service name identifier for tracing
   tracing_service_name: bee
-  ## log verbosity level 0=silent, 1=error, 2=warn, 3=info, 4=debug, 5=trace
+  ## Log verbosity level 0=silent, 1=error, 2=warn, 3=info, 4=debug, 5=trace
   verbosity: 3
