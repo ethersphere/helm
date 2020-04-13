@@ -105,7 +105,7 @@ serviceMonitor:
   # scrapeInterval: 10s
   # honorLabels: true
   ## Set this relabels if using https://github.com/grafana/loki/tree/master/production/helm/loki-stack
-  ## for better ingregration between prometheus-operator and loki-stack 
+  ## for better ingregration between prometheus-operator and loki-stack
   # relabelings:
   # - sourceLabels:
   #   - __meta_kubernetes_pod_name
