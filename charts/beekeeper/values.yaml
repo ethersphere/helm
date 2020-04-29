@@ -1,0 +1,19 @@
+image:
+  repository: ethersphere/beekeeper
+  tag: latest
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+nodeSelector: {}
+
+cronJob:
+  schedule: "*/1 * * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  concurrencyPolicy: Forbid
+  namespace: default
+  bootNodeCount: 1
+  nodeCount: 1
