@@ -69,10 +69,9 @@ spec:
                 bee start --config=.bee.yaml --bootnode=/ip4/$BEE_0_P2P_SERVICE_HOST/tcp/7070/p2p/{{ .Values.bootnode.libp2p_underlay }}
               fi;
             {{- else}}
-            - bash
-            - -ac
-            - >
-              bee start --config=.bee.yaml
+            - bee
+            - start
+            - --config=.bee.yaml
             {{- end }}
           ports:
             - containerPort: {{ int (split ":" .Values.beeConfig.api_addr )._1 }}
