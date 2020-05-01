@@ -39,14 +39,40 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.bootnode.enabled }}
+      initContainers:
+        - name: init
+          image: busybox:1.28
+          command: ['sh', '-c'] 
+          args: 
+            - if [ $(echo $(hostname) | rev | cut -d'-' -f 1 | rev) != 0 ]; then echo 'not a bootnode'; exit 0; fi;
+              mkdir -p /home/bee/.bee/keys;
+              echo {{ .Values.bootnode.libp2p_key }} > /home/bee/.bee/keys/libp2p.key;
+              chown -R 999:999 /home/bee/.bee/keys;
+              echo 'bootnode initialization done';
+          volumeMounts:
+            - name: data
+              mountPath: /home/bee/.bee
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
+            {{- if .Values.bootnode.enabled }}
+            - bash
+            - -ac
+            - >
+              if [ $(echo $(hostname) | rev | cut -d'-' -f 1 | rev) == 0 ]; then
+                bee start --config=.bee.yaml
+              else
+                bee start --config=.bee.yaml --bootnode=/ip4/${{ include "bee.fullname" . | upper | replace "-" "_" }}_0_P2P_SERVICE_HOST/tcp/7070/p2p/{{ .Values.bootnode.libp2p_underlay }}
+              fi;
+            {{- else}}
             - bee
             - start
             - --config=.bee.yaml
+            {{- end }}
           ports:
             - containerPort: {{ int (split ":" .Values.beeConfig.api_addr )._1 }}
               name: api
