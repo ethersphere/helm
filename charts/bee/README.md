@@ -69,6 +69,8 @@ $ helm install --name my-release -f values.yaml ethersphere/bee
 
 ### Installing
 
+#### with already existing bootnode
+
 Create bee.yaml file as shown bellow:
 
 ```yaml
@@ -84,10 +86,43 @@ apps:
     namespace: bee
     description: "Ethereum Swarm Bee"
     chart: "ethersphere/bee"
-    version: "0.2.4"
+    version: "0.3.0"
     enabled: true
     set:
+      beeConfig.bootnode: # bootnode multi address
       replicaCount: 2
+    wait: true
+    timeout: 120
+
+```
+
+Execute following command:
+```bash
+$ helmsman -apply -f bee.yaml 
+```
+
+#### with first pod as a bootnode
+
+Create bee.yaml file as shown bellow:
+
+```yaml
+namespaces:
+  bee:
+    
+helmRepos:
+  ethersphere: "https://ethersphere.github.io/helm"
+    
+apps:
+  bee:
+    name: bee
+    namespace: bee
+    description: "Ethereum Swarm Bee"
+    chart: "ethersphere/bee"
+    version: "0.3.0"
+    enabled: true
+    set:
+      bootnode.enabled: true
+      replicaCount: 3
     wait: true
     timeout: 120
 
