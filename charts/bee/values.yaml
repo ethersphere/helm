@@ -73,7 +73,7 @@ replicaCount: 1
 updateStrategy:
   type: RollingUpdate
   ## in case bootnode installation is enabled, if needed
-  ## uncomment bellow to skip updating 1st pod (i.e. bootnode) 
+  ## uncomment bellow to skip updating 1st pod (i.e. bootnode)
   # rollingUpdate:
   #   partition: 1
 
