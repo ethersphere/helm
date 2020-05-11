@@ -8,6 +8,8 @@ metadata:
 spec:
   serviceName: {{ include "bee.fullname" . }}-headless
   replicas: {{ .Values.replicaCount }}
+  updateStrategy:
+    {{- toYaml .Values.updateStrategy | nindent 4 }}
   selector:
     matchLabels:
       {{- include "bee.selectorLabels" . | nindent 6 }}
