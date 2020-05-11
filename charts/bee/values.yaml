@@ -70,6 +70,13 @@ ingressDebug:
 
 replicaCount: 1
 
+updateStrategy:
+  type: RollingUpdate
+  ## in case bootnode installation is enabled, if needed
+  ## uncomment bellow to skip updating 1st pod (i.e. bootnode) 
+  # rollingUpdate:
+  #   partition: 1
+
 resources: {}
   ## If you do want to specify resources, uncomment the following
   ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
