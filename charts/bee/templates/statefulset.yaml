@@ -65,10 +65,14 @@ spec:
             - bash
             - -ac
             - >
+              pid=;
+              trap '[[ $pid ]] && kill "$pid"' SIGTERM;
               if [ $(echo $(hostname) | rev | cut -d'-' -f 1 | rev) == 0 ]; then
-                bee start --config=.bee.yaml
+                bee start --config=.bee.yaml & pid=$!;
+                wait;
               else
-                bee start --config=.bee.yaml --bootnode=/ip4/${{ include "bee.fullname" . | upper | replace "-" "_" }}_0_P2P_SERVICE_HOST/tcp/7070/p2p/{{ .Values.bootnode.libp2p_underlay }}
+                bee start --config=.bee.yaml --bootnode=/ip4/${{ include "bee.fullname" . | upper | replace "-" "_" }}_0_P2P_SERVICE_HOST/tcp/7070/p2p/{{ .Values.bootnode.libp2p_underlay }} & pid=$!;
+                wait;
               fi;
             {{- else}}
             - bee
