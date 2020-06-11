@@ -10,6 +10,7 @@ data:
     api-addr: {{ .Values.beeConfig.api_addr }}
     bootnode: {{ .Values.beeConfig.bootnode }}
     data-dir: {{ .Values.beeConfig.data_dir }}
+    db-capacity: {{ .Values.beeConfig.db_capacity }}
     debug-api-addr: {{ .Values.beeConfig.debug_api_addr }}
     enable-debug-api: {{ .Values.beeConfig.enable_debug_api }}
     network-id: {{ .Values.beeConfig.network_id }}

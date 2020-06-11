@@ -143,6 +143,8 @@ beeConfig:
   bootnode: ""
   ## Data directory
   data_dir: /home/bee/.bee
+  ## DB capacity in chunks
+  db_capacity: 5000000
   ## Debug HTTP API listen address
   debug_api_addr: :6060
   ## Enable debug HTTP API
