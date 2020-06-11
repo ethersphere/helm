@@ -121,7 +121,8 @@ apps:
     version: "0.3.0"
     enabled: true
     set:
-      bootnode.enabled: true
+      beeConfig.bootnode: "/dns4/bee-0-headless.bee.svc.cluster.local/tcp/7070/p2p/16Uiu2HAm6i4dFaJt584m2jubyvnieEECgqM2YMpQ9nusXfy8XFzL"
+      libp2pSettings.enabled: true
       replicaCount: 3
     wait: true
     timeout: 120
