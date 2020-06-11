@@ -72,8 +72,10 @@ replicaCount: 1
 
 updateStrategy:
   type: RollingUpdate
-  ## in case bootnode installation is enabled, if needed
-  ## uncomment bellow to skip updating 1st pod (i.e. bootnode)
+  ## in case libp2pSettings installation is enabled, if needed
+  ## uncomment bellow to skip updating first N pods
+  ## recommendation is that bootnodes are first N pods in the cluster
+  ## makes sense in cases when persistance is not enabled
   # rollingUpdate:
   #   partition: 1
 
