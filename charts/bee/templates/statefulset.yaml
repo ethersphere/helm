@@ -41,44 +41,33 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if .Values.bootnode.enabled }}
+      {{- if .Values.libp2pSettings.enabled }}
       initContainers:
-        - name: init
+        - name: init-libp2p
           image: busybox:1.28
           command: ['sh', '-c'] 
           args: 
-            - if [ $(echo $(hostname) | rev | cut -d'-' -f 1 | rev) != 0 ]; then echo 'not a bootnode'; exit 0; fi;
+            - export INDEX=$(echo $(hostname) | rev | cut -d'-' -f 1 | rev);
               mkdir -p /home/bee/.bee/keys;
-              echo {{ .Values.bootnode.libp2p_key }} > /home/bee/.bee/keys/libp2p.key;
+              export KEY=$(cat /tmp/bee/libp2p.map | grep bee-${INDEX} | cut -d' ' -f2);
+              if [ -z "${KEY}" ]; then exit 0; fi;
+              printf '%s' "${KEY}" > /home/bee/.bee/keys/libp2p.key;
               chown -R 999:999 /home/bee/.bee/keys;
-              echo 'bootnode initialization done';
+              echo 'node initialization done';
           volumeMounts:
             - name: data
               mountPath: /home/bee/.bee
+            - name: bee-libp2p
+              mountPath: /tmp/bee
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
-            {{- if .Values.bootnode.enabled }}
-            - bash
-            - -ac
-            - >
-              pid=;
-              trap '[[ $pid ]] && kill "$pid"' SIGTERM;
-              if [ $(echo $(hostname) | rev | cut -d'-' -f 1 | rev) == 0 ]; then
-                bee start --config=.bee.yaml & pid=$!;
-                wait;
-              else
-                bee start --config=.bee.yaml --bootnode=/ip4/${{ include "bee.fullname" . | upper | replace "-" "_" }}_0_P2P_SERVICE_HOST/tcp/7070/p2p/{{ .Values.bootnode.libp2p_underlay }} & pid=$!;
-                wait;
-              fi;
-            {{- else}}
             - bee
             - start
             - --config=.bee.yaml
-            {{- end }}
           ports:
             - containerPort: {{ int (split ":" .Values.beeConfig.api_addr )._1 }}
               name: api
@@ -135,6 +124,14 @@ spec:
             items:
               - key: {{ template "bee.secretPasswordKey" . }}
                 path: password
+        {{- end }}
+        {{- if .Values.libp2pSettings.enabled }}
+        - name: bee-libp2p
+          secret:
+            secretName: {{ template "bee.fullname" . }}-libp2p
+            items:
+              - key: libp2pKeys
+                path: libp2p.map
         {{- end }}
   {{- if not .Values.persistence.enabled }}
         - name: data

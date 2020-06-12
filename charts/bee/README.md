@@ -86,7 +86,7 @@ apps:
     namespace: bee
     description: "Ethereum Swarm Bee"
     chart: "ethersphere/bee"
-    version: "0.3.0"
+    version: "0.4.0"
     enabled: true
     set:
       beeConfig.bootnode: # bootnode multi address
@@ -118,10 +118,11 @@ apps:
     namespace: bee
     description: "Ethereum Swarm Bee"
     chart: "ethersphere/bee"
-    version: "0.3.0"
+    version: "0.4.0"
     enabled: true
     set:
-      bootnode.enabled: true
+      beeConfig.bootnode: "/dns4/bee-0-headless.bee.svc.cluster.local/tcp/7070/p2p/16Uiu2HAm6i4dFaJt584m2jubyvnieEECgqM2YMpQ9nusXfy8XFzL"
+      libp2pSettings.enabled: true
       replicaCount: 3
     wait: true
     timeout: 120

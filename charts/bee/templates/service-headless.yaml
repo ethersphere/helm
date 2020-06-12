@@ -25,3 +25,29 @@ spec:
   selector:
     {{- include "bee.selectorLabels" . | nindent 4 }}
   type: {{ .Values.service.type }}
+
+# PER POD P2P HEADLESS
+{{- $root := . -}}
+{{- range $i, $e := until (int $root.Values.replicaCount) }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "bee.fullname" $root }}-{{ $i }}-headless
+  labels:
+    {{- include "bee.labels" $root | nindent 4 }}
+    pod: {{ include "bee.fullname" $root }}-{{ $i }}
+    endpoint: p2p
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - name: p2p
+      port: {{ int (split ":" $root.Values.beeConfig.p2p_addr )._1 }}
+      protocol: TCP
+      targetPort: p2p
+  selector:
+    {{- include "bee.selectorLabels" $root | nindent 4 }}
+    statefulset.kubernetes.io/pod-name: {{ include "bee.fullname" $root }}-{{ $i }}
+
+{{- end }}
