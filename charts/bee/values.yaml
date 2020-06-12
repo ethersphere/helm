@@ -75,7 +75,6 @@ updateStrategy:
   ## in case libp2pSettings installation is enabled, if needed (persistance is not enabled)
   ## uncomment bellow to skip updating first N pods
   ## recommendation is that bootnodes are first N pods in the cluster
-  ## makes sense in cases when persistance is not enabled
   # rollingUpdate:
   #   partition: 1
 
