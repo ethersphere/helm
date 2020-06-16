@@ -41,8 +41,9 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if .Values.libp2pSettings.enabled }}
+      {{- if or .Values.libp2pSettings.enabled .Values.p2pFixedPort.enabled }}
       initContainers:
+        {{- if .Values.libp2pSettings.enabled }}
         - name: init-libp2p
           image: busybox:1.28
           command:
@@ -52,24 +53,36 @@ spec:
               export INDEX=$(echo $(hostname) | rev | cut -d'-' -f 1 | rev);
               mkdir -p /home/bee/.bee/keys;
               chown -R 999:999 /home/bee/.bee/keys;
-              NAT_PORT=$(( 31000 + INDEX ));
-              cp -p /tmp/.bee.yaml /home/bee/.bee.yaml;
-              printf 'nat-addr: :%s\n' "${NAT_PORT}" >> /home/bee/.bee.yaml;
               export KEY=$(cat /tmp/bee/libp2p.map | grep bee-${INDEX} | cut -d' ' -f2);
               if [ -z "${KEY}" ]; then exit 0; fi;
               printf '%s' "${KEY}" > /home/bee/.bee/keys/libp2p.key;
               echo 'node initialization done';
           volumeMounts:
-            - name: config-file
-              mountPath: /home/bee
             - name: data
               mountPath: /home/bee/.bee
               subPath: .bee.yaml
             - name: bee-libp2p
               mountPath: /tmp/bee
+        {{- end }}
+        {{- if .Values.p2pFixedPort.enabled }}
+        - name: init-natport
+          image: busybox:1.28
+          command:
+            - sh
+            - -c
+            - >
+              export INDEX=$(echo $(hostname) | rev | cut -d'-' -f 1 | rev);
+              NAT_PORT=$(( {{ .Values.p2pFixedPort.nodePortStart }} + INDEX ));
+              cp -p /tmp/.bee.yaml /home/bee/.bee.yaml;
+              printf 'nat-addr: :%s\n' "${NAT_PORT}" >> /home/bee/.bee.yaml;
+              echo 'node initialization done';
+          volumeMounts:
+            - name: config-file
+              mountPath: /home/bee
             - name: config
               mountPath: /tmp/.bee.yaml
               subPath: .bee.yaml
+        {{- end }}
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
@@ -113,8 +126,15 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           volumeMounts:
+            {{- if .Values.p2pFixedPort.enabled }}
             - name: config-file
               mountPath: /home/bee
+            {{- else }}
+            - name: config
+              mountPath: /home/bee/.bee.yaml
+              readOnly: true
+              subPath: .bee.yaml
+            {{- end }}
             - name: data
               mountPath: /home/bee/.bee
             {{- if .Values.beeConfig.usePasswordFile }}
