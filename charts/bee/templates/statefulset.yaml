@@ -60,7 +60,6 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /home/bee/.bee
-              subPath: .bee.yaml
             - name: bee-libp2p
               mountPath: /tmp/bee
         {{- end }}
