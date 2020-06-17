@@ -158,8 +158,6 @@ beeConfig:
   debug_api_addr: :6060
   ## Enable debug HTTP API
   enable_debug_api: false
-  ## NAT exposed address
-  nat_addr: ""
   ## ID of the Swarm network
   network_id: 1
   ## Password for decrypting keys (please change it for production deployments)
