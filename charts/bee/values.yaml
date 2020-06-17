@@ -35,6 +35,14 @@ service:
   type: ClusterIP
   port: 80
 
+## By default and for convenience, for NodePort (p2p service)
+## the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
+## You can enable and specify start value and NodePort will be $nodePortStart + $ordinal
+## If wanted port if used by some other service deploy will fail
+p2pFixedPort:
+  enabled: false
+  nodePortStart: 31000
+
 ## If enabled, creates ingress for HTTP api
 ## Creates one ingress per pod and additionally one common ingress for all pods
 ## Total number of created ingress objects is: replicaCount + 1

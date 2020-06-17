@@ -1,7 +1,7 @@
 apiVersion: v1
 appVersion: latest
 name: bee
-version: 0.4.1
+version: 0.4.2
 description: Ethereum Swarm Bee Helm chart for Kubernetes
 home: https://swarm.ethereum.org
 icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png
@@ -12,10 +12,12 @@ keywords:
   - swarm
   - web3
 maintainers:
+  - name: devops
+    email: devops@ethswarm.org
   - name: svetomir
-    email: svetomir@ethereum.org
+    email: svetomir@ethswarm.org
   - name: vandot
-    email: vandot@ethereum.org
+    email: vandot@ethswarm.org
 sources:
   - https://github.com/ethersphere/bee
 type: application
