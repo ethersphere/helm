@@ -1,0 +1,77 @@
+image:
+  repository: ethersphere/beekeeper
+  tag: latest
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+nodeSelector: {}
+
+beeCluster:
+  apiDomain: core.internal
+  apiHostnames: bee-%d
+  apiInsecureTLS: false
+  apiScheme: https
+  debugApiDomain: core.internal
+  debugApiHostnames: bee-%d-debug
+  debugApiInsecureTLS: false
+  debugApiScheme: https
+  disableNamespace: false
+  insecureTLS: false
+  namespace: bee
+  nodeCount: 1
+  pushGateway: http://localhost:9091/
+
+check:
+  fileretrieval:
+    enabled: false
+    schedule: "*/1 * * * *"
+    successfulJobsHistoryLimit: 3
+    failedJobsHistoryLimit: 3
+    concurrencyPolicy: Forbid
+    fileName: file
+    fileSize: 1
+    filesPerNode: 1
+    uploadNodeCount: 1
+  fileretrievalfull:
+    enabled: false
+    schedule: "*/1 * * * *"
+    successfulJobsHistoryLimit: 3
+    failedJobsHistoryLimit: 3
+    concurrencyPolicy: Forbid
+    fileName: file
+    fileSize: 1
+    filesPerNode: 1
+    uploadNodeCount: 1
+  pingpong:
+    enabled: false
+    schedule: "*/1 * * * *"
+    successfulJobsHistoryLimit: 3
+    failedJobsHistoryLimit: 3
+    concurrencyPolicy: Forbid
+  pushsync:
+    enabled: false
+    schedule: "*/1 * * * *"
+    successfulJobsHistoryLimit: 3
+    failedJobsHistoryLimit: 3
+    concurrencyPolicy: Forbid
+    chunksPerNode: 1
+    uploadNodeCount: 1
+  pushsyncchunks:
+    enabled: false
+    schedule: "*/1 * * * *"
+    successfulJobsHistoryLimit: 3
+    failedJobsHistoryLimit: 3
+    concurrencyPolicy: Forbid
+    chunksPerNode: 1
+    uploadNodeCount: 1
+  retrieval:
+    enabled: false
+    schedule: "*/1 * * * *"
+    successfulJobsHistoryLimit: 3
+    failedJobsHistoryLimit: 3
+    concurrencyPolicy: Forbid
+    chunksPerNode: 1
+    uploadNodeCount: 1
