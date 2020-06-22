@@ -1,0 +1,66 @@
+{{- if and .Values.check.pushsyncchunks.enabled -}}
+
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "beekeeper.fullname" . }}-pushsyncchunks
+  labels:
+    {{- include "beekeeper.labels" . | nindent 4 }}
+spec:
+  schedule: "{{ .Values.check.pushsyncchunks.schedule }}"
+  successfulJobsHistoryLimit: {{ .Values.check.pushsyncchunks.successfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.check.pushsyncchunks.failedJobsHistoryLimit }}
+  concurrencyPolicy: "{{ .Values.check.pushsyncchunks.concurrencyPolicy }}"
+  jobTemplate:
+    metadata:
+      labels:
+        {{- include "beekeeper.selectorLabels" . | nindent 8 }}
+    spec:
+      template:
+        spec:
+          containers:
+            - name: {{ .Chart.Name }}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              env:
+                - name: BEEKEEPER_API_DOMAIN
+                  value: "{{ .Values.beeCluster.apiDomain }}"
+                - name: BEEKEEPER_API_HOSTNAMES
+                  value: "{{ .Values.beeCluster.apiHostnames }}"
+                - name: BEEKEEPER_API_INSECURE_TLS
+                  value: "{{ .Values.beeCluster.apiInsecureTLS }}"
+                - name: BEEKEEPER_API_SCHEME
+                  value: "{{ .Values.beeCluster.apiScheme }}"
+                - name: BEEKEEPER_DEBUG_API_DOMAIN
+                  value: "{{ .Values.beeCluster.debugApiDomain }}"
+                - name: BEEKEEPER_DEBUG_API_HOSTNAMES
+                  value: "{{ .Values.beeCluster.debugApiHostnames }}"
+                - name: BEEKEEPER_DEBUG_API_INSECURE_TLS
+                  value: "{{ .Values.beeCluster.debugApiInsecureTLS }}"
+                - name: BEEKEEPER_DEBUG_API_SCHEME
+                  value: "{{ .Values.beeCluster.debugApiScheme }}"
+                - name: BEEKEEPER_DISABLE_NAMESPACE
+                  value: "{{ .Values.beeCluster.disableNamespace }}"
+                - name: BEEKEEPER_INSECURE_TLS
+                  value: "{{ .Values.beeCluster.insecureTLS }}"
+                - name: BEEKEEPER_NAMESPACE
+                  value: "{{ .Values.beeCluster.namespace }}"
+                - name: BEEKEEPER_NODE_COUNT
+                  value: "{{ .Values.beeCluster.nodeCount }}"
+                - name: BEEKEEPER_PUSH_GATEWAY
+                  value: "{{ .Values.beeCluster.pushGateway }}"
+              args:
+                - check
+                - pushsync
+                - --chunks-per-node
+                - "{{ .Values.check.pushsyncchunks.chunksPerNode }}"
+                - --upload-node-count
+                - "{{ .Values.check.pushsyncchunks.uploadNodeCount }}"
+                - --upload-chunks
+          restartPolicy: Never
+          {{- with .Values.nodeSelector }}
+          nodeSelector:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+{{- end -}}
