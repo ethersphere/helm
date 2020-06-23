@@ -3,9 +3,10 @@
 [![Release](https://github.com/ethersphere/helm/workflows/Release/badge.svg)](https://github.com/ethersphere/helm/actions?query=workflow%3ARelease)
 
 This repo contains Ethersphere Helm Charts:
-* bee
-* eks-local-disk-provisioner
-* geth-swap
+* [bee](https://github.com/ethersphere/helm/tree/master/charts/bee)
+* [beekeeper](https://github.com/ethersphere/helm/tree/master/charts/beekeeper)
+* [eks-local-disk-provisioner](https://github.com/ethersphere/helm/tree/master/charts/eks-local-disk-provisioner)
+* [geth-swap](https://github.com/ethersphere/helm/tree/master/charts/geth-swap)
 
 ## Enabling Ethersphere Helm repository
 
