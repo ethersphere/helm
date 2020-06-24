@@ -49,6 +49,8 @@ spec:
                   value: "{{ .Values.beeCluster.nodeCount }}"
                 - name: BEEKEEPER_PUSH_GATEWAY
                   value: "{{ .Values.beeCluster.pushGateway }}"
+                - name: BEEKEEPER_PUSH_METRICS
+                  value: "{{ .Values.beeCluster.pushMetrics }}"
               args:
                 - check
                 - retrieval

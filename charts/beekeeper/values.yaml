@@ -23,6 +23,7 @@ beeCluster:
   namespace: bee
   nodeCount: 1
   pushGateway: http://localhost:9091/
+  pushMetrics: false
 
 check:
   fileretrieval:
