@@ -1,7 +1,7 @@
 apiVersion: v1
 appVersion: latest
 name: bee
-version: 0.4.2
+version: 0.4.3
 description: Ethereum Swarm Bee Helm chart for Kubernetes
 home: https://swarm.ethereum.org
 icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png
