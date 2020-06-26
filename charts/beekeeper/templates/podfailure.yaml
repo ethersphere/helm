@@ -1,0 +1,49 @@
+{{- if and .Values.chaos.podfailure.enabled -}}
+
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "beekeeper.fullname" . }}-podfailure
+  labels:
+    {{- include "beekeeper.labels" . | nindent 4 }}
+spec:
+  schedule: "{{ .Values.chaos.podfailure.schedule }}"
+  successfulJobsHistoryLimit: {{ .Values.chaos.podfailure.successfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.chaos.podfailure.failedJobsHistoryLimit }}
+  concurrencyPolicy: "{{ .Values.chaos.podfailure.concurrencyPolicy }}"
+  jobTemplate:
+    metadata:
+      labels:
+        {{- include "beekeeper.selectorLabels" . | nindent 8 }}
+    spec:
+      template:
+        spec:
+          containers:
+            - name: {{ .Chart.Name }}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              env:
+                - name: BEEKEEPER_NAMESPACE
+                  value: ".Values.beeChaos.namespace }}"
+                - name: BEEKEEPER_MODE
+                  value: "{{ .Values.beeChaos.mode }}"
+                - name: BEEKEEPER_VALUE
+                  value: "{{ .Values.beeChaos.value }}"
+                - name: BEEKEEPER_DURATION
+                  value: "{{ .Values.beeChaos.duration }}"
+                - name: BEEKEEPER_CRON
+                  value: "{{ .Values.beeChaos.cron }}"
+                - name: BEEKEEPER_PODNAME
+                  value: "{{ .Values.beeChaos.podname }}"
+              args:
+                - turn-on
+                - podfailure
+                - --kubeconfig
+                - incluster
+          restartPolicy: Never
+          {{- with .Values.nodeSelector }}
+          nodeSelector:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+{{- end -}}
