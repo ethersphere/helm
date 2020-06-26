@@ -7,6 +7,16 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+serviceAccount:
+  ## Specifies whether a service account should be created
+  create: false
+  ## Name of the service account to use
+  ## if not set and create is true, a name is generated using the fullname template
+  name:
+  ## create role or/and cluster role for the service account
+  createRole: false
+  createClusterRole: false
+
 nodeSelector: {}
 
 beeCluster:
