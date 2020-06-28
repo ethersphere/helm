@@ -170,10 +170,10 @@ beeConfig:
   # existingSecretPasswordKey:
   ## P2P listen address
   p2p_addr: :7070
-  ## Disable P2P QUIC protocol
-  p2p_disable_quic: false
-  ## Disable P2P WebSocket protocol
-  p2p_disable_ws: false
+  ## Enable P2P QUIC protocol
+  p2p_enable_quic: false
+  ## Enable P2P WebSocket protocol
+  p2p_enable_ws: false
   ## Enable tracing
   tracing: false
   ## Endpoint to send tracing data
