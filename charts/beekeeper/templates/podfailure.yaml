@@ -18,6 +18,7 @@ spec:
     spec:
       template:
         spec:
+          serviceAccountName: {{ include "beekeeper.serviceAccountName" . }}
           containers:
             - name: {{ .Chart.Name }}
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
