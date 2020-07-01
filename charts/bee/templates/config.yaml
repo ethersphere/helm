@@ -12,7 +12,7 @@ data:
     data-dir: {{ .Values.beeConfig.data_dir }}
     db-capacity: {{ .Values.beeConfig.db_capacity }}
     debug-api-addr: {{ .Values.beeConfig.debug_api_addr }}
-    enable-debug-api: {{ .Values.beeConfig.enable_debug_api }}
+    debug-api-enable: {{ .Values.beeConfig.debug_api_enable }}
     network-id: {{ .Values.beeConfig.network_id }}
     {{- if .Values.beeConfig.usePasswordFile }}
     password-file: /home/bee/.secret/password
@@ -20,9 +20,9 @@ data:
     password: {{ include "bee.password" . }}
     {{- end }}
     p2p-addr: {{ .Values.beeConfig.p2p_addr }}
-    p2p-enable-quic: {{ .Values.beeConfig.p2p_enable_quic }}
-    p2p-enable-ws: {{ .Values.beeConfig.p2p_enable_ws }}
-    tracing: {{ .Values.beeConfig.tracing }}
+    p2p-quic-enable: {{ .Values.beeConfig.p2p_quic_enable }}
+    p2p-ws-enable: {{ .Values.beeConfig.p2p_ws_enable }}
+    tracing-enable: {{ .Values.beeConfig.tracing_enable }}
     tracing-endpoint: {{ .Values.beeConfig.tracing_endpoint }}
     tracing-service-name: {{ .Values.beeConfig.tracing_service_name }}
     verbosity: {{ .Values.beeConfig.verbosity }}
