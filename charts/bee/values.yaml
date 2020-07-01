@@ -157,7 +157,7 @@ beeConfig:
   ## Debug HTTP API listen address
   debug_api_addr: :6060
   ## Enable debug HTTP API
-  enable_debug_api: false
+  debug_api_enable: false
   ## ID of the Swarm network
   network_id: 1
   ## Password for decrypting keys (please change it for production deployments)
@@ -170,12 +170,12 @@ beeConfig:
   # existingSecretPasswordKey:
   ## P2P listen address
   p2p_addr: :7070
-  ## Enable P2P QUIC protocol
-  p2p_enable_quic: false
-  ## Enable P2P WebSocket protocol
-  p2p_enable_ws: false
+  ## Enable P2P QUIC transport
+  p2p_quic_enable: false
+  ## Enable P2P WebSocket transport
+  p2p_ws_enable: false
   ## Enable tracing
-  tracing: false
+  tracing_enable: false
   ## Endpoint to send tracing data
   tracing_endpoint: 127.0.0.1:6831
   ## Service name identifier for tracing
