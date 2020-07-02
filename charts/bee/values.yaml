@@ -60,7 +60,7 @@ ingress:
       tlsSecret: ""
   tls: false
 
-## If enabled and beeConfig.enable_debug_api is enabled, creates ingress for debug api
+## If enabled and beeConfig.debug_api_enable is enabled, creates ingress for debug api
 ## Creates one ingress per pod
 ## Total number of created ingress objects is: replicaCount
 ## Hostname for 'per pod ingresses' is: <chart fullname>-debug-<i>, or <chart fullname>-debug-<i>.<domain> if domain is specified
@@ -111,7 +111,7 @@ persistence:
   # storageClass: "-"
 
 ## Enable this if you're using https://github.com/coreos/prometheus-operator
-## and beeConfig.enable_debug_api is enabled
+## and beeConfig.debug_api_enable is enabled
 serviceMonitor:
   enabled: false
   additionalLabels: {}
@@ -135,7 +135,7 @@ serviceMonitor:
 
 podAnnotations: {}
 ## Add this annotations if you're using https://github.com/prometheus/prometheus
-## and beeConfig.enable_debug_api is enabled
+## and beeConfig.debug_api_enable is enabled
   # prometheus.io/scrape: "true"
   # prometheus.io/port: "6060"
 

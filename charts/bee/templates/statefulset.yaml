@@ -98,7 +98,7 @@ spec:
             - containerPort: {{ int (split ":" .Values.beeConfig.p2p_addr )._1 }}
               name: p2p
               protocol: TCP
-          {{- if .Values.beeConfig.enable_debug_api }}
+          {{- if .Values.beeConfig.debug_api_enable }}
             - containerPort: {{ int (split ":" .Values.beeConfig.debug_api_addr )._1 }}
               name: debug
               protocol: TCP
