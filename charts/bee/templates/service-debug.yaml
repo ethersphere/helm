@@ -1,4 +1,4 @@
-{{- if .Values.beeConfig.enable_debug_api -}}
+{{- if .Values.beeConfig.debug_api_enable -}}
 
 {{- $root := . -}}
 
