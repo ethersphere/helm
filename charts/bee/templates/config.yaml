@@ -27,3 +27,4 @@ data:
     tracing-service-name: {{ .Values.beeConfig.tracing_service_name }}
     verbosity: {{ .Values.beeConfig.verbosity }}
     welcome-message: {{ .Values.beeConfig.welcomeMessage }}
+    global-pinning-enable: {{ .Values.beeConfig.global_pinning_enable }}

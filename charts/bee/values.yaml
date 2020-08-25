@@ -184,6 +184,8 @@ beeConfig:
   verbosity: 3
   ## send a welcome message string during handshakes
   welcomeMessage: "Welcome to the Swarm, you are Bee-ing connected!"
+  ## Enable global pinning
+  global_pinning_enable: false
 
 ## if enabled, configures pods with defined libp2p keys
 ## libp2p keys are pregenerated examples and can be replaced with other values
