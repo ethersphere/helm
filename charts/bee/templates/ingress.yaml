@@ -14,6 +14,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ $fullName }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "bee.labels" $root | nindent 4 }}
   {{- with $root.Values.ingress.annotations }}
@@ -63,6 +64,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ $fullName }}-{{ $i }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "bee.labels" $root | nindent 4 }}
   {{- with $root.Values.ingress.annotations }}
