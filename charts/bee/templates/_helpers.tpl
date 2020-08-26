@@ -43,6 +43,26 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 
+
+{{/*
+Create chart name and version as used by the chart label.
+*/}}
+{{- define "bee.chartVCT" -}}
+{{- printf "%s" .Chart.Name | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+Common labels for volumeClaimTemplates
+*/}}
+{{- define "bee.labelsVCT" -}}
+helm.sh/chart: {{ include "bee.chartVCT" . }}
+{{ include "bee.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end -}}
+
 {{/*
 Selector labels
 */}}

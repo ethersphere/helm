@@ -171,7 +171,7 @@ spec:
   - metadata:
       name: data
       labels:
-        {{- include "bee.labels" . | nindent 8 }}
+        {{- include "bee.labelsVCT" . | nindent 8 }}
     spec:
       accessModes: 
         - {{ .Values.persistence.accessMode | quote }}
