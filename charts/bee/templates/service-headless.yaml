@@ -35,7 +35,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "bee.fullname" $root }}-{{ $i }}-headless
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $root.Release.Namespace }}
   labels:
     {{- include "bee.labels" $root | nindent 4 }}
     pod: {{ include "bee.fullname" $root }}-{{ $i }}
