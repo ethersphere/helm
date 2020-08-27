@@ -3,6 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ template "bee.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "bee.labels" . | nindent 4 }}
 data:
