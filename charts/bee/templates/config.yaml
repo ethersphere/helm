@@ -10,22 +10,29 @@ data:
   .bee.yaml: |+
     api-addr: {{ .Values.beeConfig.api_addr }}
     bootnode: {{ .Values.beeConfig.bootnode }}
+    cors-allowed-origins: {{ .Values.beeConfig.cors_allowed_origins }}
     data-dir: {{ .Values.beeConfig.data_dir }}
     db-capacity: {{ .Values.beeConfig.db_capacity }}
     debug-api-addr: {{ .Values.beeConfig.debug_api_addr }}
     debug-api-enable: {{ .Values.beeConfig.debug_api_enable }}
+    global-pinning-enable: {{ .Values.beeConfig.global_pinning_enable }}
+    nat-addr: {{ .Values.beeConfig.nat_addr }}
     network-id: {{ .Values.beeConfig.network_id }}
     {{- if .Values.beeConfig.usePasswordFile }}
     password-file: /home/bee/.secret/password
     {{- else }}
     password: {{ include "bee.password" . }}
     {{- end }}
+    payment-threshold: {{ .Values.beeConfig.payment_threshold }}
+    payment-tolerance: {{ .Values.beeConfig.payment_tolerance }}
     p2p-addr: {{ .Values.beeConfig.p2p_addr }}
     p2p-quic-enable: {{ .Values.beeConfig.p2p_quic_enable }}
     p2p-ws-enable: {{ .Values.beeConfig.p2p_ws_enable }}
+    resolver-options: {{ .Values.beeConfig.resolver_options }}
+    standalone: {{ .Values.beeConfig.standalone }}
     tracing-enable: {{ .Values.beeConfig.tracing_enable }}
     tracing-endpoint: {{ .Values.beeConfig.tracing_endpoint }}
     tracing-service-name: {{ .Values.beeConfig.tracing_service_name }}
     verbosity: {{ .Values.beeConfig.verbosity }}
     welcome-message: {{ .Values.beeConfig.welcomeMessage }}
-    global-pinning-enable: {{ .Values.beeConfig.global_pinning_enable }}
+    
