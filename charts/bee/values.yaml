@@ -150,6 +150,8 @@ beeConfig:
   api_addr: :8080
   ## Initial nodes to connect to
   bootnode: ""
+  ## Origins with CORS headers enabled
+  cors_allowed_origins: ""
   ## Data directory
   data_dir: /home/bee/.bee
   ## DB capacity in chunks
@@ -158,6 +160,10 @@ beeConfig:
   debug_api_addr: :6060
   ## Enable debug HTTP API
   debug_api_enable: false
+  ## Enable global pinning
+  global_pinning_enable: false
+  ## NAT exposed address
+  nat_addr: ""
   ## ID of the Swarm network
   network_id: 1
   ## Password for decrypting keys (please change it for production deployments)
@@ -168,12 +174,20 @@ beeConfig:
   ## Use existing secret (ignores previous password)
   # existingSecret:
   # existingSecretPasswordKey:
+  ## Threshold in BZZ where you expect to get paid from your peers
+  payment_threshold: 100000
+  ## Excess debt above payment threshold in BZZ where you disconnect from your peer
+  payment_tolerance: 10000
   ## P2P listen address
   p2p_addr: :7070
   ## Enable P2P QUIC transport
   p2p_quic_enable: false
   ## Enable P2P WebSocket transport
   p2p_ws_enable: false
+  ## Whether node starts with no listen addresses for p2p
+  standalone: false
+  ## Resolver connection string
+  resolver_options: ""
   ## Enable tracing
   tracing_enable: false
   ## Endpoint to send tracing data
@@ -182,10 +196,8 @@ beeConfig:
   tracing_service_name: bee
   ## Log verbosity level 0=silent, 1=error, 2=warn, 3=info, 4=debug, 5=trace
   verbosity: 3
-  ## send a welcome message string during handshakes
+  ## Send a welcome message string during handshakes
   welcomeMessage: "Welcome to the Swarm, you are Bee-ing connected!"
-  ## Enable global pinning
-  global_pinning_enable: false
 
 ## if enabled, configures pods with defined libp2p keys
 ## libp2p keys are pregenerated examples and can be replaced with other values
