@@ -197,7 +197,7 @@ beeConfig:
   ## Log verbosity level 0=silent, 1=error, 2=warn, 3=info, 4=debug, 5=trace
   verbosity: 3
   ## Send a welcome message string during handshakes
-  welcomeMessage: "Welcome to the Swarm, you are Bee-ing connected!"  
+  welcomeMessage: "Welcome to the Swarm, you are Bee-ing connected!"
 
 ## if enabled, configures pods with defined libp2p keys
 ## libp2p keys are pregenerated examples and can be replaced with other values
