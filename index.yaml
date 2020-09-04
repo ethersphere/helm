@@ -1,6 +1,33 @@
 apiVersion: v1
 entries:
   bee:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2020-09-04T11:30:02.701435602Z"
+    description: Ethereum Swarm Bee Helm chart for Kubernetes
+    digest: f0982453cd8b4be4bb20d4355aecc5a0b0f6bcd0d749ef5e1d10ac141406dc8f
+    home: https://swarm.ethereum.org
+    icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png
+    keywords:
+    - blockchain
+    - ethereum
+    - storage
+    - swarm
+    - web3
+    maintainers:
+    - email: devops@ethswarm.org
+      name: devops
+    - email: svetomir@ethswarm.org
+      name: svetomir
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: bee
+    sources:
+    - https://github.com/ethersphere/bee
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/bee-0.5.6/bee-0.5.6.tgz
+    version: 0.5.6
   - apiVersion: v1
     appVersion: latest
     created: "2020-08-31T10:57:09.140086179Z"
@@ -627,6 +654,29 @@ entries:
     - https://github.com/ethersphere/helm/releases/download/bee-0.1.0/bee-0.1.0.tgz
     version: 0.1.0
   beekeeper:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2020-09-04T11:30:02.81765412Z"
+    description: Ethereum Swarm Beekeeper Helm chart for Kubernetes
+    digest: 709f2dab8185ddf97d7ab4dda02ef6af4ef1d5a8852d4b10e74a881d97208e5f
+    home: https://swarm.ethereum.org
+    icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png
+    keywords:
+    - blockchain
+    - ethereum
+    - storage
+    - swarm
+    - web3
+    maintainers:
+    - email: svetomir@ethswarm.org
+      name: svetomir
+    name: beekeeper
+    sources:
+    - https://github.com/ethersphere/beekeeper
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/beekeeper-0.1.4/beekeeper-0.1.4.tgz
+    version: 0.1.4
   - apiVersion: v1
     appVersion: latest
     created: "2020-06-29T15:20:48.492756751Z"
@@ -716,6 +766,30 @@ entries:
     - https://github.com/ethersphere/helm/releases/download/beekeeper-0.1.0/beekeeper-0.1.0.tgz
     version: 0.1.0
   eks-local-disk-provisioner:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2020-09-04T11:30:02.913072534Z"
+    description: AWS eks-local-disk-provisioner Helm chart for Kubernetes
+    digest: fd0bd580d7a197a23b5b5bdf3a4510feb4e25a34747cf8c8560fcff1e269b91c
+    home: https://swarm.ethereum.org
+    icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png
+    keywords:
+    - aws
+    - kubernetes
+    - eks
+    - local disk provisioner
+    - local persistent volume
+    - sig-storage-local-static-provisioner
+    maintainers:
+    - email: svetomir@ethereum.org
+      name: svetomir
+    name: eks-local-disk-provisioner
+    sources:
+    - https://github.com/ethersphere/eks-local-disk-provisioner
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/eks-local-disk-provisioner-0.1.1/eks-local-disk-provisioner-0.1.1.tgz
+    version: 0.1.1
   - apiVersion: v1
     appVersion: 0.1.0
     created: "2020-03-31T12:08:57.796595711Z"
