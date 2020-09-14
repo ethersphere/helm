@@ -32,6 +32,18 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 
 {{/*
+Create image name combining repository and tag or digest.
+Digest takes presedance over tag.
+*/}}
+{{- define "bee.image" -}}
+{{- if .Values.image.digest -}}
+{{- printf "%s@%s" .Values.image.repository .Values.image.digest -}}
+{{- else -}}
+{{- printf "%s:%s" .Values.image.repository .Values.image.tag -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Common labels.
 */}}
 {{- define "bee.labels" -}}
