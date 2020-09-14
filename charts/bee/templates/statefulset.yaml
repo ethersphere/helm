@@ -159,9 +159,9 @@ spec:
         {{- if .Values.libp2pSettings.enabled }}
         - name: bee-libp2p
           secret:
-            secretName: {{ template "bee.fullname" . }}-libp2p
+            secretName: {{ template "bee.libp2pKeysSecretName" . }}
             items:
-              - key: libp2pKeys
+              - key: {{ template "bee.libp2pKeysSecretKey" . }}
                 path: libp2p.map
         {{- end }}
   {{- if not .Values.persistence.enabled }}

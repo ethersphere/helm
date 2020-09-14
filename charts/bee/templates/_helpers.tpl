@@ -32,7 +32,7 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 
 {{/*
-Common labels
+Common labels.
 */}}
 {{- define "bee.labels" -}}
 helm.sh/chart: {{ include "bee.chart" . }}
@@ -52,7 +52,7 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 
 {{/*
-Common labels for volumeClaimTemplates
+Common labels for volumeClaimTemplates.
 */}}
 {{- define "bee.labelsVCT" -}}
 helm.sh/chart: {{ include "bee.chartVCT" . }}
@@ -64,7 +64,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 
 {{/*
-Selector labels
+Selector labels.
 */}}
 {{- define "bee.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "bee.name" . }}
@@ -72,7 +72,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
 {{/*
-Create the name of the service account to use
+Create the name of the service account to use.
 */}}
 {{- define "bee.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
@@ -105,12 +105,34 @@ Get the password key to be retrieved from the secret.
 {{- end -}}
 
 {{/*
-Return Bee password
+Return Bee password.
 */}}
 {{- define "bee.password" -}}
 {{- if not (empty .Values.beeConfig.password) }}
     {{- .Values.beeConfig.password -}}
 {{- else -}}
     {{- randAlphaNum 10 -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Get the libp2pKeys secret.
+*/}}
+{{- define "bee.libp2pKeysSecretName" -}}
+{{- if .Values.libp2pSettings.existingSecret -}}
+{{- printf "%s" .Values.libp2pSettings.existingSecret -}}
+{{- else -}}
+{{- printf "%s-libp2p" (include "bee.fullname" .) -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Get the libp2p key to be retrieved from the secret.
+*/}}
+{{- define "bee.libp2pKeysSecretKey" -}}
+{{- if and .Values.libp2pSettings.existingSecret .Values.libp2pSettings.existingSecretLibp2pKey -}}
+{{- printf "%s" .Values.libp2pSettings.existingSecretLibp2pKey -}}
+{{- else -}}
+{{- printf "libp2pKeys" -}}
 {{- end -}}
 {{- end -}}
