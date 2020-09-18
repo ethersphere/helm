@@ -148,3 +148,25 @@ Get the libp2p key to be retrieved from the secret.
 {{- printf "libp2pKeys" -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Get the swarmKeys secret.
+*/}}
+{{- define "bee.swarmKeysSecretName" -}}
+{{- if .Values.swarmSettings.existingSecret -}}
+{{- printf "%s" .Values.swarmSettings.existingSecret -}}
+{{- else -}}
+{{- printf "%s-swarm" (include "bee.fullname" .) -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Get the swarm key to be retrieved from the secret.
+*/}}
+{{- define "bee.swarmKeysSecretKey" -}}
+{{- if and .Values.swarmSettings.existingSecret .Values.swarmSettings.existingSecretSwarmKey -}}
+{{- printf "%s" .Values.swarmSettings.existingSecretSwarmKey -}}
+{{- else -}}
+{{- printf "swarmKeys" -}}
+{{- end -}}
+{{- end -}}
