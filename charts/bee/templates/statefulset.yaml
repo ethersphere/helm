@@ -42,7 +42,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if or .Values.libp2pSettings.enabled .Values.p2pFixedPort.enabled }}
+      {{- if or .Values.libp2pSettings.enabled .Values.p2pFixedPort.enabled .Values.swarmSettings.enabled }}
       initContainers:
         {{- if .Values.libp2pSettings.enabled }}
         - name: init-libp2p
@@ -62,6 +62,26 @@ spec:
             - name: data
               mountPath: /home/bee/.bee
             - name: bee-libp2p
+              mountPath: /tmp/bee
+        {{- end }}
+        {{- if .Values.swarmSettings.enabled }}
+        - name: init-swarm
+          image: busybox:1.28
+          command:
+            - sh
+            - -c
+            - >
+              export INDEX=$(echo $(hostname) | rev | cut -d'-' -f 1 | rev);
+              mkdir -p /home/bee/.bee/keys;
+              chown -R 999:999 /home/bee/.bee/keys;
+              export KEY=$(cat /tmp/bee/swarm.map | grep bee-${INDEX} | cut -d' ' -f2);
+              if [ -z "${KEY}" ]; then exit 0; fi;
+              printf '%s' "${KEY}" > /home/bee/.bee/keys/swarm.key;
+              echo 'node initialization done';
+          volumeMounts:
+            - name: data
+              mountPath: /home/bee/.bee
+            - name: bee-swarm
               mountPath: /tmp/bee
         {{- end }}
         {{- if .Values.p2pFixedPort.enabled }}
@@ -163,6 +183,14 @@ spec:
             items:
               - key: {{ template "bee.libp2pKeysSecretKey" . }}
                 path: libp2p.map
+        {{- end }}
+        {{- if .Values.swarmSettings.enabled }}
+        - name: bee-swarm
+          secret:
+            secretName: {{ template "bee.swarmKeysSecretName" . }}
+            items:
+              - key: {{ template "bee.swarmKeysSecretKey" . }}
+                path: swarm.map
         {{- end }}
   {{- if not .Values.persistence.enabled }}
         - name: data
