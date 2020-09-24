@@ -10,6 +10,8 @@ data:
   .bee.yaml: |+
     api-addr: {{ .Values.beeConfig.api_addr }}
     bootnode: {{ .Values.beeConfig.bootnode }}
+    clef-signer-enable: {{ .Values.beeConfig.clef_signer_enable }}
+    clef-signer-endpoint: {{ .Values.beeConfig.clef_signer_endpoint }}
     cors-allowed-origins: {{ .Values.beeConfig.cors_allowed_origins }}
     data-dir: {{ .Values.beeConfig.data_dir }}
     db-capacity: {{ .Values.beeConfig.db_capacity }}
@@ -30,6 +32,10 @@ data:
     p2p-ws-enable: {{ .Values.beeConfig.p2p_ws_enable }}
     resolver-options: {{ .Values.beeConfig.resolver_options }}
     standalone: {{ .Values.beeConfig.standalone }}
+    swap-enable: {{ .Values.beeConfig.swap_enable }}
+    swap-endpoint: {{ .Values.beeConfig.swap_endpoint }}
+    swap-factory-address: {{ .Values.beeConfig.swap_factory_address }}
+    swap-initial-deposit: {{ .Values.beeConfig.swap_initial_deposit }}
     tracing-enable: {{ .Values.beeConfig.tracing_enable }}
     tracing-endpoint: {{ .Values.beeConfig.tracing_endpoint }}
     tracing-service-name: {{ .Values.beeConfig.tracing_service_name }}
