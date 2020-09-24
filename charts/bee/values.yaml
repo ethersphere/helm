@@ -151,6 +151,10 @@ beeConfig:
   api_addr: :8080
   ## Initial nodes to connect to
   bootnode: ""
+  ## Enable clef signer
+  clef_signer_enable: false
+  ## Set clef signer endpoint
+  clef_signer_endpoint: ""
   ## Origins with CORS headers enabled
   cors_allowed_origins: ""
   ## Data directory
@@ -187,6 +191,14 @@ beeConfig:
   p2p_ws_enable: false
   ## Whether node starts with no listen addresses for p2p
   standalone: false
+  ## Enable SWAP
+  swap_enable: false
+  ## Set swap ethereum blockchain endpoint
+  swap_endpoint: http://localhost:8545
+  ## Set swap factory address
+  swap_factory_address: ""
+  ## Set initial deposit if deploying a new chequebook
+  swap_initial_deposit: "0"
   ## Resolver connection string
   resolver_options: ""
   ## Enable tracing
