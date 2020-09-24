@@ -127,19 +127,23 @@ spec:
             httpGet:
               path: /health
               port: debug
+            initialDelaySeconds: 25
           readinessProbe:
             httpGet:
               path: /readiness
               port: debug
+            initialDelaySeconds: 25
           {{- else }}
           livenessProbe:
             httpGet:
               path: /
               port: api
+            initialDelaySeconds: 25
           readinessProbe:
             httpGet:
               path: /
               port: api
+            initialDelaySeconds: 25
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -162,6 +166,40 @@ spec:
               mountPath: /home/bee/.secret
               readOnly: true
             {{- end }}
+        {{- if .Values.clefSidecar.enabled }}
+        - name: clef
+          image: "ethereum/client-go:alltools-stable"
+          imagePullPolicy: IfNotPresent
+          env:
+          {{- if .Values.beeConfig.usePasswordFile }}
+          - name: SECRET_FILE
+            value: /secret/password
+          {{- else }}
+          - name: SECRET
+            value: {{ include "bee.password" . }}
+          {{- end }}
+          command:
+            - sh
+            - -c
+            - >
+              if [ -n "${SECRET_FILE+x}" ]; then export SECRET=$(cat $SECRET_FILE); fi;
+              wget -q https://gist.githubusercontent.com/vandot/5063ca7ac3e845261faa5b04053d0a10/raw/50cdcb350fd137e5985b48dc9ac4d8f33217706a -O /clef.sh;
+              chmod +x /clef.sh;
+              /clef.sh ${SECRET};
+          ports:
+            - containerPort: 8550
+              name: api
+              protocol: TCP
+          volumeMounts:
+            - name: data
+              mountPath: /bee
+              readOnly: true
+            {{- if .Values.beeConfig.usePasswordFile }}
+            - name: bee-secret
+              mountPath: /secret
+              readOnly: true
+            {{- end }}
+        {{- end }}
       volumes:
         - name: config-file
           emptyDir: {}
