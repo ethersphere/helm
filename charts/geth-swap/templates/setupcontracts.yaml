@@ -19,6 +19,10 @@ spec:
           - sh
           - -ac
           - >
-            while ! curl $BACKEND; do sleep 1; done;
+            set -x;
+            while ! curl -m 1 $BACKEND; do sleep 1; done;
+            echo connected to geth >&2;
+            ACCOUNT=$(curl -X POST -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\", \"method\": \"eth_accounts\", \"params\": [], \"id\":\"1\"}" $BACKEND | jq -r '.result | .[0]');
+            curl -H "Content-Type: application/json" --data "{\"jsonrpc\":\"2.0\", \"method\": \"personal_unlockAccount\", \"params\": [\"$ACCOUNT\", \"\", 0], \"id\":\"1\"}" $BACKEND;
             bash deploy.sh
       restartPolicy: Never
