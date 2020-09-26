@@ -76,17 +76,17 @@ Create bee.yaml file as shown bellow:
 ```yaml
 namespaces:
   bee:
-    
+
 helmRepos:
   ethersphere: "https://ethersphere.github.io/helm"
-    
+
 apps:
   bee:
     name: bee
     namespace: bee
     description: "Ethereum Swarm Bee"
     chart: "ethersphere/bee"
-    version: "0.5.11"
+    version: "0.5.12"
     enabled: true
     set:
       beeConfig.bootnode: # bootnode multi address
@@ -108,17 +108,17 @@ Create bee.yaml file as shown bellow:
 ```yaml
 namespaces:
   bee:
-    
+
 helmRepos:
   ethersphere: "https://ethersphere.github.io/helm"
-    
+
 apps:
   bee:
     name: bee
     namespace: bee
     description: "Ethereum Swarm Bee"
     chart: "ethersphere/bee"
-    version: "0.5.11"
+    version: "0.5.12"
     enabled: true
     set:
       beeConfig.bootnode: "/dns4/bee-0-headless.bee.svc.cluster.local/tcp/7070/p2p/16Uiu2HAm6i4dFaJt584m2jubyvnieEECgqM2YMpQ9nusXfy8XFzL"

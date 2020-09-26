@@ -44,6 +44,11 @@ p2pFixedPort:
   enabled: false
   nodePortStart: 31000
 
+## If enabled it will start clef sidecar container that will auto approve every request
+## Use only for testing
+clefSidecar:
+  enabled: false
+
 ## If enabled, creates ingress for HTTP api
 ## Creates one ingress per pod and additionally one common ingress for all pods
 ## Total number of created ingress objects is: replicaCount + 1
