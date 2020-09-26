@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
       - name: setup
-        image: bash:3.2
+        image: ethersphere/setup-contracts:latest
         env:
           - name: BACKEND
             value: "http://{{ include "geth-swap.fullname" . }}:8545"
@@ -19,8 +19,6 @@ spec:
           - sh
           - -ac
           - >
-            apk add --no-cache jq curl;
-            curl https://gist.githubusercontent.com/ralph-pichler/dc0386f81ffa09c220271d4389b4a139/raw -o deploy.sh;
             while ! curl $BACKEND; do sleep 1; done;
             bash deploy.sh
       restartPolicy: Never
