@@ -17,6 +17,7 @@ data:
     db-capacity: {{ .Values.beeConfig.db_capacity }}
     debug-api-addr: {{ .Values.beeConfig.debug_api_addr }}
     debug-api-enable: {{ .Values.beeConfig.debug_api_enable }}
+    gateway-mode: {{ .Values.beeConfig.gateway_mode }}
     global-pinning-enable: {{ .Values.beeConfig.global_pinning_enable }}
     nat-addr: {{ .Values.beeConfig.nat_addr }}
     network-id: {{ .Values.beeConfig.network_id }}
