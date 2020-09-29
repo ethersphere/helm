@@ -170,6 +170,8 @@ beeConfig:
   debug_api_addr: :6060
   ## Enable debug HTTP API
   debug_api_enable: false
+  ## Disable a set of sensitive features in the api
+  gateway_mode: false
   ## Enable global pinning
   global_pinning_enable: false
   ## NAT exposed address
