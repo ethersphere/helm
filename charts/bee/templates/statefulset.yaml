@@ -54,7 +54,7 @@ spec:
               export INDEX=$(echo $(hostname) | rev | cut -d'-' -f 1 | rev);
               mkdir -p /home/bee/.bee/keys;
               chown -R 999:999 /home/bee/.bee/keys;
-              export KEY=$(cat /tmp/bee/libp2p.map | grep bee-${INDEX} | cut -d' ' -f2);
+              export KEY=$(cat /tmp/bee/libp2p.map | grep bee-${INDEX}: | cut -d' ' -f2);
               if [ -z "${KEY}" ]; then exit 0; fi;
               printf '%s' "${KEY}" > /home/bee/.bee/keys/libp2p.key;
               echo 'node initialization done';
@@ -74,7 +74,7 @@ spec:
               export INDEX=$(echo $(hostname) | rev | cut -d'-' -f 1 | rev);
               mkdir -p /home/bee/.bee/keys;
               chown -R 999:999 /home/bee/.bee/keys;
-              export KEY=$(cat /tmp/bee/swarm.map | grep bee-${INDEX} | cut -d' ' -f2);
+              export KEY=$(cat /tmp/bee/swarm.map | grep bee-${INDEX}: | cut -d' ' -f2);
               if [ -z "${KEY}" ]; then exit 0; fi;
               printf '%s' "${KEY}" > /home/bee/.bee/keys/swarm.key;
               echo 'node initialization done';
