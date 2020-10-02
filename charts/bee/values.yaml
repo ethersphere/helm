@@ -19,6 +19,11 @@ serviceAccount:
   ## if not set and create is true, a name is generated using the fullname template
   name:
 
+## StatefulSet's ordering guarantees: OrderedReady or Parallel
+## OrderedReady - launches or terminates all pods in ordered way
+## Parallel - launches or terminates all pods in parallel
+podManagementPolicy: OrderedReady
+
 ## Bee process inside container is run with gid/uid 999
 ## fsGroup=999 enables mounting external volumes with appropriate permissions
 podSecurityContext:
