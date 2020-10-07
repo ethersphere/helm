@@ -84,6 +84,26 @@ spec:
             - name: bee-swarm
               mountPath: /tmp/bee
         {{- end }}
+        {{- if .Values.clefSettings.enabled }}
+        - name: init-clef
+          image: ethersphere/clef:latest
+          command:
+            - sh
+            - -c
+            - >
+              export INDEX=$(echo $(hostname) | rev | cut -d'-' -f 1 | rev);
+              mkdir -p /root/.clef/keys;
+              export KEY=$(cat /tmp/bee/clef.map | grep bee-${INDEX}: | cut -d' ' -f2);
+              if [ -z "${KEY}" ]; then exit 0; fi;
+              printf '%s' "${KEY}" > /root/.clef/keys/clef.key;
+              /entrypoint.sh init {{ .Values.clefSettings.keySecret }};
+              echo 'clef initialization done';
+          volumeMounts:
+            - name: clef
+              mountPath: /root/.clef
+            - name: bee-clef
+              mountPath: /tmp/bee
+        {{- end }}
         {{- if .Values.p2pFixedPort.enabled }}
         - name: init-natport
           image: busybox:1.28
@@ -166,39 +186,22 @@ spec:
               mountPath: /home/bee/.secret
               readOnly: true
             {{- end }}
-        {{- if .Values.clefSidecar.enabled }}
+        {{- if .Values.clefSettings.enabled }}
         - name: clef
-          image: "ethereum/client-go:alltools-stable"
+          image: ethersphere/clef:latest
           imagePullPolicy: IfNotPresent
-          env:
-          {{- if .Values.beeConfig.usePasswordFile }}
-          - name: SECRET_FILE
-            value: /secret/password
-          {{- else }}
-          - name: SECRET
-            value: {{ include "bee.password" . }}
-          {{- end }}
           command:
-            - sh
-            - -c
-            - >
-              if [ -n "${SECRET_FILE+x}" ]; then export SECRET=$(cat $SECRET_FILE); fi;
-              wget -q https://gist.githubusercontent.com/vandot/5063ca7ac3e845261faa5b04053d0a10/raw/50cdcb350fd137e5985b48dc9ac4d8f33217706a -O /clef.sh;
-              chmod +x /clef.sh;
-              /clef.sh ${SECRET};
+            - /entrypoint.sh
+            - run
+            - {{ .Values.clefSettings.keySecret }}
           ports:
             - containerPort: 8550
               name: api
               protocol: TCP
           volumeMounts:
-            - name: data
-              mountPath: /bee
-              readOnly: true
-            {{- if .Values.beeConfig.usePasswordFile }}
-            - name: bee-secret
-              mountPath: /secret
-              readOnly: true
-            {{- end }}
+            - name: clef
+              mountPath: /root/.clef
+              readOnly: false
         {{- end }}
       volumes:
         - name: config-file
@@ -230,6 +233,16 @@ spec:
               - key: {{ template "bee.swarmKeysSecretKey" . }}
                 path: swarm.map
         {{- end }}
+        {{- if .Values.clefSettings.enabled }}
+        - name: clef
+          emptyDir: {}
+        - name: bee-clef
+          secret:
+            secretName: {{ template "bee.clefKeysSecretName" . }}
+            items:
+              - key: {{ template "bee.clefKeysSecretKey" . }}
+                path: clef.map
+        {{- end }}
   {{- if not .Values.persistence.enabled }}
         - name: data
           emptyDir: {}
@@ -240,7 +253,7 @@ spec:
       labels:
         {{- include "bee.labelsVCT" . | nindent 8 }}
     spec:
-      accessModes: 
+      accessModes:
         - {{ .Values.persistence.accessMode | quote }}
       resources:
         requests:

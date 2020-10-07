@@ -170,3 +170,25 @@ Get the swarm key to be retrieved from the secret.
 {{- printf "swarmKeys" -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Get the clefKeys secret.
+*/}}
+{{- define "bee.clefKeysSecretName" -}}
+{{- if .Values.clefSettings.existingSecret -}}
+{{- printf "%s" .Values.clefSettings.existingSecret -}}
+{{- else -}}
+{{- printf "%s-clef" (include "bee.fullname" .) -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Get the clef key to be retrieved from the secret.
+*/}}
+{{- define "bee.clefKeysSecretKey" -}}
+{{- if and .Values.clefSettings.existingSecret .Values.clefSettings.existingSecretClefKey -}}
+{{- printf "%s" .Values.swarmSettings.existingSecretClefKey -}}
+{{- else -}}
+{{- printf "clefKeys" -}}
+{{- end -}}
+{{- end -}}
