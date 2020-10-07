@@ -86,7 +86,7 @@ apps:
     namespace: bee
     description: "Ethereum Swarm Bee"
     chart: "ethersphere/bee"
-    version: "0.5.15"
+    version: "0.5.16"
     enabled: true
     set:
       beeConfig.bootnode: # bootnode multi address
@@ -118,7 +118,7 @@ apps:
     namespace: bee
     description: "Ethereum Swarm Bee"
     chart: "ethersphere/bee"
-    version: "0.5.15"
+    version: "0.5.16"
     enabled: true
     set:
       beeConfig.bootnode: "/dns4/bee-0-headless.bee.svc.cluster.local/tcp/7070/p2p/16Uiu2HAm6i4dFaJt584m2jubyvnieEECgqM2YMpQ9nusXfy8XFzL"
