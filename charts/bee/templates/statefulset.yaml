@@ -8,6 +8,7 @@ metadata:
     {{- include "bee.labels" . | nindent 4 }}
 spec:
   serviceName: {{ include "bee.fullname" . }}-headless
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   replicas: {{ .Values.replicaCount }}
   updateStrategy:
     {{- toYaml .Values.updateStrategy | nindent 4 }}
