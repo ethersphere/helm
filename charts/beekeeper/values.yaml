@@ -69,7 +69,7 @@ check:
     filesPerNode: 1
     uploadNodeCount: 1
   pingpong:
-    enabled: false
+    enabled: true
     schedule: "*/1 * * * *"
     successfulJobsHistoryLimit: 3
     failedJobsHistoryLimit: 3
