@@ -19,6 +19,11 @@ serviceAccount:
 
 nodeSelector: {}
 
+## If it is enabled it will create init container that will wait
+## for cluster to be up and operational
+initPing:
+  enabled: false
+
 beeCluster:
   apiDomain: core.internal
   apiHostnames: bee-%d
@@ -64,7 +69,7 @@ check:
     filesPerNode: 1
     uploadNodeCount: 1
   pingpong:
-    enabled: false
+    enabled: true
     schedule: "*/1 * * * *"
     successfulJobsHistoryLimit: 3
     failedJobsHistoryLimit: 3
@@ -96,7 +101,7 @@ check:
 
 chaos:
   podfailure:
-    enabled: true
+    enabled: false
     schedule: "*/1 * * * *"
     successfulJobsHistoryLimit: 3
     failedJobsHistoryLimit: 3
