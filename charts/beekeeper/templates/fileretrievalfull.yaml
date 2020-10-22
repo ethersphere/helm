@@ -1,4 +1,4 @@
-{{- if and .Values.check.fileretrievalfull.enabled -}}
+{{- if and .Values.check.fileretrievalfull.enabled (not .Values.singleJob.enabled) -}}
 
 apiVersion: batch/v1beta1
 kind: CronJob

@@ -24,12 +24,20 @@ nodeSelector: {}
 initPing:
   enabled: false
 
+## If it is enabled it will create a single job
+## that will execute all tests listed in check
+singleJob:
+  enabled: false
+  uploadNodeCount: 1
+  chunksPerNode: 3
+  restartPolicy: Never
+
 beeCluster:
-  apiDomain: core.internal
+  apiDomain: staging.internal
   apiHostnames: bee-%d
   apiInsecureTLS: false
   apiScheme: https
-  debugApiDomain: core.internal
+  debugApiDomain: staging.internal
   debugApiHostnames: bee-%d-debug
   debugApiInsecureTLS: false
   debugApiScheme: https
@@ -48,6 +56,19 @@ beeChaos:
   cron: 20s
 
 check:
+  balances:
+    enabled: false
+    schedule: "*/1 * * * *"
+    successfulJobsHistoryLimit: 3
+    failedJobsHistoryLimit: 3
+    concurrencyPolicy: Forbid
+    uploadNodeCount: 1
+  chunkrepair:
+    enabled: false
+    schedule: "*/1 * * * *"
+    successfulJobsHistoryLimit: 3
+    failedJobsHistoryLimit: 3
+    concurrencyPolicy: Forbid
   fileretrieval:
     enabled: false
     schedule: "*/1 * * * *"
@@ -68,12 +89,26 @@ check:
     fileSize: 1
     filesPerNode: 1
     uploadNodeCount: 1
+  manifest:
+    enabled: false
+    schedule: "*/1 * * * *"
+    successfulJobsHistoryLimit: 3
+    failedJobsHistoryLimit: 3
+    concurrencyPolicy: Forbid
   pingpong:
     enabled: true
     schedule: "*/1 * * * *"
     successfulJobsHistoryLimit: 3
     failedJobsHistoryLimit: 3
     concurrencyPolicy: Forbid
+  pullsync:
+    enabled: false
+    schedule: "*/1 * * * *"
+    successfulJobsHistoryLimit: 3
+    failedJobsHistoryLimit: 3
+    concurrencyPolicy: Forbid
+    chunksPerNode: 1
+    uploadNodeCount: 1
   pushsync:
     enabled: false
     schedule: "*/1 * * * *"
@@ -97,6 +132,13 @@ check:
     failedJobsHistoryLimit: 3
     concurrencyPolicy: Forbid
     chunksPerNode: 1
+    uploadNodeCount: 1
+  settlements:
+    enabled: false
+    schedule: "*/1 * * * *"
+    successfulJobsHistoryLimit: 3
+    failedJobsHistoryLimit: 3
+    concurrencyPolicy: Forbid
     uploadNodeCount: 1
 
 chaos:
