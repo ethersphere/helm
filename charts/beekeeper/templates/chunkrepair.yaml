@@ -1,16 +1,16 @@
-{{- if and .Values.check.fileretrieval.enabled (not .Values.singleJob.enabled) -}}
+{{- if and .Values.check.chunkrepair.enabled (not .Values.singleJob.enabled) -}}
 
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ include "beekeeper.fullname" . }}-fileretrieval
+  name: {{ include "beekeeper.fullname" . }}-chunkrepair
   labels:
     {{- include "beekeeper.labels" . | nindent 4 }}
 spec:
-  schedule: "{{ .Values.check.fileretrieval.schedule }}"
-  successfulJobsHistoryLimit: {{ .Values.check.fileretrieval.successfulJobsHistoryLimit }}
-  failedJobsHistoryLimit: {{ .Values.check.fileretrieval.failedJobsHistoryLimit }}
-  concurrencyPolicy: "{{ .Values.check.fileretrieval.concurrencyPolicy }}"
+  schedule: "{{ .Values.check.chunkrepair.schedule }}"
+  successfulJobsHistoryLimit: {{ .Values.check.chunkrepair.successfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.check.chunkrepair.failedJobsHistoryLimit }}
+  concurrencyPolicy: "{{ .Values.check.chunkrepair.concurrencyPolicy }}"
   jobTemplate:
     metadata:
       labels:
@@ -90,15 +90,7 @@ spec:
                   value: "{{ .Values.beeCluster.pushMetrics }}"
               args:
                 - check
-                - fileretrieval
-                - --file-name
-                - "{{ .Values.check.fileretrieval.fileName }}"
-                - --file-size
-                - "{{ .Values.check.fileretrieval.fileSize }}"
-                - --files-per-node
-                - "{{ .Values.check.fileretrieval.filesPerNode }}"
-                - --upload-node-count
-                - "{{ .Values.check.fileretrieval.uploadNodeCount }}"
+                - chunkrepair
           restartPolicy: Never
           {{- with .Values.nodeSelector }}
           nodeSelector:

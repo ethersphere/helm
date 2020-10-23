@@ -1,4 +1,4 @@
-{{- if and .Values.check.retrieval.enabled -}}
+{{- if and .Values.check.retrieval.enabled (not .Values.singleJob.enabled) -}}
 
 apiVersion: batch/v1beta1
 kind: CronJob
