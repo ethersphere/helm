@@ -30,6 +30,7 @@ singleJob:
   enabled: false
   uploadNodeCount: 1
   chunksPerNode: 3
+  backoffLimit: 0
   restartPolicy: Never
 
 beeCluster:
