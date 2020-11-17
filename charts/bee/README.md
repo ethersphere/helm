@@ -121,7 +121,7 @@ apps:
     version: "0.5.16"
     enabled: true
     set:
-      beeConfig.bootnode: "/dns4/bee-0-headless.bee.svc.cluster.local/tcp/7070/p2p/16Uiu2HAm6i4dFaJt584m2jubyvnieEECgqM2YMpQ9nusXfy8XFzL"
+      beeConfig.bootnode: "/dns4/bee-0-headless.bee.svc.cluster.local/tcp/1634/p2p/16Uiu2HAm6i4dFaJt584m2jubyvnieEECgqM2YMpQ9nusXfy8XFzL"
       libp2pSettings.enabled: true
       replicaCount: 3
     wait: true
