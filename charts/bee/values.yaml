@@ -143,7 +143,7 @@ podAnnotations: {}
 ## Add this annotations if you're using https://github.com/prometheus/prometheus
 ## and beeConfig.debug_api_enable is enabled
   # prometheus.io/scrape: "true"
-  # prometheus.io/port: "6060"
+  # prometheus.io/port: "1635"
 
 nodeSelector: {}
 
@@ -153,7 +153,7 @@ tolerations: []
 
 beeConfig:
   ## HTTP API listen address
-  api_addr: :8080
+  api_addr: :1633
   ## Initial nodes to connect to
   bootnode: ""
   ## Enable clef signer
@@ -167,7 +167,7 @@ beeConfig:
   ## DB capacity in chunks
   db_capacity: 5000000
   ## Debug HTTP API listen address
-  debug_api_addr: :6060
+  debug_api_addr: :1635
   ## Enable debug HTTP API
   debug_api_enable: false
   ## Disable a set of sensitive features in the api
@@ -191,7 +191,7 @@ beeConfig:
   ## Excess debt above payment threshold in BZZ where you disconnect from your peer
   payment_tolerance: 10000
   ## P2P listen address
-  p2p_addr: :7070
+  p2p_addr: :1634
   ## Enable P2P QUIC transport
   p2p_quic_enable: false
   ## Enable P2P WebSocket transport
