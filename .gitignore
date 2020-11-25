@@ -2,3 +2,4 @@
 /charts/*/charts
 /charts/*/requirements.lock
 .idea
+.DS_Store
