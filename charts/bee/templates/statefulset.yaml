@@ -155,23 +155,35 @@ spec:
             httpGet:
               path: /health
               port: debug
-            initialDelaySeconds: 25
+            initialDelaySeconds: 5
           readinessProbe:
             httpGet:
               path: /readiness
               port: debug
-            initialDelaySeconds: 25
+            initialDelaySeconds: 5
+          startupProbe:
+            httpGet:
+              path: /health
+              port: debug
+            failureThreshold: 30
+            periodSeconds: 10
           {{- else }}
           livenessProbe:
             httpGet:
               path: /
               port: api
-            initialDelaySeconds: 25
+            initialDelaySeconds: 5
           readinessProbe:
             httpGet:
               path: /
               port: api
-            initialDelaySeconds: 25
+            initialDelaySeconds: 5
+          startupProbe:
+            httpGet:
+              path: /
+              port: api
+            failureThreshold: 30
+            periodSeconds: 10
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
