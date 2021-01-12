@@ -11,5 +11,9 @@ spec:
       targetPort: rpc
       protocol: TCP
       name: rpc
+    - port: {{ .Values.service.wsport }}
+      targetPort: ws
+      protocol: TCP
+      name: ws
   selector:
     {{- include "geth-swap.selectorLabels" . | nindent 4 }}
