@@ -46,6 +46,7 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 8545
+  wsport: 8546
 
 ingress:
   enabled: false

@@ -52,7 +52,10 @@ spec:
           ports:
             - name: rpc
               containerPort: 8545
-              protocol: TCP          
+              protocol: TCP
+            - name: ws
+              containerPort: 8546
+              protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
@@ -67,6 +70,11 @@ spec:
             - "0.0.0.0"
             - --allow-insecure-unlock
             - --http.api
+            - 'eth,net,personal'
+            - --ws
+            - --ws.addr
+            - "0.0.0.0"
+            - --ws.api
             - 'eth,net,personal'
             - --rpcvhosts
             - "*"
