@@ -9,6 +9,11 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 
+imageSetupContract:
+  repository: ethersphere/setup-contracts
+  tag: latest
+  pullPolicy: IfNotPresent
+
 geth:
   genesis:
     networkid: 12345
