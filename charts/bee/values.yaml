@@ -190,6 +190,10 @@ beeConfig:
   payment_threshold: 100000
   ## Excess debt above payment threshold in BZZ where you disconnect from your peer
   payment_tolerance: 10000
+  ## Postage stamp address
+  postage_stamp_address: ""
+  ## Price oracle address
+  price_oracle_address: ""
   ## P2P listen address
   p2p_addr: :1634
   ## Enable P2P QUIC transport
