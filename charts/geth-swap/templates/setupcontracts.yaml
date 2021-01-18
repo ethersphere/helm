@@ -9,7 +9,8 @@ spec:
     spec:
       containers:
       - name: setup
-        image: ethersphere/setup-contracts:latest
+        image: "{{ .Values.imageSetupContract.repository }}:{{ .Values.imageSetupContract.tag }}"
+        imagePullPolicy: {{ .Values.imageSetupContract.pullPolicy }}
         env:
           - name: BACKEND
             value: "http://{{ include "geth-swap.fullname" . }}:8545"
