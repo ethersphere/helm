@@ -28,6 +28,8 @@ data:
     {{- end }}
     payment-threshold: {{ .Values.beeConfig.payment_threshold }}
     payment-tolerance: {{ .Values.beeConfig.payment_tolerance }}
+    postage-stamp-address: {{ .Values.beeConfig.postage_stamp_address }}
+    price-oracle-address: {{ .Values.beeConfig.price_oracle_address }}
     p2p-addr: {{ .Values.beeConfig.p2p_addr }}
     p2p-quic-enable: {{ .Values.beeConfig.p2p_quic_enable }}
     p2p-ws-enable: {{ .Values.beeConfig.p2p_ws_enable }}
