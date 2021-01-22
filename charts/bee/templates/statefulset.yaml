@@ -47,7 +47,7 @@ spec:
       initContainers:
         {{- if .Values.libp2pSettings.enabled }}
         - name: init-libp2p
-          image: busybox:1.28
+          image: ethersphere/busybox:1.33
           command:
             - sh
             - -c
@@ -67,7 +67,7 @@ spec:
         {{- end }}
         {{- if .Values.swarmSettings.enabled }}
         - name: init-swarm
-          image: busybox:1.28
+          image: ethersphere/busybox:1.33
           command:
             - sh
             - -c
@@ -114,7 +114,7 @@ spec:
         {{- end }}
         {{- if .Values.p2pFixedPort.enabled }}
         - name: init-natport
-          image: busybox:1.28
+          image: ethersphere/busybox:1.33
           command:
             - sh
             - -c
