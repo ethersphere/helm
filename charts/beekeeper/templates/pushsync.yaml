@@ -53,7 +53,7 @@ spec:
                 - sh
                 - -c
                 - >
-                  until beekeeper check pingpong; do echo "waiting for the cluster..."; sleep 1; done
+                  until beekeeper check --in-cluster pingpong; do echo "waiting for the cluster..."; sleep 1; done
           {{- end }}
           containers:
             - name: {{ .Chart.Name }}
@@ -90,6 +90,7 @@ spec:
                   value: "{{ .Values.beeCluster.pushMetrics }}"
               args:
                 - check
+                - --in-cluster
                 - pushsync
                 - --chunks-per-node
                 - "{{ .Values.check.pushsync.chunksPerNode }}"
