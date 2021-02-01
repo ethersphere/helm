@@ -37,6 +37,10 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+## Choose profile for testing bee with real life network scenarios (delays and packet drops)
+## More info here https://github.com/ethersphere/bee-netem/blob/master/README.md
+# netemCmd: "wifi"
+
 service:
   type: ClusterIP
   port: 80
@@ -150,6 +154,8 @@ nodeSelector: {}
 affinity: {}
 
 tolerations: []
+
+beeCommand: ["bee","start","--config=.bee.yaml"]
 
 beeConfig:
   ## HTTP API listen address

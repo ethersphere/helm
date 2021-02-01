@@ -136,10 +136,15 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ include "bee.image" . }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.netemCmd }}
+          env:
+            - name: NETEM_CMD
+              value: {{ .Values.netemCmd }}
+          {{- end }}
           command:
-            - bee
-            - start
-            - --config=.bee.yaml
+            {{- range .Values.beeCommand }}
+            - {{ . }}
+            {{- end }}
           ports:
             - containerPort: {{ int (split ":" .Values.beeConfig.api_addr )._1 }}
               name: api
