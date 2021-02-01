@@ -155,7 +155,7 @@ affinity: {}
 
 tolerations: []
 
-beeCommand: ["bee","start","--config=.bee.yaml"]
+beeCommand: ["bee", "start", "--config=.bee.yaml"]
 
 beeConfig:
   ## HTTP API listen address
