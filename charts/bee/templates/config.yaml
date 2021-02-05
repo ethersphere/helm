@@ -26,6 +26,7 @@ data:
     {{- else }}
     password: {{ include "bee.password" . }}
     {{- end }}
+    payment-early: {{ .Values.beeConfig.payment_early }}
     payment-threshold: {{ .Values.beeConfig.payment_threshold }}
     payment-tolerance: {{ .Values.beeConfig.payment_tolerance }}
     postage-stamp-address: {{ .Values.beeConfig.postage_stamp_address }}
