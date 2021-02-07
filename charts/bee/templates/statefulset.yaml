@@ -87,7 +87,7 @@ spec:
         {{- end }}
         {{- if .Values.clefSettings.enabled }}
         - name: init-clef
-          image: ethersphere/clef:0.4.2
+          image: ethersphere/clef:0.4.7
           command:
             - sh
             - -c
@@ -213,7 +213,7 @@ spec:
             {{- end }}
         {{- if .Values.clefSettings.enabled }}
         - name: clef
-          image: ethersphere/clef:0.4.2
+          image: ethersphere/clef:0.4.7
           imagePullPolicy: IfNotPresent
           command:
             - /entrypoint.sh
