@@ -4,7 +4,7 @@
 
 image:
   repository: ethersphere/bee
-  tag: 0.4.0
+  tag: 0.4.2
   # digest: sha256:8bd452ff9e08a212608f7ac62fe1200533846193ca9ab4b4f998d3624f881ea3
   pullPolicy: IfNotPresent
 
