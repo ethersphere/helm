@@ -1,0 +1,12 @@
+{{- if .Values.tokensJson.enabled -}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "tokenexporter.fullname" . }}-tokens
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "tokenexporter.labels" . | nindent 4 }}
+data: 
+  tokens.json: {{ .Values.tokensJson.tokens | quote }}
+{{- end -}}

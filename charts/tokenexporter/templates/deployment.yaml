@@ -1,0 +1,79 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "tokenexporter.fullname" . }}
+  labels:
+    {{- include "tokenexporter.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "tokenexporter.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "tokenexporter.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "tokenexporter.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:      
+        - name: tokenexporter
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: GETH
+            value: {{ .Values.gethEndpoint }}
+          ports:
+            - name: metrics
+              containerPort: {{ int .Values.service.port }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- if or .Values.addressesTxt.enabled .Values.tokensJson.enabled }}
+          volumeMounts:
+            {{- if .Values.addressesTxt.enabled }}
+            - name: addresses
+              mountPath: /app/addresses.txt
+              subPath: addresses.txt
+            {{- end }}
+            {{- if .Values.tokensJson.enabled }}
+            - name: tokens
+              mountPath: /app/tokens.json
+              subPath: tokens.json
+            {{- end }}
+          {{- end }}
+          command:
+            - tokenexporter
+      {{- if or .Values.addressesTxt.enabled .Values.tokensJson.enabled }}
+      volumes:
+        {{- if .Values.addressesTxt.enabled }}
+        - name: addresses
+          configMap:
+            name: {{ include "tokenexporter.fullname" . }}-addresses
+        {{- end }}
+        {{- if .Values.tokensJson.enabled }}
+        - name: tokens
+          configMap:
+            name: {{ include "tokenexporter.fullname" . }}-tokens
+        {{- end }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
