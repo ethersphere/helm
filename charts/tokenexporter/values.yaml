@@ -7,7 +7,9 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 
-gethEndpoint: https://rpc.slock.it/mainnet
+tokenexporter:
+  gethEndpoint: https://rpc.slock.it/mainnet
+  interval: 15
 
 addressesTxt:
   enabled: false

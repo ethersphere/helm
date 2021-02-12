@@ -30,7 +30,9 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
           - name: GETH
-            value: {{ .Values.gethEndpoint }}
+            value: "{{ .Values.tokenexporter.gethEndpoint }}"
+          - name: INTERVAL
+            value: "{{ .Values.tokenexporter.interval }}"
           ports:
             - name: metrics
               containerPort: {{ int .Values.service.port }}
