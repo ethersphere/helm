@@ -1,0 +1,39 @@
+{{- if .Values.serviceMonitor.enabled -}}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "tokenexporter.fullname" . }}
+  {{- if .Values.serviceMonitor.namespace }}
+  namespace: {{ .Values.serviceMonitor.namespace }}
+  {{- end }}
+  labels:
+    app: {{ include "tokenexporter.name" . }}
+    chart: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    {{- if .Values.serviceMonitor.additionalLabels }}
+{{ toYaml .Values.serviceMonitor.additionalLabels | indent 4 }}
+    {{- end }}
+spec:
+  endpoints:
+  - port: debug
+    path: /metrics
+    {{- if .Values.serviceMonitor.scrapeInterval }}
+    interval: {{ .Values.serviceMonitor.scrapeInterval }}
+    {{- end }}
+    {{- if .Values.serviceMonitor.honorLabels }}
+    honorLabels: true
+    {{- end }}
+    {{- if .Values.serviceMonitor.relabelings }}
+    relabelings:
+{{ toYaml .Values.serviceMonitor.relabelings | indent 6 }}
+    {{- end }}
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace }}
+  selector:
+    matchLabels:
+      app: {{ include "tokenexporter.name" . }}
+      release: {{ .Release.Name }}
+{{- end -}}
