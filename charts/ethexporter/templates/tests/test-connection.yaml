@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "ethexporter.fullname" . }}-dummy-test"
+  labels:
+{{ include "ethexporter.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: dummy
+      image: busybox
+      command: ['echo']
+      args:  ['dummy']
+  restartPolicy: Never
