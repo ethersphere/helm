@@ -1441,6 +1441,29 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/eks-local-disk-provisioner-0.1.0/eks-local-disk-provisioner-0.1.0.tgz
     version: 0.1.0
+  ethexporter:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2021-02-12T21:20:29.343171389Z"
+    description: ETHexporter Helm chart for Kubernetes
+    digest: f7184ab5db90a6b94e59245c02a970c8413cd0d1de2f6a05a3a9805fa377565f
+    home: https://swarm.ethereum.org
+    icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png
+    keywords:
+    - blockchain
+    - ethereum
+    - prometheus
+    - exporter
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: ethexporter
+    sources:
+    - https://github.com/ethersphere/ethexporter
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/ethexporter-0.1.0/ethexporter-0.1.0.tgz
+    version: 0.1.0
   geth-swap:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -1539,6 +1562,29 @@ entries:
     - https://github.com/ethersphere/helm/releases/download/geth-swap-0.1.3/geth-swap-0.1.3.tgz
     version: 0.1.3
   tokenexporter:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2021-02-12T21:20:29.416964367Z"
+    description: Tokenexporter Helm chart for Kubernetes
+    digest: 916a808cec7d642be1c45acb3c606968511d050e75226d4c9c0c3aee2c70e7d3
+    home: https://swarm.ethereum.org
+    icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png
+    keywords:
+    - blockchain
+    - ethereum
+    - token
+    - prometheus
+    - exporter
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: tokenexporter
+    sources:
+    - https://github.com/ethersphere/tokenexporter
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.1/tokenexporter-0.1.1.tgz
+    version: 0.1.1
   - apiVersion: v2
     appVersion: latest
     created: "2021-02-12T11:11:32.033950228Z"
