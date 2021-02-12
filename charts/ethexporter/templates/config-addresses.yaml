@@ -1,0 +1,12 @@
+{{- if .Values.addressesTxt.enabled -}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "ethexporter.fullname" . }}-addresses
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "ethexporter.labels" . | nindent 4 }}
+data: 
+  addresses.txt: {{ .Values.addressesTxt.addresses | quote }}
+{{- end -}}

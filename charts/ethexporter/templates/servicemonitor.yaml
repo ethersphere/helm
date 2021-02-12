@@ -3,12 +3,12 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ include "tokenexporter.fullname" . }}
+  name: {{ include "ethexporter.fullname" . }}
   {{- if .Values.serviceMonitor.namespace }}
   namespace: {{ .Values.serviceMonitor.namespace }}
   {{- end }}
   labels:
-    app: {{ include "tokenexporter.name" . }}
+    app: {{ include "ethexporter.name" . }}
     chart: {{ .Chart.Name }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -34,6 +34,6 @@ spec:
     - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      app: {{ include "tokenexporter.name" . }}
+      app: {{ include "ethexporter.name" . }}
       release: {{ .Release.Name }}
 {{- end -}}
