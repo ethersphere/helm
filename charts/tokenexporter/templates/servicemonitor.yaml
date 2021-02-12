@@ -34,6 +34,6 @@ spec:
     - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      app: {{ include "tokenexporter.name" . }}
+      {{- include "tokenexporter.selectorLabels" . | nindent 4 }}
       release: {{ .Release.Name }}
 {{- end -}}

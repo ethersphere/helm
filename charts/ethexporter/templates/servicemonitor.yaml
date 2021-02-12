@@ -34,6 +34,6 @@ spec:
     - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      app: {{ include "ethexporter.name" . }}
+      {{- include "ethexporter.selectorLabels" . | nindent 4 }}
       release: {{ .Release.Name }}
 {{- end -}}
