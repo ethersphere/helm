@@ -1444,6 +1444,28 @@ entries:
   ethexporter:
   - apiVersion: v2
     appVersion: latest
+    created: "2021-02-13T08:50:44.833930558Z"
+    description: ETHexporter Helm chart for Kubernetes
+    digest: f5cb89a1cab1f69d323e7609709fd20081e9a40447d9068d00f6685b3c659f4e
+    home: https://swarm.ethereum.org
+    icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png
+    keywords:
+    - blockchain
+    - ethereum
+    - prometheus
+    - exporter
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: ethexporter
+    sources:
+    - https://github.com/ethersphere/ethexporter
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/ethexporter-0.1.1/ethexporter-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2021-02-12T21:20:29.343171389Z"
     description: ETHexporter Helm chart for Kubernetes
     digest: f7184ab5db90a6b94e59245c02a970c8413cd0d1de2f6a05a3a9805fa377565f
@@ -1562,6 +1584,29 @@ entries:
     - https://github.com/ethersphere/helm/releases/download/geth-swap-0.1.3/geth-swap-0.1.3.tgz
     version: 0.1.3
   tokenexporter:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2021-02-13T08:50:44.911931125Z"
+    description: Tokenexporter Helm chart for Kubernetes
+    digest: 6d2ff6932d15d29a5ad8100fbeef241763aacc9e40a2b3c77ee5c60e343a706e
+    home: https://swarm.ethereum.org
+    icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png
+    keywords:
+    - blockchain
+    - ethereum
+    - token
+    - prometheus
+    - exporter
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: tokenexporter
+    sources:
+    - https://github.com/ethersphere/tokenexporter
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.2/tokenexporter-0.1.2.tgz
+    version: 0.1.2
   - apiVersion: v2
     appVersion: latest
     created: "2021-02-12T21:20:29.416964367Z"
