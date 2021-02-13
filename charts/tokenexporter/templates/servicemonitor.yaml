@@ -34,6 +34,6 @@ spec:
     - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      {{- include "tokenexporter.selectorLabels" . | nindent 4 }}
-      release: {{ .Release.Name }}
+      app.kubernetes.io/name: {{ include "tokenexporter.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
