@@ -5,6 +5,7 @@
 ## QuickStart
 
 ```bash
+$ helm repo add ethersphere https://ethersphere.github.io/helm
 $ helm install --generate-name ethersphere/bee
 ```
 
