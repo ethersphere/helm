@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: ethereum/client-go
-  tag: latest
+  tag: v1.9.25
   pullPolicy: IfNotPresent
 
 imageSetupContract:
