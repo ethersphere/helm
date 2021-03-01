@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: latest
 name: beekeeper
-version: 0.1.9
+version: 0.2.0
 description: Ethereum Swarm Beekeeper Helm chart for Kubernetes
 home: https://swarm.ethereum.org
 icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png

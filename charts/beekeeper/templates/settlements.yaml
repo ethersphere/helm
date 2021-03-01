@@ -94,6 +94,14 @@ spec:
                 - settlements
                 - --upload-node-count
                 - "{{ .Values.check.settlements.uploadNodeCount }}"
+                - --file-name
+                - "{{ .Values.check.settlements.fileName }}"
+                - --file-size
+                - "{{ .Values.check.settlements.fileSize }}"
+                - --wait-before-download
+                - "{{ .Values.check.settlements.waitBeforeDownload }}"
+                - --threshold
+                - "{{ .Values.check.settlements.treshold }}"
           restartPolicy: Never
           {{- with .Values.nodeSelector }}
           nodeSelector:

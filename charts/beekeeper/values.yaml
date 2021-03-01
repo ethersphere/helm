@@ -141,6 +141,10 @@ check:
     failedJobsHistoryLimit: 3
     concurrencyPolicy: Forbid
     uploadNodeCount: 1
+    fileName: file
+    fileSize: 1
+    waitBeforeDownload: 5
+    threshold: 10000000000000
 
 chaos:
   podfailure:

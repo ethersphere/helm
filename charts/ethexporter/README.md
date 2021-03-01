@@ -25,7 +25,7 @@ To install the chart with the release name `my-release`:
 $ helm install my-release ethersphere/ethexporter
 ```
 
-The command deploys Bee on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
+The command deploys ETHexporter on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
 
 ## Uninstalling the Chart
 
