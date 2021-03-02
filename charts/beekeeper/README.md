@@ -66,7 +66,7 @@ apps:
     namespace: beekeeper
     description: "Ethereum Swarm Beekeeper"
     chart: "ethersphere/beekeeper"
-    version: "0.1.7"
+    version: "0.2.0"
     enabled: true
     wait: true
     timeout: 120
