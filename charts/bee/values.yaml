@@ -143,6 +143,7 @@ serviceMonitor:
   #   separator: /
   #   replacement: $1
 
+podLabels: {}
 podAnnotations: {}
 ## Add this annotations if you're using https://github.com/prometheus/prometheus
 ## and beeConfig.debug_api_enable is enabled
