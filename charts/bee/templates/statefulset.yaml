@@ -165,23 +165,23 @@ spec:
             httpGet:
               path: /health
               port: debug
-            initialDelaySeconds: 15
+            initialDelaySeconds: 20
           readinessProbe:
             httpGet:
               path: /readiness
               port: debug
-            initialDelaySeconds: 15
+            initialDelaySeconds: 20
           {{- else }}
           livenessProbe:
             httpGet:
               path: /
               port: api
-            initialDelaySeconds: 15
+            initialDelaySeconds: 20
           readinessProbe:
             httpGet:
               path: /
               port: api
-            initialDelaySeconds: 15
+            initialDelaySeconds: 20
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
