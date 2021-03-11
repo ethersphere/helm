@@ -19,6 +19,11 @@ spec:
     metadata:
       labels:
         {{- include "bee.selectorLabels" . | nindent 8 }}
+      {{- if .Values.podLabels }}
+      {{- range $key, $value := .Values.podLabels }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- end }}
       {{- with .Values.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
@@ -87,7 +92,7 @@ spec:
         {{- end }}
         {{- if .Values.clefSettings.enabled }}
         - name: init-clef
-          image: ethersphere/clef:0.4.7
+          image: ethersphere/clef:0.4.9
           command:
             - sh
             - -c
@@ -160,35 +165,23 @@ spec:
             httpGet:
               path: /health
               port: debug
-            initialDelaySeconds: 5
+            initialDelaySeconds: 20
           readinessProbe:
             httpGet:
               path: /readiness
               port: debug
-            initialDelaySeconds: 5
-          startupProbe:
-            httpGet:
-              path: /health
-              port: debug
-            failureThreshold: 30
-            periodSeconds: 10
+            initialDelaySeconds: 20
           {{- else }}
           livenessProbe:
             httpGet:
               path: /
               port: api
-            initialDelaySeconds: 5
+            initialDelaySeconds: 20
           readinessProbe:
             httpGet:
               path: /
               port: api
-            initialDelaySeconds: 5
-          startupProbe:
-            httpGet:
-              path: /
-              port: api
-            failureThreshold: 30
-            periodSeconds: 10
+            initialDelaySeconds: 20
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -213,7 +206,7 @@ spec:
             {{- end }}
         {{- if .Values.clefSettings.enabled }}
         - name: clef
-          image: ethersphere/clef:0.4.7
+          image: ethersphere/clef:0.4.9
           imagePullPolicy: IfNotPresent
           command:
             - /entrypoint.sh
