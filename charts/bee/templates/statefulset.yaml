@@ -124,10 +124,11 @@ spec:
             - sh
             - -c
             - >
+              PUBLIC_IP=$(wget -T 2 http://169.254.169.254/latest/meta-data/public-ipv4 -q -O -);
               export INDEX=$(echo $(hostname) | rev | cut -d'-' -f 1 | rev);
               NAT_PORT=$(( {{ .Values.p2pFixedPort.nodePortStart }} + INDEX ));
               cp -p /tmp/.bee.yaml /home/bee/.bee.yaml;
-              printf 'nat-addr: :%s\n' "${NAT_PORT}" >> /home/bee/.bee.yaml;
+              printf 'nat-addr: %s:%s\n' "${PUBLIC_IP}" "${NAT_PORT}" >> /home/bee/.bee.yaml;
               echo 'node initialization done';
           volumeMounts:
             - name: config-file
