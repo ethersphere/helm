@@ -163,6 +163,8 @@ beeConfig:
   api_addr: :1633
   ## Initial nodes to connect to
   bootnode: ""
+  ## Cause the node to always accept incoming connections
+  bootnode_mode: false
   ## Enable clef signer
   clef_signer_enable: false
   ## Set clef signer endpoint
@@ -173,6 +175,14 @@ beeConfig:
   data_dir: /home/bee/.bee
   ## DB capacity in chunks
   db_capacity: 5000000
+  ## Number of open files allowed by database
+  db_open_files_limit: 200
+  ## Size of block cache of the database in bytes
+  db_block_cache_capacity: 33554432
+  ## Size of the database write buffer in bytes
+  db_write_buffer_size: 33554432
+  ## Disables db compactions triggered by seeks
+  db_disable_seeks_compaction: false
   ## Debug HTTP API listen address
   debug_api_addr: :1635
   ## Enable debug HTTP API
