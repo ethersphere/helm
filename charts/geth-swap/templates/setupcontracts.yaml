@@ -16,6 +16,10 @@ spec:
             value: "http://{{ include "geth-swap.fullname" . }}:8545"
           - name: BZZACCOUNTS
             value: {{ .Values.swap.bzzaccounts | join " " }}
+          {{ if .Values.swap.gas }}
+          - name: GAS
+            value: {{ .Values.swap.gas | quote }}
+          {{ end }}
         command:
           - sh
           - -ac
