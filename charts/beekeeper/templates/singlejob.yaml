@@ -103,6 +103,8 @@ spec:
               value: "{{ .Values.check.chunkrepair.enabled }}"
             - name: MANIFEST_ENABLED
               value: "{{ .Values.check.manifest.enabled }}"
+            - name: STRESS_UPLOAD_ENABLED
+              value: "{{ .Values.stress.upload.enabled }}"
           command:
             - sh
             - -c
@@ -115,6 +117,7 @@ spec:
               if [ "${PULLSYNC_ENABLED}" = "true" ]; then echo "*** PULLSYNC ***" && beekeeper check --in-cluster pullsync || exit 1; fi;
               if [ "${CHUNKREPAIR_ENABLED}" = "true" ]; then echo "*** CHUNKREPAIR ***" && beekeeper check --in-cluster chunkrepair || exit 1; fi;
               if [ "${MANIFEST_ENABLED}" = "true" ]; then echo "*** MANIFEST ***" && beekeeper check --in-cluster manifest || exit 1; fi;
+              if [ "${STRESS_UPLOAD_ENABLED}" = "true" ]; then echo "*** STRESS UPLOAD ***" && beekeeper stress --in-cluster upload --upload-nodes-percentage "{{ .Values.stress.upload.percentage }}" --timeout "{{ .Values.stress.upload.timeout }}" --file-size "{{ .Values.stress.upload.fileSize }}" || exit 1; fi;
       restartPolicy: "{{ .Values.singleJob.restartPolicy }}"
       {{- with .Values.nodeSelector }}
       nodeSelector:

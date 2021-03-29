@@ -49,13 +49,6 @@ beeCluster:
   pushGateway: http://localhost:9091/
   pushMetrics: false
 
-beeChaos:
-  namespace: bee
-  mode: one
-  value: ""
-  duration: 19s
-  cron: 20s
-
 check:
   balances:
     enabled: false
@@ -146,10 +139,15 @@ check:
     waitBeforeDownload: 5
     threshold: 10000000000000
 
-chaos:
-  podfailure:
+stress:
+  upload:
     enabled: false
     schedule: "*/1 * * * *"
     successfulJobsHistoryLimit: 3
     failedJobsHistoryLimit: 3
     concurrencyPolicy: Forbid
+    uploadNodesPercentage: 50
+    fileSize: 1
+    timeout: 5m
+    retries: 5
+    retryDelay: 1s
