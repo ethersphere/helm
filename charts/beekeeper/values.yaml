@@ -49,13 +49,6 @@ beeCluster:
   pushGateway: http://localhost:9091/
   pushMetrics: false
 
-beeChaos:
-  namespace: bee
-  mode: one
-  value: ""
-  duration: 19s
-  cron: 20s
-
 check:
   balances:
     enabled: false
