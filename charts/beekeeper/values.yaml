@@ -146,7 +146,7 @@ check:
     waitBeforeDownload: 5
     threshold: 10000000000000
 
-stress:  
+stress:
   upload:
     enabled: false
     schedule: "*/1 * * * *"
