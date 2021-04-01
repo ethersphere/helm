@@ -111,7 +111,7 @@ spec:
             - >
               if [ "${PINGPONG_ENABLED}" = "true" ]; then echo "*** PINGPONG ***" && beekeeper check --in-cluster pingpong || exit 1; fi;
               if [ "${BALANCES_ENABLED}" = "true" ]; then echo "*** BALANCES ***" && beekeeper check --in-cluster balances || exit 1; fi;
-              if [ "${SETTLEMENTS_ENABLED}" = "true" ]; then echo "*** SETTLEMENTS ***" && beekeeper check --in-cluster settlements --file-size "{{ .Values.check.settlements.fileSize }}" --wait-before-download "{{ .Values.check.settlements.waitBeforeDownload }}" --threshold "{{ .Values.check.settlements.treshold }}" || exit 1; fi;
+              if [ "${SETTLEMENTS_ENABLED}" = "true" ]; then echo "*** SETTLEMENTS ***" && beekeeper check --in-cluster settlements --file-size "{{ .Values.check.settlements.fileSize }}" --wait-before-download "{{ .Values.check.settlements.waitBeforeDownload }}" --threshold "{{ .Values.check.settlements.threshold }}" || exit 1; fi;
               if [ "${PUSHSYNC_ENABLED}" = "true" ]; then echo "*** PUSHSYNC ***" && beekeeper check --in-cluster pushsync || exit 1 && beekeeper check pushsync --upload-chunks || exit 1; fi;
               if [ "${RETRIEVAL_ENABLED}" = "true" ]; then echo "*** RETRIEVAL ***" && beekeeper check --in-cluster retrieval || exit 1; fi;
               if [ "${PULLSYNC_ENABLED}" = "true" ]; then echo "*** PULLSYNC ***" && beekeeper check --in-cluster pullsync || exit 1; fi;
