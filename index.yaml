@@ -1250,6 +1250,29 @@ entries:
   beekeeper:
   - apiVersion: v2
     appVersion: latest
+    created: "2021-04-01T08:12:43.859610234Z"
+    description: Ethereum Swarm Beekeeper Helm chart for Kubernetes
+    digest: 9cffc97329cbabd5de72a1d6824950b2bb7ab6a19b78e205811253331b7d454f
+    home: https://swarm.ethereum.org
+    icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png
+    keywords:
+    - blockchain
+    - ethereum
+    - storage
+    - swarm
+    - web3
+    maintainers:
+    - email: svetomir@ethswarm.org
+      name: svetomir
+    name: beekeeper
+    sources:
+    - https://github.com/ethersphere/beekeeper
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/beekeeper-0.2.5/beekeeper-0.2.5.tgz
+    version: 0.2.5
+  - apiVersion: v2
+    appVersion: latest
     created: "2021-03-31T16:16:03.647796177Z"
     description: Ethereum Swarm Beekeeper Helm chart for Kubernetes
     digest: edcad1bcaba2b3a5d0cc1542b7f77d39351f0135449832fe10aaf507f3912e66
