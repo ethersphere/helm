@@ -48,7 +48,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if or .Values.libp2pSettings.enabled .Values.p2pFixedPort.enabled .Values.swarmSettings.enabled }}
+      {{- if or .Values.libp2pSettings.enabled .Values.p2pFixedPort.enabled .Values.swarmSettings.enabled .Values.clefSettings.enabled }}
       initContainers:
         {{- if .Values.libp2pSettings.enabled }}
         - name: init-libp2p
