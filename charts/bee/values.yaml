@@ -237,6 +237,8 @@ beeConfig:
   swap_endpoint: http://localhost:8545
   ## Set swap factory address
   swap_factory_address: ""
+  ## Set swap legacy factory addresses
+  swap_legacy_factory_addresses: ""
   ## Set initial deposit if deploying a new chequebook
   swap_initial_deposit: 10000000000000000
   ## Resolver connection string
