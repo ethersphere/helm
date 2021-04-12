@@ -6,7 +6,9 @@
 # PER POD INGRESS
 {{- range $i, $e := until (int $root.Values.replicaCount) }}
 ---
-{{- if semverCompare ">=1.14-0" $root.Capabilities.KubeVersion.GitVersion -}}
+{{- if semverCompare ">=1.19-0" $root.Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1
+{{- else if semverCompare ">=1.14-0" $root.Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1beta1
 {{- else -}}
 apiVersion: extensions/v1beta1
