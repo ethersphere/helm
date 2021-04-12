@@ -6,9 +6,7 @@
 # PER POD INGRESS
 {{- range $i, $e := until (int $root.Values.replicaCount) }}
 ---
-{{- if semverCompare ">=1.19-0" $root.Capabilities.KubeVersion.GitVersion -}}
-apiVersion: networking.k8s.io/v1
-{{- else if semverCompare ">=1.14-0" $root.Capabilities.KubeVersion.GitVersion -}}
+{{- if semverCompare ">=1.14-0" $root.Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1beta1
 {{- else -}}
 apiVersion: extensions/v1beta1
@@ -50,15 +48,8 @@ spec:
         {{- range .paths }}
           - path: {{ . }}
             backend:
-            {{- if semverCompare "<1.19-0" $root.Capabilities.KubeVersion.GitVersion -}}
               serviceName: {{ $fullName }}-{{ $i }}-debug
               servicePort: debug
-            {{- else }}
-              service:
-                name: {{ $fullName }}-{{ $i }}-debug
-                port:
-                  name: debug
-            {{- end }}
         {{- end }}
   {{- end }}
 {{- end }}
