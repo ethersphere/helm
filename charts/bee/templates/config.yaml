@@ -22,6 +22,7 @@ data:
     db-disable-seeks-compaction: {{ .Values.beeConfig.db_disable_seeks_compaction }}
     debug-api-addr: {{ .Values.beeConfig.debug_api_addr }}
     debug-api-enable: {{ .Values.beeConfig.debug_api_enable }}
+    full-node: {{ .Values.beeConfig.full_node }}
     gateway-mode: {{ .Values.beeConfig.gateway_mode }}
     global-pinning-enable: {{ .Values.beeConfig.global_pinning_enable }}
     nat-addr: {{ .Values.beeConfig.nat_addr }}
