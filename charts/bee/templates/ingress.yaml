@@ -50,7 +50,7 @@ spec:
         {{- range .paths }}
           - path: {{ . }}
           {{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.GitVersion -}}
-            pathType: {{ .Values.ingress.pathType }}
+            pathType: {{ $root.Values.ingress.pathType }}
           {{- end }}
             backend:
             {{- if semverCompare "<1.19-0" $root.Capabilities.KubeVersion.GitVersion -}}
@@ -116,7 +116,7 @@ spec:
         {{- range .paths }}
           - path: {{ . }}
           {{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.GitVersion -}}
-            pathType: {{ .Values.ingress.pathType }}
+            pathType: {{ $root.Values.ingress.pathType }}
           {{- end }}
             backend:
             {{- if semverCompare "<1.19-0" $root.Capabilities.KubeVersion.GitVersion -}}
