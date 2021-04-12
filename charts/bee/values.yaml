@@ -61,8 +61,6 @@ p2pFixedPort:
 ## tls.secretName won't be specified if tlsSecret is "", tls must be set to true
 ingress:
   enabled: false
-  ## Used if cluster version is >= 1.18-0
-  pathType: Prefix
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
@@ -79,8 +77,6 @@ ingress:
 ## tls.secretName won't be specified if tlsSecret is "", tls must be set to true
 ingressDebug:
   enabled: false
-  ## Used if cluster version is >= 1.18-0
-  pathType: Prefix
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"

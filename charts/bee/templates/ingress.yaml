@@ -49,9 +49,6 @@ spec:
         paths:
         {{- range .paths }}
           - path: {{ . }}
-          {{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.GitVersion -}}
-            pathType: {{ $root.Values.ingress.pathType }}
-          {{- end }}
             backend:
             {{- if semverCompare "<1.19-0" $root.Capabilities.KubeVersion.GitVersion -}}
               serviceName: {{ $fullName }}
@@ -115,9 +112,6 @@ spec:
         paths:
         {{- range .paths }}
           - path: {{ . }}
-          {{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.GitVersion -}}
-            pathType: {{ $root.Values.ingress.pathType }}
-          {{- end }}
             backend:
             {{- if semverCompare "<1.19-0" $root.Capabilities.KubeVersion.GitVersion -}}
               serviceName: {{ $fullName }}-{{ $i }}
