@@ -15,6 +15,7 @@ imageSetupContract:
   pullPolicy: IfNotPresent
 
 geth:
+  cache: 512
   genesis:
     networkid: 12345
     clique:
