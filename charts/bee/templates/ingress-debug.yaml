@@ -6,10 +6,10 @@
 # PER POD INGRESS
 {{- range $i, $e := until (int $root.Values.replicaCount) }}
 ---
-{{- if semverCompare ">=1.14-0" $root.Capabilities.KubeVersion.GitVersion -}}
-apiVersion: networking.k8s.io/v1beta1
+{{- if semverCompare ">=1.19-0" $root.Capabilities.KubeVersion.Version }}
+apiVersion: networking.k8s.io/v1
 {{- else -}}
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
@@ -36,6 +36,9 @@ spec:
     {{- end }}
   {{- end }}
 {{- end }}
+{{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.Version }}
+  ingressClassName: {{ $root.Values.ingressDebug.ingressClassName }}
+{{- end }}
   rules:
   {{- range $root.Values.ingressDebug.hosts }}
     {{- if .domain }}
@@ -47,9 +50,19 @@ spec:
         paths:
         {{- range .paths }}
           - path: {{ . }}
+          {{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.Version }}
+            pathType: {{ $root.Values.ingressDebug.pathType }}
+          {{- end }}
             backend:
+            {{- if semverCompare ">=1.19-0" $root.Capabilities.KubeVersion.Version }}
+              service:
+                name: {{ $fullName }}-{{ $i }}-debug
+                port:
+                  name: debug
+            {{- else }}
               serviceName: {{ $fullName }}-{{ $i }}-debug
               servicePort: debug
+            {{- end }}
         {{- end }}
   {{- end }}
 {{- end }}
