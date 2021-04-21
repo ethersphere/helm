@@ -50,5 +50,5 @@ data:
     tracing-endpoint: {{ .Values.beeConfig.tracing_endpoint }}
     tracing-service-name: {{ .Values.beeConfig.tracing_service_name }}
     verbosity: {{ .Values.beeConfig.verbosity }}
-    welcome-message: {{ .Values.beeConfig.welcomeMessage }}
+    welcome-message: {{ .Values.beeConfig.welcome_message }}
     
