@@ -193,6 +193,8 @@ beeConfig:
   debug_api_addr: :1635
   ## Enable debug HTTP API
   debug_api_enable: false
+  ## Set the run mode - light by default
+  full_node: false
   ## Disable a set of sensitive features in the api
   gateway_mode: false
   ## Enable global pinning

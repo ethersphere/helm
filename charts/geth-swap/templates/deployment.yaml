@@ -79,6 +79,9 @@ spec:
             - --rpcvhosts
             - "*"
             - --mine
+            - --lightkdf
+            - --syncmode=full
+            - --cache={{ .Values.geth.cache }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
