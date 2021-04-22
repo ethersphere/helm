@@ -254,7 +254,7 @@ beeConfig:
 ## Use same option names as in beeConfig it will be translated to ENV variable format: api_addr -> BEE_API_ADDR
 ## You can specify all options except for usePasswordFile, existingSecret and existingSecretPasswordKey
 # beeEnv:
-#   api_addr: 1633
+#   api_addr: :1633
 #   debug_api_addr: :1635
 #   p2p_addr: :1634
 
