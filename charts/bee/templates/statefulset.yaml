@@ -101,8 +101,7 @@ spec:
               mkdir -p /app/data/keystore;
               chown -R nobody:nogroup /app/data/keystore;
               export KEY=$(cat /tmp/bee/clef.map | grep bee-${INDEX}: | cut -d' ' -f2);
-              if [ -z "${KEY}" ]; then exit 0; fi;
-              printf '%s' "${KEY}" > /app/data/keystore/clef.key;
+              if [ -n "${KEY}" ]; then printf '%s' "${KEY}" > /app/data/keystore/clef.key; fi;
               /entrypoint.sh init;
               echo 'clef initialization done';
           volumeMounts:
@@ -217,6 +216,11 @@ spec:
         - name: clef
           image: ethersphere/clef:0.4.10
           imagePullPolicy: IfNotPresent
+          {{- if .Values.clefSettings.chainId }}
+          env:
+            - name: CLEF_CHAINID
+              value: {{ .Values.clefSettings.chainId | quote }}
+          {{- end }}
           command:
             - /entrypoint.sh
             - run
