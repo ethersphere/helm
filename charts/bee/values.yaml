@@ -167,6 +167,8 @@ beeCommand: ["bee", "start", "--config=.bee.yaml"]
 beeConfig:
   ## HTTP API listen address
   api_addr: :1633
+  ## Chain block-time
+  block_time: 15
   ## Initial nodes to connect to
   bootnode: ""
   ## Cause the node to always accept incoming connections
