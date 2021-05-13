@@ -9,6 +9,7 @@ metadata:
 data:
   .bee.yaml: |+
     api-addr: {{ .Values.beeConfig.api_addr }}
+    block-time: {{ .Values.beeConfig.block_time }}
     bootnode: {{ .Values.beeConfig.bootnode }}
     bootnode-mode: {{ .Values.beeConfig.bootnode_mode }}
     clef-signer-enable: {{ .Values.beeConfig.clef_signer_enable }}
