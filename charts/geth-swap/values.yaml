@@ -12,7 +12,7 @@ image:
 imageSetupContract:
   repository: ethersphere/setup-contracts
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 geth:
   cache: 512
