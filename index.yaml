@@ -3,6 +3,34 @@ entries:
   bee:
   - apiVersion: v2
     appVersion: latest
+    created: "2021-05-17T10:07:13.819670282Z"
+    description: Ethereum Swarm Bee Helm chart for Kubernetes
+    digest: 9fef9d5c2c345d44184126015027526800ea726e2ea51121bcff87f7f51b1605
+    home: https://swarm.ethereum.org
+    icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png
+    keywords:
+    - blockchain
+    - ethereum
+    - storage
+    - swarm
+    - web3
+    kubeVersion: '>=1.15.0-0'
+    maintainers:
+    - email: devops@ethswarm.org
+      name: devops
+    - email: svetomir@ethswarm.org
+      name: svetomir
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: bee
+    sources:
+    - https://github.com/ethersphere/bee
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/bee-0.9.4/bee-0.9.4.tgz
+    version: 0.9.4
+  - apiVersion: v2
+    appVersion: latest
     created: "2021-05-17T07:34:52.875273625Z"
     description: Ethereum Swarm Bee Helm chart for Kubernetes
     digest: d4647503cc5481ddd39d4adaef49fb4e34c881cfef98b06358f5af1e9880b82e
