@@ -46,6 +46,7 @@ data:
     swap-enable: {{ .Values.beeConfig.swap_enable }}
     swap-endpoint: {{ .Values.beeConfig.swap_endpoint }}
     swap-factory-address: {{ .Values.beeConfig.swap_factory_address }}
+    swap-legacy-factory-addresses: {{ .Values.beeConfig.swap_legacy_factory_addresses }}
     swap-initial-deposit: {{ .Values.beeConfig.swap_initial_deposit }}
     tracing-enable: {{ .Values.beeConfig.tracing_enable }}
     tracing-endpoint: {{ .Values.beeConfig.tracing_endpoint }}
