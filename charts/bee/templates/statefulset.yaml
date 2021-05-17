@@ -92,7 +92,7 @@ spec:
         {{- end }}
         {{- if .Values.clefSettings.enabled }}
         - name: init-clef
-          image: ethersphere/clef:0.4.10
+          image: ethersphere/clef:0.4.11
           command:
             - sh
             - -c
