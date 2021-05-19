@@ -16,7 +16,7 @@ data:
     clef-signer-endpoint: {{ .Values.beeConfig.clef_signer_endpoint }}
     cors-allowed-origins: {{ .Values.beeConfig.cors_allowed_origins }}
     data-dir: {{ .Values.beeConfig.data_dir }}
-    db-capacity: {{ .Values.beeConfig.db_capacity }}
+    cache-capacity: {{ .Values.beeConfig.cache_capacity }}
     db-open-files-limit: {{ .Values.beeConfig.db_open_files_limit }}
     db-block-cache-capacity: {{ .Values.beeConfig.db_block_cache_capacity }}
     db-write-buffer-size: {{ .Values.beeConfig.db_write_buffer_size }}
