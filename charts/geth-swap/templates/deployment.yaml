@@ -78,6 +78,8 @@ spec:
             - 'eth,net,personal'
             - --rpcvhosts
             - "*"
+            - --unlock={{ .Values.geth.genesis.validatorAddress }}
+            - --password=/dev/null
             - --mine
             - --lightkdf
             - --syncmode=full
