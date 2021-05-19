@@ -182,7 +182,7 @@ beeConfig:
   ## Data directory
   data_dir: /home/bee/.bee
   ## DB capacity in chunks
-  db_capacity: 5000000
+  cache_capacity: 1000000
   ## Number of open files allowed by database
   db_open_files_limit: 200
   ## Size of block cache of the database in bytes
