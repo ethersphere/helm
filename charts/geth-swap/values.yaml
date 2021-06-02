@@ -11,7 +11,7 @@ image:
   repository: ethereum/client-go
   tag: latest
   pullPolicy: IfNotPresent
-  # digest: 
+  # digest:
 
 imageSetupContract:
   repository: ethersphere/setup-contracts
