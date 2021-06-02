@@ -32,6 +32,18 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 
 {{/*
+Create image name combining repository and tag or digest.
+Digest takes presedance over tag.
+*/}}
+{{- define "geth-swap.image" -}}
+{{- if .Values.image.digest -}}
+{{- printf "%s@%s" .Values.image.repository .Values.image.digest -}}
+{{- else -}}
+{{- printf "%s:%s" .Values.image.repository .Values.image.tag -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Common labels
 */}}
 {{- define "geth-swap.labels" -}}
@@ -60,4 +72,23 @@ Create the name of the service account to use
 {{- else -}}
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
+{{- end -}}
+
+{{/*
+Create chart name and version as used by the chart label.
+*/}}
+{{- define "geth-swap.chartVCT" -}}
+{{- printf "%s" .Chart.Name | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+Common labels for volumeClaimTemplates.
+*/}}
+{{- define "geth-swap.labelsVCT" -}}
+helm.sh/chart: {{ include "geth-swap.chartVCT" . }}
+{{ include "geth-swap.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}

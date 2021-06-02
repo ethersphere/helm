@@ -4,10 +4,14 @@
 
 replicaCount: 1
 
+updateStrategy:
+  type: RollingUpdate
+
 image:
   repository: ethereum/client-go
   tag: latest
   pullPolicy: IfNotPresent
+  # digest:
 
 imageSetupContract:
   repository: ethersphere/setup-contracts
@@ -80,6 +84,18 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+
+persistence:
+  ## This enables PVC templates that will create one per pod
+  enabled: false
+  accessMode: ReadWriteOnce
+  size: 1Gi
+  ## Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is set;
+  ## i.e. choosing the default provisioner: gp2 on AWS, standard on GKE, AWS & OpenStack, etc.
+  # storageClass: "-"
 
 nodeSelector: {}
 

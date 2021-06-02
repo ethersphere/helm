@@ -1,0 +1,130 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "geth-swap.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "geth-swap.labels" . | nindent 4 }}
+spec:
+  serviceName: {{ include "geth-swap.fullname" . }}-headless
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
+  replicas: {{ .Values.replicaCount }}
+  updateStrategy:
+    {{- toYaml .Values.updateStrategy | nindent 4 }}
+  selector:
+    matchLabels:
+      {{- include "geth-swap.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "geth-swap.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "geth-swap.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      initContainers:
+        - name: geth-setup
+          image: "{{ include "geth-swap.image" . }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+          - sh
+          - -ac
+          - >
+            set -xe;
+            geth account import --password /dev/null /etc/config/validatorKey;
+            geth init /etc/config/genesis.json;
+          volumeMounts:
+            - name: geth-config
+              mountPath: /etc/config
+            - name: data
+              mountPath: /root/.ethereum
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ include "geth-swap.image" . }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - geth
+            - --rpc
+            - --rpcaddr
+            - "0.0.0.0"
+            - --allow-insecure-unlock
+            - --http.api
+            - 'eth,net,personal'
+            - --ws
+            - --ws.addr
+            - "0.0.0.0"
+            - --ws.api
+            - 'eth,net,personal'
+            - --rpcvhosts
+            - "*"
+            - --unlock={{ .Values.geth.genesis.validatorAddress }}
+            - --password=/dev/null
+            - --mine
+            - --lightkdf
+            - --syncmode=full
+            - --cache={{ .Values.geth.cache }}
+          ports:
+            - name: rpc
+              containerPort: 8545
+              protocol: TCP
+            - name: ws
+              containerPort: 8546
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: rpc
+            initialDelaySeconds: 5
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          volumeMounts:
+            - name: geth-config
+              mountPath: /etc/config
+            - name: data
+              mountPath: /root/.ethereum
+      volumes:
+        - name: geth-config
+          configMap:
+            name: {{ include "geth-swap.fullname" . }}-config
+  {{- if not .Values.persistence.enabled }}
+        - name: data
+          emptyDir: {}
+  {{- else }}
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+      labels:
+        {{- include "geth-swap.labelsVCT" . | nindent 8 }}
+    spec:
+      accessModes:
+        - {{ .Values.persistence.accessMode | quote }}
+      resources:
+        requests:
+          storage: {{ .Values.persistence.size | quote }}
+    {{- if .Values.persistence.storageClass }}
+      {{- if (eq "-" .Values.persistence.storageClass) }}
+      storageClassName: ""
+      {{- else }}
+      storageClassName: {{ .Values.persistence.storageClass | quote }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
