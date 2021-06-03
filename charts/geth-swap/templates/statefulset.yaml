@@ -48,8 +48,8 @@ spec:
           - -ac
           - >
             set -xe;
-            geth account import --password /dev/null /etc/config/validatorKey;
-            geth init /etc/config/genesis.json;
+            geth account import --password /dev/null /etc/config/validatorKey || true;
+            geth init /etc/config/genesis.json || true;
           volumeMounts:
             - name: geth-config
               mountPath: /etc/config
