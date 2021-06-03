@@ -3,6 +3,34 @@ entries:
   bee:
   - apiVersion: v2
     appVersion: latest
+    created: "2021-06-03T09:13:22.779496176Z"
+    description: Ethereum Swarm Bee Helm chart for Kubernetes
+    digest: 6c8c6e5ef335778fd6132633dbd5aa371a69ca08f39cc804d67e09c2009a05b1
+    home: https://swarm.ethereum.org
+    icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png
+    keywords:
+    - blockchain
+    - ethereum
+    - storage
+    - swarm
+    - web3
+    kubeVersion: '>=1.15.0-0'
+    maintainers:
+    - email: devops@ethswarm.org
+      name: devops
+    - email: svetomir@ethswarm.org
+      name: svetomir
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: bee
+    sources:
+    - https://github.com/ethersphere/bee
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/bee-0.9.7/bee-0.9.7.tgz
+    version: 0.9.7
+  - apiVersion: v2
+    appVersion: latest
     created: "2021-05-19T09:44:20.945209805Z"
     description: Ethereum Swarm Bee Helm chart for Kubernetes
     digest: c6f717f7401174185decd7994a6d70452042797bc74703e54d5d1fab74242fcd
@@ -2173,6 +2201,20 @@ entries:
     - https://github.com/ethersphere/helm/releases/download/ethexporter-0.1.0/ethexporter-0.1.0.tgz
     version: 0.1.0
   geth-swap:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2021-06-03T09:13:22.88030962Z"
+    description: A Helm chart for Kubernetes
+    digest: 66e7b318f9aebb9e3c5247b09ad914cec26bfb8cf3f1dbf550961f2e9fa97a3a
+    home: https://swarm.ethereum.org
+    maintainers:
+    - email: ralph@ethswarm.org
+      name: ralph-pichler
+    name: geth-swap
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/geth-swap-0.2.1/geth-swap-0.2.1.tgz
+    version: 0.2.1
   - apiVersion: v2
     appVersion: 1.16.0
     created: "2021-06-02T12:00:15.65410461Z"
