@@ -31,5 +31,6 @@ spec:
             set -x;
             while ! curl -m 1 $BACKEND; do sleep 1; done;
             echo connected to geth >&2;
+            sleep 2;
             bash deploy.sh
       restartPolicy: Never
