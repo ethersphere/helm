@@ -2231,6 +2231,20 @@ entries:
   geth-swap:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2021-06-04T12:32:40.543520231Z"
+    description: A Helm chart for Kubernetes
+    digest: 35aa33a7cb36a4cc955bae2931b2b86f285ea86f0c4812a922f280a979d7b8f0
+    home: https://swarm.ethereum.org
+    maintainers:
+    - email: ralph@ethswarm.org
+      name: ralph-pichler
+    name: geth-swap
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/geth-swap-0.2.2/geth-swap-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2021-06-03T09:13:22.88030962Z"
     description: A Helm chart for Kubernetes
     digest: 66e7b318f9aebb9e3c5247b09ad914cec26bfb8cf3f1dbf550961f2e9fa97a3a
