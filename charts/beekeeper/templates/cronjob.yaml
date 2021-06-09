@@ -1,0 +1,52 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "beekeeper.fullname" . }}-cronjob
+  labels:
+    {{- include "beekeeper.labels" . | nindent 4 }}
+spec:
+  schedule: "{{ .Values.config.schedule }}"
+  successfulJobsHistoryLimit: {{ .Values.config.successfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.config.failedJobsHistoryLimit }}
+  concurrencyPolicy: "{{ .Values.config.concurrencyPolicy }}"
+  jobTemplate:
+    metadata:
+      labels:
+        {{- include "beekeeper.selectorLabels" . | nindent 8 }}
+    spec:
+      template:
+        spec:
+          serviceAccountName: {{ include "beekeeper.serviceAccountName" . }}
+          containers:
+            - name: {{ .Chart.Name }}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              env:
+                - name: BEEKEEPER_ENABLE_K8S
+                  value: "true"
+                - name: BEEKEEPER_IN_CLUSTER
+                  value: "true"
+                - name: BEEKEEPER_GETH_URL
+                  value: "{{ .Values.config.GETH_URL }}"
+                - name: BEEKEEPER_BZZ_TOKEN_ADDRESS
+                  value: "{{ .Values.config.BZZ_TOKEN_ADDRESS }}"
+                - name: BEEKEEPER_ETH_ACCOUNT
+                  value: "{{ .Values.config.ETH_ACCOUNT }}"
+              command:
+                {{- range .Values.config.command }}
+                - {{ . }}
+                {{- end }}
+              volumeMounts:
+              - name: config
+                mountPath: /home/beekeeper/.beekeeper
+                readOnly: true
+          restartPolicy: Never
+          {{- with .Values.nodeSelector }}
+          nodeSelector:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumes:
+          - name: config
+            configMap:
+              name: {{ include "beekeeper.fullname" . }}

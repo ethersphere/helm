@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "beekeeper.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "beekeeper.labels" . | nindent 4 }}
+data:
+  {{- $path := printf "%s/**.yaml" .Values.config.dirPath }}
+  {{- (.Files.Glob $path).AsConfig | nindent 2 }}

@@ -1,7 +1,7 @@
 {{- if and .Values.serviceAccount.create .Values.serviceAccount.createClusterRole -}}
 ---
 kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: {{ include "beekeeper.serviceAccountName" . }}
   labels:
@@ -57,7 +57,7 @@ rules:
   verbs: ["get", "create", "delete", "update", "patch"]
 ---
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: {{ include "beekeeper.serviceAccountName" . }}
   labels:
