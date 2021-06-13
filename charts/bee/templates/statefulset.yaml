@@ -207,6 +207,14 @@ spec:
             {{- end }}
             - name: data
               mountPath: /home/bee/.bee
+            {{- if .Values.persistence.separateStatestore.enabled }}
+            - name: statestore
+              mountPath: /home/bee/.bee/statestore
+            {{- end }}
+            {{- if .Values.persistence.separateLocalstore.enabled }}
+            - name: localstore
+              mountPath: /home/bee/.bee/localstore
+            {{- end }}
             {{- if .Values.beeConfig.usePasswordFile }}
             - name: bee-secret
               mountPath: /home/bee/.secret
@@ -309,4 +317,42 @@ spec:
       storageClassName: {{ .Values.persistence.storageClass | quote }}
       {{- end }}
     {{- end }}
+  {{- if .Values.persistence.separateStatestore.enabled }}
+  - metadata:
+      name: statestore
+      labels:
+        {{- include "bee.labelsVCT" . | nindent 8 }}
+    spec:
+      accessModes:
+        - {{ .Values.persistence.separateStatestore.accessMode | quote }}
+      resources:
+        requests:
+          storage: {{ .Values.persistence.separateStatestore.size | quote }}
+    {{- if .Values.persistence.separateStatestore.storageClass }}
+      {{- if (eq "-" .Values.persistence.separateStatestore.storageClass) }}
+      storageClassName: ""
+      {{- else }}
+      storageClassName: {{ .Values.persistence.separateStatestore.storageClass | quote }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- if .Values.persistence.separateLocalstore.enabled }}
+  - metadata:
+      name: localstore
+      labels:
+        {{- include "bee.labelsVCT" . | nindent 8 }}
+    spec:
+      accessModes:
+        - {{ .Values.persistence.separateLocalstore.accessMode | quote }}
+      resources:
+        requests:
+          storage: {{ .Values.persistence.separateLocalstore.size | quote }}
+    {{- if .Values.persistence.separateLocalstore.storageClass }}
+      {{- if (eq "-" .Values.persistence.separateLocalstore.storageClass) }}
+      storageClassName: ""
+      {{- else }}
+      storageClassName: {{ .Values.persistence.separateLocalstore.storageClass | quote }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
   {{- end }}
