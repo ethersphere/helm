@@ -4,8 +4,8 @@ name: bee
 version: 0.9.9
 kubeVersion: ">=1.15.0-0"
 description: Ethereum Swarm Bee Helm chart for Kubernetes
-home: https://swarm.ethereum.org
-icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png
+home: https://www.ethswarm.org
+icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
 keywords:
   - blockchain
   - ethereum
