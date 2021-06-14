@@ -125,6 +125,17 @@ persistence:
   ## If undefined (the default) or set to null, no storageClassName spec is set;
   ## i.e. choosing the default provisioner: gp2 on AWS, standard on GKE, AWS & OpenStack, etc.
   # storageClass: "-"
+  ## If needed you can separate statestore and localstore to a different volumes
+  separateStatestore:
+    enabled: false
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    # storageClass: "-"
+  separateLocalstore:
+    enabled: false
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    # storageClass: "-"
 
 ## Enable this if you're using https://github.com/coreos/prometheus-operator
 ## and beeConfig.debug_api_enable is enabled
