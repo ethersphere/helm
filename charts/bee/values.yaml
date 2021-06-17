@@ -117,6 +117,7 @@ resources: {}
 persistence:
   ## This enables PVC templates that will create one per pod
   enabled: false
+  annotations: {}
   accessMode: ReadWriteOnce
   size: 1Gi
   ## Persistent Volume Storage Class
@@ -125,17 +126,27 @@ persistence:
   ## If undefined (the default) or set to null, no storageClassName spec is set;
   ## i.e. choosing the default provisioner: gp2 on AWS, standard on GKE, AWS & OpenStack, etc.
   # storageClass: "-"
+  ## A manually managed Persistent Volume and Claim
+  ## If defined, PVC must be created manually before volume will be bound
+  ## The value is evaluated as a template, so, for example, the name can depend on .Release or .Chart
+  # existingClaim:
   ## If needed you can separate statestore and localstore to a different volumes
   separateStatestore:
     enabled: false
     accessMode: ReadWriteOnce
     size: 1Gi
     # storageClass: "-"
+    ## In case you are using existingClaim for main volume
+    ## You have to provide existingClaim for separateStatestore is enabled
+    # existingClaim:
   separateLocalstore:
     enabled: false
     accessMode: ReadWriteOnce
     size: 1Gi
     # storageClass: "-"
+    ## In case you are using existingClaim for main volume
+    ## You have to provide existingClaim for separateLocalstore is enabled
+    # existingClaim:
 
 ## Enable this if you're using https://github.com/coreos/prometheus-operator
 ## and beeConfig.debug_api_enable is enabled
