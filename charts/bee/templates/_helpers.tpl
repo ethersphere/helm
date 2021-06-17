@@ -225,3 +225,36 @@ Get the clef key to be retrieved from the secret.
 {{- printf "clefKeys" -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Return the proper Storage Class.
+*/}}
+{{- define "bee.storageClass" -}}
+{{- if .Values.persistence.storageClass -}}
+{{- if (eq "-" .Values.persistence.storageClass) -}}
+{{- printf "storageClassName: \"\"" -}}
+{{- else }}
+{{- printf "storageClassName: \"%s\"" .Values.persistence.storageClass -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "bee.statestoreStorageClass" -}}
+{{- if and .Values.persistence.separateStatestore.storageClass .Values.persistence.separateStatestore.enabled -}}
+{{- if (eq "-" .Values.persistence.separateStatestore.storageClass) -}}
+{{- printf "storageClassName: \"\"" -}}
+{{- else }}
+{{- printf "storageClassName: \"%s\"" .Values.persistence.separateStatestore.storageClass -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "bee.localstoreStorageClass" -}}
+{{- if and .Values.persistence.separateLocalstore.storageClass .Values.persistence.separateLocalstore.enabled -}}
+{{- if (eq "-" .Values.persistence.separateLocalstore.storageClass) -}}
+{{- printf "storageClassName: \"\"" -}}
+{{- else }}
+{{- printf "storageClassName: \"%s\"" .Values.persistence.separateLocalstore.storageClass -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
