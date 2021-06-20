@@ -19,6 +19,9 @@ spec:
     metadata:
       labels:
         {{- include "bee.selectorLabels" . | nindent 8 }}
+      {{- if .Values.singlePodSts.enabled }}
+        labelFiler: {{- .Values.bee.singlePodSts.labelFilter }}
+      {{- end }}
       {{- if .Values.podLabels }}
       {{- range $key, $value := .Values.podLabels }}
         {{ $key }}: {{ $value | quote }}
