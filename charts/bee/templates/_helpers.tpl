@@ -84,6 +84,13 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
 {{/*
+Selector labels.
+*/}}
+{{- define "bee.singlePodSts" -}}
+labelFilter: {{ .Values.singlePodSts.labelFilter }}
+{{- end -}}
+
+{{/*
 Create the name of the service account to use.
 */}}
 {{- define "bee.serviceAccountName" -}}
