@@ -45,6 +45,10 @@ service:
   type: ClusterIP
   port: 80
 
+singlePodSts:
+  enabled: false
+  labelFilter: queen-bee
+
 ## By default and for convenience, for NodePort (p2p service)
 ## the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
 ## You can enable and specify start value and NodePort will be $nodePortStart + $ordinal
