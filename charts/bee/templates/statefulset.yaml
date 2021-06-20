@@ -20,7 +20,7 @@ spec:
       labels:
         {{- include "bee.selectorLabels" . | nindent 8 }}
       {{- if .Values.singlePodSts.enabled }}
-        labelFilter: {{- .Values.bee.singlePodSts.labelFilter }}
+        labelFilter: {{- .Values.singlePodSts.labelFilter }}
       {{- end }}
       {{- if .Values.podLabels }}
       {{- range $key, $value := .Values.podLabels }}
