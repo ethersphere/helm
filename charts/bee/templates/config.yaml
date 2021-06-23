@@ -11,6 +11,7 @@ data:
     api-addr: {{ .Values.beeConfig.api_addr }}
     block-time: {{ .Values.beeConfig.block_time }}
     bootnode: {{ .Values.beeConfig.bootnode }}
+    bootnodes: {{ .Values.beeConfig.bootnodes }}
     bootnode-mode: {{ .Values.beeConfig.bootnode_mode }}
     clef-signer-enable: {{ .Values.beeConfig.clef_signer_enable }}
     clef-signer-endpoint: {{ .Values.beeConfig.clef_signer_endpoint }}
@@ -26,6 +27,7 @@ data:
     full-node: {{ .Values.beeConfig.full_node }}
     gateway-mode: {{ .Values.beeConfig.gateway_mode }}
     global-pinning-enable: {{ .Values.beeConfig.global_pinning_enable }}
+    mainnet: {{ .Values.beeConfig.mainnet }}
     nat-addr: {{ .Values.beeConfig.nat_addr }}
     network-id: {{ .Values.beeConfig.network_id }}
     {{- if .Values.beeConfig.usePasswordFile }}
