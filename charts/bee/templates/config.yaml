@@ -11,7 +11,6 @@ data:
     api-addr: {{ .Values.beeConfig.api_addr }}
     block-time: {{ .Values.beeConfig.block_time }}
     bootnode: {{ .Values.beeConfig.bootnode }}
-    bootnodes: {{ .Values.beeConfig.bootnodes }}
     bootnode-mode: {{ .Values.beeConfig.bootnode_mode }}
     clef-signer-enable: {{ .Values.beeConfig.clef_signer_enable }}
     clef-signer-endpoint: {{ .Values.beeConfig.clef_signer_endpoint }}
