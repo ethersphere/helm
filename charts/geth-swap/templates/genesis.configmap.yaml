@@ -19,6 +19,7 @@ data:
         "petersburgBlock": 0,
         "istanbulBlock": 0,
         "berlinBlock": 0,
+        "londonBlock": 0,
         "clique": {
           "period": {{ .Values.geth.genesis.clique.period }},
           "epoch": {{ .Values.geth.genesis.clique.epoch }}
