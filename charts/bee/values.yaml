@@ -227,6 +227,8 @@ beeConfig:
   gateway_mode: false
   ## Enable global pinning
   global_pinning_enable: false
+  ## Enable mainnet
+  mainnet: true
   ## NAT exposed address
   nat_addr: ""
   ## ID of the Swarm network
