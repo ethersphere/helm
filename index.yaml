@@ -2506,6 +2506,28 @@ entries:
   ethproxy:
   - apiVersion: v2
     appVersion: latest
+    created: "2021-07-21T15:26:22.881052409Z"
+    description: ETHproxy Helm chart for Kubernetes
+    digest: 980e6bd4c10b553a5d0df15eb8cf0295a3331650bbf0aa912635d99c358bf004
+    home: https://swarm.ethereum.org
+    icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png
+    keywords:
+    - blockchain
+    - ethereum
+    - prometheus
+    - proxy
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: ethproxy
+    sources:
+    - https://github.com/ethersphere/ethproxy
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/ethproxy-0.1.1/ethproxy-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2021-07-21T14:15:43.064428011Z"
     description: ETHproxy Helm chart for Kubernetes
     digest: f0d2e3a1744b094e4ff3af0c5e0130e12f8385ff565df0cec830dafcc109cc79
