@@ -11,5 +11,9 @@ spec:
       targetPort: api
       protocol: TCP
       name: api
+    - port: {{ .Values.service.portWS }}
+      targetPort: ws
+      protocol: TCP
+      name: ws
   selector:
     {{- include "ethproxy.selectorLabels" . | nindent 4 }}

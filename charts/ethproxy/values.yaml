@@ -39,6 +39,7 @@ securityContext: {}
 service:
   type: ClusterIP
   portAPI: 80
+  portWS: 8546
 
 ingress:
   enabled: false
