@@ -2503,6 +2503,29 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/ethexporter-0.1.0/ethexporter-0.1.0.tgz
     version: 0.1.0
+  ethproxy:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2021-07-21T14:15:43.064428011Z"
+    description: ETHproxy Helm chart for Kubernetes
+    digest: f0d2e3a1744b094e4ff3af0c5e0130e12f8385ff565df0cec830dafcc109cc79
+    home: https://swarm.ethereum.org
+    icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png
+    keywords:
+    - blockchain
+    - ethereum
+    - prometheus
+    - proxy
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: ethproxy
+    sources:
+    - https://github.com/ethersphere/ethproxy
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/ethproxy-0.1.0/ethproxy-0.1.0.tgz
+    version: 0.1.0
   geth-swap:
   - apiVersion: v2
     appVersion: 1.16.0
