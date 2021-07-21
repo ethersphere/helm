@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "ethproxy.fullname" . }}
+  labels:
+    {{- include "ethproxy.labels" . | nindent 4 }}
+data:
+  PROXY_API_PORT: {{ .Values.config.PROXY_API_PORT | quote }}
+  PROXY_BACKEND_ENDPOINT: {{ .Values.config.PROXY_BACKEND_ENDPOINT | quote }}
+  PROXY_WS_PORT: {{ .Values.config.PROXY_WS_PORT | quote }}

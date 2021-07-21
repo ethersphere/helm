@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ethproxy.fullname" . }}
+  labels:
+    {{- include "ethproxy.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.portAPI }}
+      targetPort: api
+      protocol: TCP
+      name: api
+  selector:
+    {{- include "ethproxy.selectorLabels" . | nindent 4 }}
