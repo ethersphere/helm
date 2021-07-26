@@ -4,7 +4,7 @@
 
 image:
   repository: ethersphere/bee
-  tag: 0.5.3
+  tag: 1.0.0
   # digest: sha256:508a6bc1d3f45acaf98b746d521ee2cb11a895d8334446d2205fe4053b9e3667
   pullPolicy: IfNotPresent
 
@@ -285,10 +285,25 @@ beeConfig:
 ## If you prefer setting config options using ENV variables you can set beeEnv
 ## Use same option names as in beeConfig it will be translated to ENV variable format: api_addr -> BEE_API_ADDR
 ## You can specify all options except for usePasswordFile, existingSecret and existingSecretPasswordKey
-# beeEnv:
+beeEnv: []
 #   api_addr: :1633
 #   debug_api_addr: :1635
 #   p2p_addr: :1634
+
+
+# Extra environment variables to append to this bee node
+# This will be appended to the current 'env:' key. You can use any of the kubernetes env
+# syntax here
+extraEnvs: []
+#  - name: MY_ENVIRONMENT_VAR
+#    value: the_value_goes_here
+
+# Allows you to load environment variables from kubernetes secret or config map
+envFrom: []
+# - secretRef:
+#     name: env-secret
+# - configMapRef:
+#     name: config-map
 
 ## If enabled, configures pods with defined libp2p keys
 ## Libp2p keys are pregenerated examples and can be replaced with other values

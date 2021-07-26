@@ -144,7 +144,7 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ include "bee.image" . }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{- if or .Values.beeEnv .Values.netemCmd }}
+          {{- if or .Values.beeEnv .Values.netemCmd .Values.extraEnvs .Values.envFrom }}
           env:
             {{- if .Values.beeEnv }}
             {{- range $key, $value := .Values.beeEnv }}
@@ -156,6 +156,15 @@ spec:
             - name: NETEM_CMD
               value: {{ .Values.netemCmd }}
             {{- end }}
+          {{- with .Values.extraEnvs }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.envFrom }}
+          envFrom:
+          {{- with .Values.envFrom }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- end }}
           command:
             {{- range .Values.beeCommand }}
