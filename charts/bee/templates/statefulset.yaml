@@ -144,7 +144,7 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ include "bee.image" . }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{- if or .Values.beeEnv .Values.netemCmd .Values.extraEnvs }}
+          {{- if or .Values.beeEnv .Values.netemCmd .Values.extraEnvs .Values.envFrom }}
           env:
             {{- if .Values.beeEnv }}
             {{- range $key, $value := .Values.beeEnv }}
@@ -160,9 +160,11 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- end }}
-          {{- with .Values.envFrom }}
+          {{- if .Values.envFrom }}
           envFrom:
+          {{- with .Values.envFrom }}
             {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- end }}
           command:
             {{- range .Values.beeCommand }}
