@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "nethermind.fullname" . }}
+  labels:
+    {{- include "nethermind.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.http }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: {{ .Values.service.prometheus }}
+      targetPort: prometheus
+      protocol: TCP
+      name: prometheus
+  selector:
+    {{- include "nethermind.selectorLabels" . | nindent 4 }}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "nethermind.fullname" . }}-p2p
+  labels:
+    {{- include "nethermind.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.serviceP2P.type }}
+  ports:
+    - port: {{ .Values.serviceP2P.listener }}
+      targetPort: listener 
+      protocol: TCP
+      name: listener
+      nodePort: {{ .Values.serviceP2P.listener }}
+    - port: {{ .Values.serviceP2P.discovery }}
+      targetPort: discovery 
+      protocol: UDP
+      name: discovery
+      nodePort: {{ .Values.serviceP2P.discovery }}
+  selector:
+    {{- include "nethermind.selectorLabels" . | nindent 4 }}

@@ -1,0 +1,23 @@
+{{ if .Values.prometheus }}
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "nethermind.fullname" . }}-metrics
+spec:
+  endpoints:
+  - interval: 5s
+    path: /metrics
+    port: prometheus
+    metricRelabelings:
+    - sourceLabels: [__name__]
+      targetLabel: __name__
+      replacement: nethermind_$1
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace}}
+  selector:
+    matchLabels:
+      {{- include "nethermind.selectorLabels" . | nindent 6 }}
+
+{{ end }}

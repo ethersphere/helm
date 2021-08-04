@@ -1,0 +1,9 @@
+{{- if .Values.config -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "nethermind.fullname" . }}-configmap
+data:
+  custom.cfg: |
+{{ .Values.config | indent 4 }}
+{{- end -}}

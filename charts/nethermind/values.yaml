@@ -1,0 +1,106 @@
+# Default values for nethermind.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: nethermind/nethermind
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "1.10.79"
+  args: [
+   "--config",
+    "mainnet"]
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+volumes:
+  data:
+    mountPath: /nethermind/nethermind_db
+  config:
+    mountPath: /nethermind/configs/custom.cfg
+
+persistence:
+  enabled: true
+  annotations: {}
+  accessModes: 
+    - ReadWriteOnce
+  size: 20Gi # For mainnet must increase
+
+  ## A manually managed Persistent Volume and Claim
+  ## If defined, PVC must be created manually before volume will be bound
+  ## The value is evaluated as a template, so, for example, the name can depend on .Release or .Chart
+  ##  
+  # existingClaim:
+
+  ## An existing directory in the node
+  ## If defined, host directory must be created manually before volume will be bound
+  ## See https://kubernetes.io/docs/concepts/storage/volumes/#hostpath
+  ##  
+  # hostPath:
+  #   path: /nethermind/nethermind_db
+  #   type: Directory
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+container:
+  ports:
+    http: 8545
+    listener: 30303
+    discovery: 30303
+    prometheus: 9091
+
+service:
+  type: ClusterIP
+  http: 8545
+  prometheus: 9091
+
+serviceP2P:
+  type: NodePort
+  listener: 30303
+  discovery: 30303
+
+prometheus: false
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+config: {}
