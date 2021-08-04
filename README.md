@@ -9,6 +9,7 @@ This repo contains Ethersphere Helm Charts:
 * [geth-swap](https://github.com/ethersphere/helm/tree/master/charts/geth-swap)
 * [tokenexporter](https://github.com/ethersphere/helm/tree/master/charts/tokenexporter)
 * [ethexporter](https://github.com/ethersphere/helm/tree/master/charts/ethexporter)
+* [nethermind](https://github.com/ethersphere/helm/tree/master/charts/nethermind)
 
 ## Enabling Ethersphere Helm repository
 
