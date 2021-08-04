@@ -2855,6 +2855,26 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/geth-swap-0.1.3/geth-swap-0.1.3.tgz
     version: 0.1.3
+  nethermind:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2021-08-04T13:07:45.12180818Z"
+    description: A Helm chart for Ethereum Nethermind client
+    digest: ceeeaf8eb958ab272e5d3d8da600b3b84b76a9b57ee88a934f48bcaf2cbe4fe4
+    home: https://ethereum.org/
+    icon: https://github.com/NethermindEth/nethermind/blob/master/Nethermind.png
+    keywords:
+    - ethereum
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: Ivan Vandot
+    name: nethermind
+    sources:
+    - https://github.com/NethermindEth/nethermind
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/nethermind-0.1.0/nethermind-0.1.0.tgz
+    version: 0.1.0
   tokenexporter:
   - apiVersion: v2
     appVersion: latest
