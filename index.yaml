@@ -2422,6 +2422,28 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/beekeeper-0.1.0/beekeeper-0.1.0.tgz
     version: 0.1.0
+  bzz-token-service:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2021-08-12T14:56:47.44919576Z"
+    description: BZZ Token Service Helm chart for Kubernetes
+    digest: dbcf54f2f71502192e9424f890d2c6bfcbed09abe6371e5cbfb600791a2c56a8
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - bzz
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: bzz-token-service
+    sources:
+    - https://github.com/ethersphere/bzz-token-service
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/bzz-token-service-0.1.0/bzz-token-service-0.1.0.tgz
+    version: 0.1.0
   eks-local-disk-provisioner:
   - apiVersion: v2
     appVersion: 0.1.0
