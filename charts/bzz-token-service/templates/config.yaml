@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "bzz-token-service.fullname" . }}
+  labels:
+    {{- include "bzz-token-service.labels" . | nindent 4 }}
+data:
+  TOKEN_SERVICE_PORT: {{ .Values.config.TOKEN_SERVICE_PORT | quote }}
+  TOKEN_CONTRACT_ADDRESS: {{ .Values.config.TOKEN_CONTRACT_ADDRESS | quote }}
+  INFURA_MAINNET_KEY: {{ .Values.config.INFURA_MAINNET_KEY | quote }}
