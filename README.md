@@ -10,6 +10,7 @@ This repo contains Ethersphere Helm Charts:
 * [tokenexporter](https://github.com/ethersphere/helm/tree/master/charts/tokenexporter)
 * [ethexporter](https://github.com/ethersphere/helm/tree/master/charts/ethexporter)
 * [nethermind](https://github.com/ethersphere/helm/tree/master/charts/nethermind)
+* [bzz-token-service](https://github.com/ethersphere/helm/tree/master/charts/bzz-token-service)
 
 ## Enabling Ethersphere Helm repository
 

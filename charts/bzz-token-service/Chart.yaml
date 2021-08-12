@@ -1,0 +1,17 @@
+apiVersion: v2
+appVersion: latest
+name: bzz-token-service
+version: 0.1.0
+description: BZZ Token Service Helm chart for Kubernetes
+home: https://www.ethswarm.org
+icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+keywords:
+  - blockchain
+  - ethereum
+  - bzz
+maintainers:
+  - name: vandot
+    email: vandot@ethswarm.org
+sources:
+  - https://github.com/ethersphere/bzz-token-service
+type: application
