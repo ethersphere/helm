@@ -2,6 +2,19 @@
 
 [ETHproxy](https://github.com/ethersphere/ethproxy) is a lightweight Prometheus proxy that will output Ethereum wallet balances from a list of addresses you specify.
 
+## Prerequisites
+
+Make sure you have Helm [installed](https://helm.sh/docs/intro/install/) installed.
+
+## Get Repo Info
+
+```bash
+helm repo add ethersphere https://ethersphere.github.io/helm
+helm repo update
+```
+
+_See [helm repo](https://helm.sh/docs/helm/helm_repo/) for command documentation._
+
 ## QuickStart
 
 ```bash
