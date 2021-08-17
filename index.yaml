@@ -3,6 +3,34 @@ entries:
   bee:
   - apiVersion: v2
     appVersion: latest
+    created: "2021-08-17T13:22:38.057206018Z"
+    description: Ethereum Swarm Bee Helm chart for Kubernetes
+    digest: 19de3146ebefdf38aa4337a576e5ca408ce915933141c6d8603e4dca95c9c072
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - storage
+    - swarm
+    - web3
+    kubeVersion: '>=1.15.0-0'
+    maintainers:
+    - email: devops@ethswarm.org
+      name: devops
+    - email: svetomir@ethswarm.org
+      name: svetomir
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: bee
+    sources:
+    - https://github.com/ethersphere/bee
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/bee-0.10.8/bee-0.10.8.tgz
+    version: 0.10.8
+  - apiVersion: v2
+    appVersion: latest
     created: "2021-07-26T19:06:56.970501425Z"
     description: Ethereum Swarm Bee Helm chart for Kubernetes
     digest: 40543e252629f33141f8c3af75e012060c2b96f36cf50b64c4b8675a061eeb42
@@ -2083,6 +2111,29 @@ entries:
   beekeeper:
   - apiVersion: v2
     appVersion: latest
+    created: "2021-08-17T13:22:38.178479478Z"
+    description: Ethereum Swarm Beekeeper Helm chart for Kubernetes
+    digest: c927d8f76c64d51a20a53378c18d68705be10e92bcac5dfe541909d50d669465
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - storage
+    - swarm
+    - web3
+    maintainers:
+    - email: svetomir@ethswarm.org
+      name: svetomir
+    name: beekeeper
+    sources:
+    - https://github.com/ethersphere/beekeeper
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/beekeeper-0.3.2/beekeeper-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
+    appVersion: latest
     created: "2021-06-09T08:17:58.127019065Z"
     description: Ethereum Swarm Beekeeper Helm chart for Kubernetes
     digest: 884939b48681e22da7b4944bcb5e7f3f990533b8105beecbe1df88ed6db6c16b
@@ -2425,6 +2476,27 @@ entries:
   bzz-token-service:
   - apiVersion: v2
     appVersion: latest
+    created: "2021-08-17T13:22:38.325066106Z"
+    description: BZZ Token Service Helm chart for Kubernetes
+    digest: 663286fd305f56cfc0bfd141bb8dd23cc9b5ee87b094a67cd4801706e7df6a2f
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - bzz
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: bzz-token-service
+    sources:
+    - https://github.com/ethersphere/bzz-token-service
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/bzz-token-service-0.1.1/bzz-token-service-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2021-08-12T14:56:47.44919576Z"
     description: BZZ Token Service Helm chart for Kubernetes
     digest: dbcf54f2f71502192e9424f890d2c6bfcbed09abe6371e5cbfb600791a2c56a8
@@ -2445,6 +2517,30 @@ entries:
     - https://github.com/ethersphere/helm/releases/download/bzz-token-service-0.1.0/bzz-token-service-0.1.0.tgz
     version: 0.1.0
   eks-local-disk-provisioner:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2021-08-17T13:22:38.456837019Z"
+    description: AWS eks-local-disk-provisioner Helm chart for Kubernetes
+    digest: 072e30ad866043e4c61079b7113b4ae2b24ea93d51752c3f36e3e545a8c7f6db
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - aws
+    - kubernetes
+    - eks
+    - local disk provisioner
+    - local persistent volume
+    - sig-storage-local-static-provisioner
+    maintainers:
+    - email: svetomir@ethereum.org
+      name: svetomir
+    name: eks-local-disk-provisioner
+    sources:
+    - https://github.com/ethersphere/eks-local-disk-provisioner
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/eks-local-disk-provisioner-0.1.3/eks-local-disk-provisioner-0.1.3.tgz
+    version: 0.1.3
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2020-09-04T11:30:02.913072534Z"
@@ -2493,6 +2589,28 @@ entries:
     - https://github.com/ethersphere/helm/releases/download/eks-local-disk-provisioner-0.1.0/eks-local-disk-provisioner-0.1.0.tgz
     version: 0.1.0
   ethexporter:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2021-08-17T13:22:38.596391845Z"
+    description: ETHexporter Helm chart for Kubernetes
+    digest: 1333ecf2e971a8ca5d9fe40441a3fe28c8c93e13e4fb8f3e04d510dbf3c68dd8
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - prometheus
+    - exporter
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: ethexporter
+    sources:
+    - https://github.com/ethersphere/ethexporter
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/ethexporter-0.1.5/ethexporter-0.1.5.tgz
+    version: 0.1.5
   - apiVersion: v2
     appVersion: latest
     created: "2021-03-02T17:16:16.329451792Z"
@@ -2584,6 +2702,28 @@ entries:
   ethproxy:
   - apiVersion: v2
     appVersion: latest
+    created: "2021-08-17T13:22:38.738223604Z"
+    description: ETHproxy Helm chart for Kubernetes
+    digest: b56d6298f5f40a3fa49d5d8a7e27f84cf3808ae6277c9b102f1a407a848bb03e
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - prometheus
+    - proxy
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: ethproxy
+    sources:
+    - https://github.com/ethersphere/ethproxy
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/ethproxy-0.1.3/ethproxy-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: latest
     created: "2021-07-21T15:26:22.881052409Z"
     description: ETHproxy Helm chart for Kubernetes
     digest: 980e6bd4c10b553a5d0df15eb8cf0295a3331650bbf0aa912635d99c358bf004
@@ -2627,6 +2767,21 @@ entries:
     - https://github.com/ethersphere/helm/releases/download/ethproxy-0.1.0/ethproxy-0.1.0.tgz
     version: 0.1.0
   geth-swap:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2021-08-17T13:22:38.858656953Z"
+    description: A Helm chart for Kubernetes
+    digest: 85d8735fb9d62b6ea8fb32c95ad9de0fd11466ca2626c98debc6a7cb47d7340a
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    maintainers:
+    - email: ralph@ethswarm.org
+      name: ralph-pichler
+    name: geth-swap
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/geth-swap-0.3.2/geth-swap-0.3.2.tgz
+    version: 0.3.2
   - apiVersion: v2
     appVersion: 1.16.0
     created: "2021-06-24T10:55:47.693259097Z"
@@ -2880,6 +3035,25 @@ entries:
   nethermind:
   - apiVersion: v2
     appVersion: latest
+    created: "2021-08-17T13:22:39.036304532Z"
+    description: A Helm chart for Ethereum Nethermind client
+    digest: 5940578bb1e6d088ffef45179ebd8906d90e80a8fcc1a72b0244329b57f6a049
+    home: https://nethermind.io/
+    icon: https://github.com/NethermindEth/nethermind/raw/master/Nethermind.png
+    keywords:
+    - ethereum
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: Ivan Vandot
+    name: nethermind
+    sources:
+    - https://github.com/NethermindEth/nethermind
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/nethermind-0.1.2/nethermind-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: latest
     created: "2021-08-04T13:07:45.12180818Z"
     description: A Helm chart for Ethereum Nethermind client
     digest: ceeeaf8eb958ab272e5d3d8da600b3b84b76a9b57ee88a934f48bcaf2cbe4fe4
@@ -2898,6 +3072,29 @@ entries:
     - https://github.com/ethersphere/helm/releases/download/nethermind-0.1.0/nethermind-0.1.0.tgz
     version: 0.1.0
   tokenexporter:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2021-08-17T13:22:39.152208914Z"
+    description: Tokenexporter Helm chart for Kubernetes
+    digest: 2e694ee8c200977b0a6a88792f89ce9d3ee2b274cc900b1813be429b27f3639e
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - token
+    - prometheus
+    - exporter
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: tokenexporter
+    sources:
+    - https://github.com/ethersphere/tokenexporter
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.6/tokenexporter-0.1.6.tgz
+    version: 0.1.6
   - apiVersion: v2
     appVersion: latest
     created: "2021-03-02T17:16:16.411608177Z"
@@ -3013,4 +3210,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2020-01-29T12:20:31.093906953Z"
+generated: "2021-08-17T13:22:39.153498333Z"
