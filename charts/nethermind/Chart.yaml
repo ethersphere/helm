@@ -2,12 +2,12 @@ apiVersion: v2
 name: nethermind
 description: A Helm chart for Ethereum Nethermind client
 type: application
-version: 0.1.0
-icon: https://github.com/NethermindEth/nethermind/blob/master/Nethermind.png
+version: 0.1.1
+icon: https://github.com/NethermindEth/nethermind/raw/master/Nethermind.png
 keywords:
   - ethereum
 
-home: https://ethereum.org/
+home: https://nethermind.io/
 sources:
   - https://github.com/NethermindEth/nethermind
 maintainers:

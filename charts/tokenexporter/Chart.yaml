@@ -1,10 +1,10 @@
 apiVersion: v2
 appVersion: latest
 name: tokenexporter
-version: 0.1.4
+version: 0.1.5
 description: Tokenexporter Helm chart for Kubernetes
-home: https://swarm.ethereum.org
-icon: https://swarm-guide.readthedocs.io/en/latest/_images/swarm.png
+home: https://www.ethswarm.org
+icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
 keywords:
   - blockchain
   - ethereum

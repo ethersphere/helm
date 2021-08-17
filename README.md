@@ -1,6 +1,7 @@
 # Ethersphere Helm Charts
 
 [![Release](https://github.com/ethersphere/helm/workflows/Release/badge.svg)](https://github.com/ethersphere/helm/actions?query=workflow%3ARelease)
+[![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/ethersphere)](https://artifacthub.io/packages/search?repo=ethersphere)
 
 This repo contains Ethersphere Helm Charts:
 * [bee](https://github.com/ethersphere/helm/tree/master/charts/bee)
@@ -12,12 +13,17 @@ This repo contains Ethersphere Helm Charts:
 * [nethermind](https://github.com/ethersphere/helm/tree/master/charts/nethermind)
 * [bzz-token-service](https://github.com/ethersphere/helm/tree/master/charts/bzz-token-service)
 
-## Enabling Ethersphere Helm repository
+The code is provided as-is with no warranties.
 
-First you have to add our Helm repository like this:
+## Usage
 
-```sh
-$ helm repo add ethersphere https://ethersphere.github.io/helm
+[Helm](https://helm.sh) must be installed to use the charts.
+Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
+
+Once Helm is set up properly, add the repo as follows:
+
+```bash
+helm repo add ethersphere https://ethersphere.github.io/helm
 ```
 
 Now You can run `helm search ethersphere` to see the charts.

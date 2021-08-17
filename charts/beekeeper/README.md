@@ -2,6 +2,19 @@
 
 [Ethereum Swarm Beekeeper](https://github.com/ethersphere/beekeeper) is tool used for testing of [Ethereum Swarm Bee](https://github.com/ethersphere/bee).
 
+## Prerequisites
+
+Make sure you have Helm [installed](https://helm.sh/docs/intro/install/) installed.
+
+## Get Repo Info
+
+```bash
+helm repo add ethersphere https://ethersphere.github.io/helm
+helm repo update
+```
+
+_See [helm repo](https://helm.sh/docs/helm/helm_repo/) for command documentation._
+
 ## QuickStart
 
 ```bash

@@ -1,5 +1,18 @@
 # AWS EKS local-disk-provisioner Helm Chart
 
+## Prerequisites
+
+Make sure you have Helm [installed](https://helm.sh/docs/intro/install/) installed.
+
+## Get Repo Info
+
+```bash
+helm repo add ethersphere https://ethersphere.github.io/helm
+helm repo update
+```
+
+_See [helm repo](https://helm.sh/docs/helm/helm_repo/) for command documentation._
+
 ## QuickStart
 
 ```bash
