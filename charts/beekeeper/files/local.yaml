@@ -9,6 +9,9 @@ clusters:
     api-scheme: http
     debug-api-domain: localhost
     debug-api-scheme: http
+    funding:
+      eth: 0.1
+      bzz: 100.0
     node-groups:
       bootnode:
         mode: bootnode
@@ -41,6 +44,11 @@ clusters:
       bee:
         bee-config: bee-local-dns
         config: local-dns
+        count: 2
+        mode: node
+      light:
+        bee-config: bee-local-light
+        config: local-light
         count: 2
         mode: node
   local-clef:
@@ -126,6 +134,8 @@ node-groups:
     _inherit: "local"
   local-gc:
     _inherit: "local"
+  local-light:
+    _inherit: "local"
 
 # bee-configs defines Bee configuration that can be assigned to node-groups
 bee-configs:
@@ -135,7 +145,7 @@ bee-configs:
     block-time: 1
     bootnodes: ""
     bootnode-mode: false
-    cache-capacity: 2000
+    cache-capacity: 20000
     clef-signer-enable: false
     clef-signer-endpoint: ""
     cors-allowed-origins: ""
@@ -155,9 +165,9 @@ bee-configs:
     p2p-quic-enable: false
     p2p-ws-enable: false
     password: "beekeeper"
-    payment-early: 150000000000
-    payment-threshold: 1500000000000
-    payment-tolerance: 150000000000
+    payment-early: 10000000
+    payment-threshold: 100000000
+    payment-tolerance: 10000000
     postage-stamp-address: "0x538e6de1d876bbcd5667085257bc92f7c808a0f3"
     price-oracle-address: "0xfc28330f1ece0ef2371b724e0d19c1ee60b728b2"
     resolver-options: ""
@@ -169,6 +179,8 @@ bee-configs:
     swap-initial-deposit: 500000000000000000
     verbosity: 5
     welcome-message: "Welcome to the Swarm, this is a local cluster!"
+    warmup-time: 0s
+
   bootnode-local:
     _inherit: "bee-local"
     bootnode-mode: true
@@ -179,6 +191,10 @@ bee-configs:
     _inherit: "bee-local"
     bootnode: /dnsaddr/localhost
     bootnode-mode: true
+  bee-local-light:
+    _inherit: "bee-local"
+    bootnode: /dnsaddr/localhost
+    full-node: false
   bee-local-clef:
     _inherit: "bee-local"
     clef-signer-enable: true
@@ -190,10 +206,10 @@ bee-configs:
     bootnode-mode: true
   bee-local-gc:
     _inherit: "bee-local"
-    cache-capacity: 100
+    cache-capacity: 10
   bootnode-local-gc:
     _inherit: "bee-local"
-    cache-capacity: 100
+    cache-capacity: 10
     bootnode-mode: true
 
 # CI checks
@@ -201,12 +217,18 @@ checks:
   ci-full-connectivity:
     timeout: 5m
     type: full-connectivity
+    options:
+      boot-nodes:
+      - bootnode  
+      group-1:
+      - light
+      group-2:
+      - bee
+      - bootnode
   ci-gc:
     options:
-      cache-size: 100
-      postage-amount: 1
-      postage-wait: 5s
-      reserve-size: 1024
+      cache-size: 10
+      reserve-size: 16
     timeout: 5m
     type: gc
   ci-manifest:
@@ -245,6 +267,8 @@ checks:
       retries: 5
       retry-delay: 15s
       upload-node-count: 3
+      exclude-node-group:
+      - light
     timeout: 5m
     type: pushsync
   ci-pushsync-light-chunks:
@@ -258,6 +282,8 @@ checks:
       retries: 5
       retry-delay: 15s
       upload-node-count: 3
+      exclude-node-group:
+      - light
     timeout: 5m
     type: pushsync
   ci-retrieval:
@@ -275,13 +301,13 @@ checks:
       dry-run: false
       expect-settlements: true
       file-name: settlements
-      file-size: 2097152 # 2mb = 2*1024*1024
+      file-size: 14680064 # 14mb = 14*1024*1024
       postage-amount: 1
-      postage-depth: 18
+      postage-depth: 20
       postage-wait: 5s
-      threshold: 1500000000000
+      threshold: 100000000
       upload-node-count: 3
-      wait-before-download: 5s
+      wait-before-download: 20s
     timeout: 5m
     type: settlements
   ci-settlements-clef:
@@ -289,13 +315,13 @@ checks:
       dry-run: false
       expect-settlements: true
       file-name: settlements
-      file-size: 2097152 # 2mb = 2*1024*1024
+      file-size: 14680064 # 14mb = 14*1024*1024
       postage-amount: 1
-      postage-depth: 18
+      postage-depth: 20
       postage-wait: 5s
-      threshold: 1500000000000
+      threshold: 100000000
       upload-node-count: 3
-      wait-before-download: 20s
+      wait-before-download: 35s
     timeout: 5m
     type: settlements
   ci-soc:
@@ -306,3 +332,10 @@ checks:
       request-timeout: 5m
     timeout: 5m
     type: soc
+  ci-content-availability:
+    type: content-availability
+    timeout: 5m
+    options:
+      content-size: 16384
+      postage-amount: 1000
+      postage-depth: 16
