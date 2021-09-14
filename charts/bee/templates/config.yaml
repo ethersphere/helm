@@ -52,6 +52,7 @@ data:
     tracing-enable: {{ .Values.beeConfig.tracing_enable }}
     tracing-endpoint: {{ .Values.beeConfig.tracing_endpoint }}
     tracing-service-name: {{ .Values.beeConfig.tracing_service_name }}
+    transaction: {{ .Values.beeConfig.transaction }}
     verbosity: {{ .Values.beeConfig.verbosity }}
     welcome-message: {{ .Values.beeConfig.welcome_message }}
     
