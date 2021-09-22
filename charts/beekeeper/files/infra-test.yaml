@@ -1,0 +1,310 @@
+# clusters defines clusters Beekeeper works with
+# clusters may inherit it's configuration from already defined cluster and override specific fields from it
+clusters:
+  infra-test:
+    _inherit: ""
+    name: bee
+    namespace: infra-test
+    disable-namespace: false
+    api-domain: staging.internal
+    api-insecure-tls: true
+    api-scheme: https
+    debug-api-domain: staging.internal
+    debug-api-insecure-tls: true
+    debug-api-scheme: https
+    funding:
+      eth: 0.1
+      bzz: 100.0
+    node-groups:
+      bootnode:
+        mode: bootnode
+        bee-config: bootnode-infra-test
+        config: infra-test
+        nodes:
+        - name: bootnode-0
+          bootnodes: /dns4/bootnode-0-headless.%s.svc.cluster.local/tcp/1634/p2p/16Uiu2HAmD4gZcKoKF1WZoKoD5qJ5Sm7DcD9Zzzf1kxoEK9we9Tfx
+          libp2p-key: '{"address":"6800899b32e213fe5c5a63768911c289b5c51f5b","crypto":{"cipher":"aes-128-ctr","ciphertext":"c72af231346fa178ae64d2e8086539fe454e2e27db224159cf7f8ee628f34ec0","cipherparams":{"iv":"42c3b7f32b2a1da5d7d164b0fbe7ec51"},"kdf":"scrypt","kdfparams":{"n":32768,"r":8,"p":1,"dklen":32,"salt":"2b03beeb1b267fad8e392c83e010d8a45704a0ed75c8057969d4ff5d08ff8e72"},"mac":"de8da89d05efb29e1044b75034057d4d874e3c8995a72befc727627fe9cd3d7b"},"version":3}'
+      bee:
+        mode: node
+        bee-config: infra-test
+        config: infra-test
+        count: 19
+
+# node-groups defines node groups that can be registered in the cluster
+# node-groups may inherit it's configuration from already defined node-group and override specific fields from it
+node-groups:
+  infra-test:
+    _inherit: ""
+    clef-image: ethersphere/clef:latest
+    clef-image-pull-policy: Always
+    image: ethersphere/bee:latest
+    image-pull-policy: IfNotPresent
+    image-pull-secrets: [regcred]
+    ingress-annotations:
+      nginx.ingress.kubernetes.io/affinity: "cookie"
+      nginx.ingress.kubernetes.io/affinity-mode: "persistent"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "7200"
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "7200"
+      nginx.ingress.kubernetes.io/session-cookie-max-age: "86400"
+      nginx.ingress.kubernetes.io/session-cookie-name: "SWARMGATEWAY"
+      nginx.ingress.kubernetes.io/session-cookie-path: "default"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    ingress-class: "nginx-internal"
+    ingress-debug-class: "nginx-internal"
+    labels:
+      app.kubernetes.io/name: bee
+      app.kubernetes.io/component: "node"
+      app.kubernetes.io/part-of: "bee"
+      app.kubernetes.io/version: "latest"
+    node-selector:
+      node-group: "private-nightly"
+    persistence-enabled: false
+    pod-management-policy: "OrderedReady"
+    resources-limit-cpu: "1.5"
+    resources-limit-memory: 3Gi
+    resources-request-cpu: "1.0"
+    resources-request-memory: 2Gi
+    restart-policy: "Always"
+    update-strategy: "RollingUpdate"
+
+# bee-configs defines Bee configuration that can be assigned to node-groups
+# bee-configs may inherit it's configuration from already defined bee-config and override specific fields from it
+bee-configs:
+  infra-test:
+    _inherit: ""
+    api-addr: ":1633"
+    block-time: 1
+    bootnodes: ""
+    bootnode-mode: false
+    cache-capacity: 1000000
+    clef-signer-enable: false
+    clef-signer-endpoint: "http://localhost:8550"
+    cors-allowed-origins: ""
+    data-dir: "/home/bee/.bee"
+    db-open-files-limit: 200
+    db-block-cache-capacity: 33554432
+    db-write-buffer-size: 33554432
+    db-disable-seeks-compaction: false
+    debug-api-addr: ":1635"
+    debug-api-enable: true
+    full-node: true
+    gateway-mode: false
+    global-pinning-enabled: false
+    nat-addr: ""
+    network-id: 1983
+    p2p-addr: ":1634"
+    p2p-quic-enable: false
+    p2p-ws-enable: false
+    password: "beekeeper"
+    payment-early: 10000000
+    payment-threshold: 100000000
+    payment-tolerance: 500000000
+    postage-stamp-address: "0x538e6de1d876bbcd5667085257bc92f7c808a0f3"
+    price-oracle-address: "0xfc28330f1ece0ef2371b724e0d19c1ee60b728b2"
+    resolver-options: "https://cloudflare-eth.com"
+    standalone: false
+    swap-enable: true
+    swap-endpoint: "ws://geth-swap.geth-swap:8546"
+    swap-factory-address: "0x09ad42a7d020244920309ffa14ea376dd2d3b7d5"
+    swap-legacy-factory-addresses: "0x657241f4494a2f15ba75346e691d753a978c72df"
+    swap-initial-deposit: 10000000000000000
+    tracing-enabled: false
+    tracing-endpoint: "jaeger-operator-jaeger-agent.observability:6831"
+    tracing-service-name: "bee-infra-test"
+    verbosity: 5
+    welcome-message: "Welcome to the Infra Test!"
+  bootnode-infra-test:
+    _inherit: "infra-test"
+    bootnode-mode: true
+
+# checks defines checks Beekeeper can execute against the cluster
+# type filed allows defining same check with different names and options 
+checks:
+  infra-test-balances:
+    options:
+      dry-run: false
+      file-name: balances
+      file-size: 1048576 # 1mb = 1*1024*1024
+      postage-amount: 1000
+      postage-wait: 5s
+      upload-node-count: 3
+      wait-before-download: 5s
+    timeout: 5m
+    type: balances
+  infra-test-cashout:
+    options:
+      node-group: bee
+    timeout: 5m
+    type: cashout
+  infra-test-chunk-repair:
+    options:
+      metrics-enabled: 
+      node-group: bee
+      number-of-chunks-to-repair: 1
+      postage-amount: 1000
+      postage-wait: 5s
+      seed: 
+    timeout: 5m
+    type: chunk-repair
+  infra-test-file-retrieval:
+    options:
+      file-name: file-retrieval
+      file-size: 1048576 # 1mb = 1*1024*1024
+      files-per-node: 1
+      full: false
+      postage-amount: 1000
+      postage-wait: 5s
+      upload-node-count: 3
+    timeout: 5m
+    type: file-retrieval
+  infra-test-full-connectivity:
+    timeout: 5m
+    type: full-connectivity
+    options:
+      boot-nodes:
+      - bootnode  
+      group-1:
+      - light
+      group-2:
+      - bee
+      - bootnode
+  infra-test-gc:
+    options:
+      cache-size: 10
+      reserve-size: 16
+    timeout: 5m
+    type: gc
+  infra-test-kademlia:
+    options:
+      dynamic: false
+    timeout: 5m
+    type: kademlia
+  infra-test-manifest:
+    options:
+      files-in-collection: 10
+      max-pathname-length: 64
+      postage-amount: 1000
+      postage-depth: 16
+      postage-wait: 5s
+    timeout: 5m
+    type: manifest
+  infra-test-peer-count:
+    timeout: 5m
+    type: peer-count
+  infra-test-pingpong:
+    options:
+      metrics-enabled: 
+    timeout: 5m
+    type: pingpong
+  infra-test-pss:
+    options:
+      address-prefix: 2
+      metrics-enabled:
+      node-count: 3
+      postage-amount: 1000
+      postage-depth: 16
+      postage-wait: 5s
+      request-timeout: 5m
+    timeout: 5m
+    type: pss
+  infra-test-pullsync:
+    options:
+      chunks-per-node: 1
+      postage-amount: 1000
+      postage-wait: 5s
+      replication-factor-threshold: 2
+      upload-node-count: 1
+    timeout: 5m
+    type: pullsync
+  infra-test-pushsync:
+    options:
+      chunks-per-node: 1
+      metrics-enabled:
+      mode: default
+      postage-amount: 1000
+      postage-depth: 16
+      postage-wait: 5s
+      retries: 5
+      retry-delay: 1s
+      upload-node-count: 1
+    timeout: 5m
+    type: pushsync
+  infra-test-pushsync-chunks:
+    options:
+      chunks-per-node: 1
+      metrics-enabled:
+      mode: chunks
+      postage-amount: 1000
+      exclude-node-group:
+      - light
+      postage-depth: 16
+      postage-wait: 5s
+      retries: 5
+      retry-delay: 1s
+      upload-node-count: 1
+    timeout: 5m
+    type: pushsync
+  infra-test-pushsync-light-chunks:
+    options:
+      chunks-per-node: 1
+      metrics-enabled:
+      mode: light-chunks
+      postage-amount: 1000
+      exclude-node-group:
+      - light
+      postage-depth: 16
+      postage-wait: 5s
+      retries: 5
+      retry-delay: 1s
+      upload-node-count: 1
+    timeout: 5m
+    type: pushsync
+  infra-test-retrieval:
+    options:
+      chunks-per-node: 1
+      metrics-enabled:
+      postage-amount: 1000
+      postage-depth: 16
+      postage-wait: 5s
+      upload-node-count: 1
+    timeout: 5m
+    type: retrieval
+  infra-test-settlements:
+    options:
+      dry-run: false
+      expect-settlements: true
+      file-name: settlements
+      file-size: 20 # 1mb = 1*1024*1024
+      postage-amount: 1000
+      postage-depth: 16
+      postage-wait: 5s
+      threshold: 50000000000
+      upload-node-count: 3
+      wait-before-download: 30s
+    timeout: 5m
+    type: settlements
+  infra-test-smoke:
+    options:
+      bytes: 0
+      node-group: bee
+      runs: 1
+      timeout: 0s
+      upload-node-count: 1
+    timeout: 5m
+    type: smoke
+  infra-test-soc:
+    options:
+      postage-amount: 1000
+      postage-depth: 16
+      postage-wait: 5s
+      request-timeout: 5m
+    timeout: 5m
+    type: soc
+  infra-test-content-availability:
+    type: content-availability
+    timeout: 5m
+    options:
+      content-size: 16384
+      postage-amount: 1000
+      postage-depth: 16
