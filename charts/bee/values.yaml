@@ -259,6 +259,8 @@ beeConfig:
   p2p_ws_enable: false
   ## Whether node starts with no listen addresses for p2p
   standalone: false
+  ## Static overlay addresses to protect on bootnode
+  static_nodes: ""
   ## Enable SWAP
   swap_enable: false
   ## Set swap ethereum blockchain endpoint
@@ -285,8 +287,6 @@ beeConfig:
   verbosity: 3
   ## Send a welcome message string during handshakes
   welcome_message: "Welcome to the Swarm, you are Bee-ing connected!"
-  ## Static overlay addresses to protect on bootnode
-  static-nodes: ""
 
 ## If you prefer setting config options using ENV variables you can set beeEnv
 ## Use same option names as in beeConfig it will be translated to ENV variable format: api_addr -> BEE_API_ADDR
