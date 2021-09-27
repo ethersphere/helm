@@ -14,6 +14,32 @@ spec:
         {{- include "beekeeper.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ include "beekeeper.serviceAccountName" . }}
+     {{- if .Values.config.initPing.enabled }}
+      initContainers:
+        - name: init-ping
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: BEEKEEPER_ENABLE_K8S
+              value: "true"
+            - name: BEEKEEPER_IN_CLUSTER
+              value: "true"
+            - name: BEEKEEPER_GETH_URL
+              value: "{{ .Values.config.GETH_URL }}"
+            - name: BEEKEEPER_BZZ_TOKEN_ADDRESS
+              value: "{{ .Values.config.BZZ_TOKEN_ADDRESS }}"
+            - name: BEEKEEPER_ETH_ACCOUNT
+              value: "{{ .Values.config.ETH_ACCOUNT }}"
+          command:
+            - sh
+            - -c
+            - >
+              until beekeeper check --cluster-name={{ .Values.config.initPing.clusterName }} --checks=pingpong; do echo "waiting for the cluster..."; sleep 1; done
+          volumeMounts:
+          - name: config
+            mountPath: /home/beekeeper/.beekeeper
+            readOnly: true
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

@@ -35,3 +35,8 @@ config:
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 3
   concurrencyPolicy: Forbid
+  # if it is enabled it will create init container that will wait
+  # for cluster to be up and operational
+  initPing:
+    enabled: false
+    clusterName: ""
