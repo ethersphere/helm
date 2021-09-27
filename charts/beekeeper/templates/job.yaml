@@ -13,6 +13,10 @@ spec:
       labels:
         {{- include "beekeeper.selectorLabels" . | nindent 8 }}
     spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
       serviceAccountName: {{ include "beekeeper.serviceAccountName" . }}
      {{- if .Values.config.initPing.enabled }}
       initContainers:

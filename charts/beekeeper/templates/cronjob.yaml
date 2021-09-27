@@ -18,6 +18,10 @@ spec:
     spec:
       template:
         spec:
+        {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 8 }}
+        {{- end }}
           serviceAccountName: {{ include "beekeeper.serviceAccountName" . }}
           containers:
             - name: {{ .Chart.Name }}
