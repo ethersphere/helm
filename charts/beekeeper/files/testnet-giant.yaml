@@ -1,7 +1,7 @@
 # clusters defines clusters Beekeeper works with
 # clusters may inherit it's configuration from already defined cluster and override specific fields from it
 clusters:
-  giant:
+  testnet-giant:
     _inherit: ""
     name: bee
     namespace: testnet-giant
@@ -14,32 +14,31 @@ clusters:
     debug-api-scheme: https
     funding:
       eth: 0.1
-      gbzz: 2.0
+      bzz: 100.0
     node-groups:
       bootnode:
         mode: bootnode
         bee-config: bootnode-giant
-        config: giant
+        config: testnet-giant
         nodes:
         - name: bootnode-0
           bootnodes: /dns4/bootnode-0-headless.%s.svc.cluster.local/tcp/1634/p2p/16Uiu2HAm6i4dFaJt584m2jubyvnieEECgqM2YMpQ9nusXfy8XFzL
           libp2p-key: '{"address":"aa6675fb77f3f84304a00d5ea09902d8a500364091a457cf21e05a41875d48f7","crypto":{"cipher":"aes-128-ctr","ciphertext":"93effebd3f015f496367e14218cb26d22de8f899e1d7b7686deb6ab43c876ea5","cipherparams":{"iv":"627434462c2f960d37338022d27fc92e"},"kdf":"scrypt","kdfparams":{"n":32768,"r":8,"p":1,"dklen":32,"salt":"a59e72e725fe3de25dd9c55aa55a93ed0e9090b408065a7204e2f505653acb70"},"mac":"dfb1e7ad93252928a7ff21ea5b65e8a4b9bda2c2e09cb6a8ac337da7a3568b8c"},"version":3}'
-          swarm-key: '{"address":"f176839c150e52fe30e5c2b5c648465c6fdfa532","crypto":{"cipher":"aes-128-ctr","ciphertext":"352af096f0fca9dfbd20a6861bde43d988efe7f179e0a9ffd812a285fdcd63b9","cipherparams":{"iv":"613003f1f1bf93430c92629da33f8828"},"kdf":"scrypt","kdfparams":{"n":32768,"r":8,"p":1,"dklen":32,"salt":"ad1d99a4c64c95c26131e079e8c8a82221d58bf66a7ceb767c33a4c376c564b8"},"mac":"cafda1bc8ca0ffc2b22eb69afd1cf5072fd09412243443be1b0c6832f57924b6"},"version":3}'
       bee:
         mode: node
-        bee-config: giant
-        config: giant
-        count: 99
+        bee-config: testnet-giant
+        config: testnet-giant
+        count: 499
 
 # node-groups defines node groups that can be registered in the cluster
 # node-groups may inherit it's configuration from already defined node-group and override specific fields from it
 node-groups:
-  giant:
+  testnet-giant:
     _inherit: ""
     clef-image: ethersphere/clef:latest
     clef-image-pull-policy: Always
     image: ethersphere/bee:latest
-    image-pull-policy: Always
+    image-pull-policy: IfNotPresent
     image-pull-secrets: [regcred]
     ingress-annotations:
       nginx.ingress.kubernetes.io/affinity: "cookie"
@@ -54,13 +53,14 @@ node-groups:
     ingress-class: "nginx-internal"
     ingress-debug-class: "nginx-internal"
     labels:
+      app.kubernetes.io/name: bee
       app.kubernetes.io/component: "node"
       app.kubernetes.io/part-of: "bee"
       app.kubernetes.io/version: "latest"
     node-selector:
       node-group: "testnet-giant"
-    persistence-enabled: false
-    persistence-storage-class: "gp2"
+    persistence-enabled: true
+    persistence-storage-class: "local-storage-4hdd"
     persistence-storage-request: "34Gi"
     pod-management-policy: "OrderedReady"
     resources-limit-cpu: "1"
@@ -73,10 +73,10 @@ node-groups:
 # bee-configs defines Bee configuration that can be assigned to node-groups
 # bee-configs may inherit it's configuration from already defined bee-config and override specific fields from it
 bee-configs:
-  giant:
+  testnet-giant:
     _inherit: ""
     api-addr: ":1633"
-    block-time: 15
+    block-time: 1
     bootnodes: ""
     bootnode-mode: false
     cache-capacity: 1000000
@@ -94,7 +94,7 @@ bee-configs:
     gateway-mode: false
     global-pinning-enabled: false
     nat-addr: ""
-    network-id: 10
+    network-id: 1987
     p2p-addr: ":1634"
     p2p-quic-enable: false
     p2p-ws-enable: false
@@ -102,27 +102,20 @@ bee-configs:
     payment-early: 10000000
     payment-threshold: 100000000
     payment-tolerance: 500000000
-    postage-stamp-address: ""
-    price-oracle-address: ""
+    postage-stamp-address: "0x538e6de1d876bbcd5667085257bc92f7c808a0f3"
+    price-oracle-address: "0xfc28330f1ece0ef2371b724e0d19c1ee60b728b2"
     resolver-options: "https://cloudflare-eth.com"
     standalone: false
     swap-enable: true
-    swap-endpoint: "ws://private-goerli-geth.private-goerli-geth:8546"
-    swap-factory-address: ""
-    swap-legacy-factory-addresses: ""
+    swap-endpoint: "ws://geth-swap.geth-swap:8546"
+    swap-factory-address: "0x09ad42a7d020244920309ffa14ea376dd2d3b7d5"
+    swap-legacy-factory-addresses: "0x657241f4494a2f15ba75346e691d753a978c72df"
     swap-initial-deposit: 10000000000000000
-    tracing-enabled: false
+    tracing-enabled: true
     tracing-endpoint: "jaeger-operator-jaeger-agent.observability:6831"
-    tracing-service-name: "bee"
+    tracing-service-name: "bee-giant"
     verbosity: 5
     welcome-message: "Welcome to the giant!"
   bootnode-giant:
-    _inherit: "giant"
+    _inherit: "testnet-giant"
     bootnode-mode: true
-
-checks:
-  giant-pingpong:
-    options:
-      metrics-enabled: 
-    timeout: 5m
-    type: pingpong

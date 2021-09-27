@@ -15,7 +15,7 @@ rules:
   verbs: ["*"]
 - apiGroups: [""]
   resources: ["endpoints"]
-  verbs: ["create", "get", "list", "watch", "update"]
+  verbs: ["create", "get", "list", "watch"]
 - apiGroups: ["batch"]
   resources: ["jobs"]
   verbs: ["get", "list", "watch", "create", "update", "delete"]
@@ -24,10 +24,10 @@ rules:
   verbs: ["get", "list", "watch"]
 - apiGroups: [""]
   resources: ["persistentvolumeclaims"]
-  verbs: ["get", "list", "watch", "create", "update", "delete"]
+  verbs: ["get", "list", "watch"]
 - apiGroups: [""]
   resources: ["pods"]
-  verbs: ["get", "list", "watch","update", "delete"]
+  verbs: ["get", "list", "watch"]
 - apiGroups: ["apps"]
   resources: ["statefulsets"]
   verbs: ["*"]
@@ -39,22 +39,14 @@ rules:
   verbs: ["get", "list", "watch"]
 - apiGroups: [""]
   resources: ["persistentvolumes"]
-  verbs: ["get", "list", "watch", "patch","update"]
-- apiGroups: ["certificates.k8s.io"]
-  resources: ["certificatesigningrequests", "certificatesigningrequests/approval"]
-  verbs: ["get", "delete", "create", "update"]
-- apiGroups: ["certificates.k8s.io"]
-  resources:
-    - "signers"
-  resourceNames:
-    - "kubernetes.io/legacy-unknown"
-  verbs: ["approve"]
+  verbs: ["get", "list", "watch"]
 - apiGroups: [""]
   resources: ["secrets"]
-  verbs: ["get", "create", "list", "watch", "update", "delete"]
-- apiGroups: ["admissionregistration.k8s.io"]
-  resources: ["mutatingwebhookconfigurations","validatingwebhookconfigurations"]
-  verbs: ["get", "create", "delete", "update", "patch"]
+  verbs: ["get", "create", "list", "watch"]
+- apiGroups: ["apps"]
+  resources: ["statefulsets"]
+  verbs: ["get", "list", "watch"]
+
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
