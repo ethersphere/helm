@@ -37,7 +37,7 @@ node-groups:
     _inherit: ""
     clef-image: ethersphere/clef:latest
     clef-image-pull-policy: Always
-    image: mrekucci/bee:latest
+    image: ethersphere/bee:latest
     image-pull-policy: IfNotPresent
     image-pull-secrets: [regcred]
     ingress-annotations:
