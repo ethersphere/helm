@@ -191,6 +191,8 @@ tolerations: []
 beeCommand: ["bee", "start", "--config=.bee.yaml"]
 
 beeConfig:
+  ## allow to advertise private CIDRs to the public network
+  allow_private_cidrs: false
   ## HTTP API listen address
   api_addr: :1633
   ## Chain block-time
