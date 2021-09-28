@@ -8,6 +8,7 @@ metadata:
     {{- include "bee.labels" . | nindent 4 }}
 data:
   .bee.yaml: |+
+    allow-private-cidrs: {{ .Values.beeConfig.allow_private_cidrs }}
     api-addr: {{ .Values.beeConfig.api_addr }}
     block-time: {{ .Values.beeConfig.block_time }}
     bootnode: {{ .Values.beeConfig.bootnode }}
