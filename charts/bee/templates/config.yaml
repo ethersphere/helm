@@ -55,4 +55,4 @@ data:
     transaction: {{ .Values.beeConfig.transaction }}
     verbosity: {{ .Values.beeConfig.verbosity }}
     welcome-message: {{ .Values.beeConfig.welcome_message }}
-    
+    allow-private-cidrs: {{ .Values.beeConfig.allow_private_cidrs }}

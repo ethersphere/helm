@@ -142,6 +142,7 @@ bee-configs:
     tracing-service-name: "bee"
     verbosity: 5
     welcome-message: "Welcome to the Swarm, you are Bee-ing connected!"
+    allow-private-cidrs: true
   bootnode:
     _inherit: "default"
     bootnode-mode: true

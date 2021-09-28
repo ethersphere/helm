@@ -114,6 +114,7 @@ bee-configs:
     tracing-service-name: "bee-infra-test"
     verbosity: 5
     welcome-message: "Welcome to the Infra Test!"
+    allow-private-cidrs: true
   bootnode-infra-test:
     _inherit: "infra-test"
     bootnode-mode: true
