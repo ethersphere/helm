@@ -259,6 +259,8 @@ beeConfig:
   p2p_ws_enable: false
   ## Whether node starts with no listen addresses for p2p
   standalone: false
+  ## Static overlay addresses to protect on bootnode
+  static_nodes: ""
   ## Enable SWAP
   swap_enable: false
   ## Set swap ethereum blockchain endpoint
