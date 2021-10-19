@@ -127,7 +127,7 @@ checks:
       file-name: balances
       file-size: 1048576 # 1mb = 1*1024*1024
       postage-amount: 1000
-      postage-depth: 16
+      postage-depth: 17
       postage-wait: 5s
       upload-node-count: 3
       wait-before-download: 5s
@@ -144,7 +144,7 @@ checks:
       node-group: bee
       number-of-chunks-to-repair: 1
       postage-amount: 1000
-      postage-depth: 16
+      postage-depth: 17
       postage-wait: 5s
       seed: 
     timeout: 5m
@@ -156,7 +156,7 @@ checks:
       files-per-node: 1
       full: false
       postage-amount: 1000
-      postage-depth: 16
+      postage-depth: 17
       postage-wait: 5s
       upload-node-count: 3
     timeout: 5m
@@ -188,7 +188,7 @@ checks:
       files-in-collection: 10
       max-pathname-length: 64
       postage-amount: 1000
-      postage-depth: 16
+      postage-depth: 17
       postage-wait: 5s
     timeout: 5m
     type: manifest
@@ -206,7 +206,7 @@ checks:
       metrics-enabled:
       node-count: 3
       postage-amount: 1000
-      postage-depth: 16
+      postage-depth: 17
       postage-wait: 5s
       request-timeout: 5m
     timeout: 5m
@@ -215,7 +215,7 @@ checks:
     options:
       chunks-per-node: 1
       postage-amount: 1000
-      postage-depth: 16
+      postage-depth: 17
       postage-wait: 5s
       replication-factor-threshold: 2
       upload-node-count: 1
@@ -227,7 +227,7 @@ checks:
       metrics-enabled:
       mode: default
       postage-amount: 1000
-      postage-depth: 16
+      postage-depth: 17
       postage-wait: 5s
       retries: 5
       retry-delay: 1s
@@ -240,7 +240,7 @@ checks:
       metrics-enabled:
       mode: chunks
       postage-amount: 1000
-      postage-depth: 16
+      postage-depth: 17
       postage-wait: 5s
       exclude-node-group:
       - light
@@ -255,7 +255,7 @@ checks:
       metrics-enabled:
       mode: light-chunks
       postage-amount: 1000
-      postage-depth: 16
+      postage-depth: 17
       postage-wait: 5s
       exclude-node-group:
       - light
@@ -269,7 +269,7 @@ checks:
       chunks-per-node: 1
       metrics-enabled:
       postage-amount: 1000
-      postage-depth: 16
+      postage-depth: 17
       postage-wait: 5s
       upload-node-count: 1
     timeout: 5m
@@ -281,7 +281,7 @@ checks:
       file-name: settlements
       file-size: 20 # 1mb = 1*1024*1024
       postage-amount: 1000
-      postage-depth: 16
+      postage-depth: 17
       postage-wait: 5s
       threshold: 50000000000
       upload-node-count: 3
@@ -300,7 +300,7 @@ checks:
   infra-test-soc:
     options:
       postage-amount: 1000
-      postage-depth: 16
+      postage-depth: 17
       postage-wait: 5s
       request-timeout: 5m
     timeout: 5m
@@ -311,5 +311,5 @@ checks:
     options:
       content-size: 16384
       postage-amount: 1000
-      postage-depth: 16
+      postage-depth: 17
       postage-wait: 5s
