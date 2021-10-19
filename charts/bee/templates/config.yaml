@@ -58,7 +58,7 @@ data:
     welcome-message: {{ .Values.beeConfig.welcome_message }}
     {{- if .Values.beeConfig.bootnode_mode }}
     static-nodes:
-      {{-range .Values.beeConfig.static_nodes }}
+      {{- range .Values.beeConfig.static_nodes }}
         - {{ . }}
       {{- end }}
     {{- end }}
