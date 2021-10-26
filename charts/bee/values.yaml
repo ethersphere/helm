@@ -176,7 +176,7 @@ serviceMonitor:
   #   replacement: $1
 
 
-## If you need to disable liveness and readiness probes set this to false
+## If you need to disable liveness and readiness probes set to false
 probesEnable: true
 
 podLabels: {}
