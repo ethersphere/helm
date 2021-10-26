@@ -175,6 +175,10 @@ serviceMonitor:
   #   separator: /
   #   replacement: $1
 
+
+## If you need to disable liveness and readiness probes set to false
+probesEnable: true
+
 podLabels: {}
 podAnnotations: {}
 ## Add this annotations if you're using https://github.com/prometheus/prometheus
