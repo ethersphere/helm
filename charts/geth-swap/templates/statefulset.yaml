@@ -61,19 +61,19 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
             - geth
-            - --rpc
-            - --rpcaddr
+            - --http
+            - --http.addr
             - "0.0.0.0"
             - --allow-insecure-unlock
             - --http.api
-            - 'eth,net,personal'
+            - 'eth,net,personal,web3'
+            - --http.vhosts
+            - "*"
             - --ws
             - --ws.addr
             - "0.0.0.0"
             - --ws.api
-            - 'eth,net,personal'
-            - --rpcvhosts
-            - "*"
+            - 'eth,net,personal,web3'
             - --unlock={{ .Values.geth.genesis.validatorAddress }}
             - --password=/dev/null
             - --mine
