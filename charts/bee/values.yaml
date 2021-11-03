@@ -245,12 +245,12 @@ beeConfig:
   ## Use existing secret (ignores previous password)
   # existingSecret:
   # existingSecretPasswordKey:
-  ## Amount in BZZ below the peers payment threshold when we initiate settlement
-  payment_early: 10000000
+  ## percentage below the peers payment threshold when we initiate settlement
+  payment_early: 25
   ## Threshold in BZZ where you expect to get paid from your peers
   payment_threshold: 100000000
-  ## Excess debt above payment threshold in BZZ where you disconnect from your peer
-  payment_tolerance: 100000000
+  ## excess debt above payment threshold in percentages where you disconnect from your peer
+  payment_tolerance: 25
   ## Postage stamp address
   postage_stamp_address: ""
   ## Price oracle address
