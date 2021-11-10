@@ -1,5 +1,5 @@
 image:
-  repository: ethersphere/beekeeper
+  repository: gcr.io/esad-bee/esadakar/beekeeper
   tag: latest
   pullPolicy: IfNotPresent
 

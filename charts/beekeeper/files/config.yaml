@@ -33,7 +33,7 @@ clusters:
         mode: node
         bee-config: default
         config: default
-        count: 10
+        count: 3
         # nodes:
         # - clef:
         #     key: '{"address":"4558ab6d518bf60b813eeba3077eed986027c5da","crypto":{"cipher":"aes-128-ctr","ciphertext":"1bbeffa438a8b8fd592a46323fe0168d8d8e2625085ca8550023b5c0bd48a126","cipherparams":{"iv":"3f369a742a465aaf5e3025864639421a"},"kdf":"scrypt","kdfparams":{"dklen":32,"n":64,"p":1,"r":8,"salt":"4c2c1fde6491213ea3c6021c82a70327bc0a056569a6e7c2a3fda9e486c0f090"},"mac":"f733b77f675acf0539e7d3d60735408c6efd43893dc0d5b0f94124b0197f89dd"},"id":"1e526dc4-60bd-4c4d-897d-f284806abf2b","version":3}'
@@ -308,11 +308,11 @@ checks:
     type: settlements
   smoke:
     options:
+      postage-depth: 20
       bytes: 0
       node-group: bee
-      runs: 1
-      timeout: 0s
-      upload-node-count: 1
+      iterations: 5
+      sync-timeout: 1m
     timeout: 5m
     type: smoke
   soc:
