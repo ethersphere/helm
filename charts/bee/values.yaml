@@ -246,11 +246,11 @@ beeConfig:
   # existingSecret:
   # existingSecretPasswordKey:
   ## percentage below the peers payment threshold when we initiate settlement
-  payment_early: 25
+  payment_early_percent: 50
   ## Threshold in BZZ where you expect to get paid from your peers
   payment_threshold: 100000000
   ## excess debt above payment threshold in percentages where you disconnect from your peer
-  payment_tolerance: 25
+  payment_tolerance_percent: 25
   ## Postage stamp address
   postage_stamp_address: ""
   ## Price oracle address
