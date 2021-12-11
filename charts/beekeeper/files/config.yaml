@@ -313,6 +313,7 @@ checks:
       node-group: bee
       iterations: 5
       sync-timeout: 1m
+      content_size: 5000000
     timeout: 5m
     type: smoke
   soc:
