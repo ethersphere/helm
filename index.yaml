@@ -2774,6 +2774,30 @@ entries:
   eks-local-disk-provisioner:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2021-12-15T12:46:24.47508059Z"
+    description: AWS eks-local-disk-provisioner Helm chart for Kubernetes
+    digest: 1291392ed9d0d4cc5f851b5d0581850ed20c005b8ca069fdeab979fac7047ba5
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - aws
+    - kubernetes
+    - eks
+    - local disk provisioner
+    - local persistent volume
+    - sig-storage-local-static-provisioner
+    maintainers:
+    - email: svetomir@ethereum.org
+      name: svetomir
+    name: eks-local-disk-provisioner
+    sources:
+    - https://github.com/ethersphere/eks-local-disk-provisioner
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/eks-local-disk-provisioner-0.1.4/eks-local-disk-provisioner-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2021-08-17T13:22:38.456837019Z"
     description: AWS eks-local-disk-provisioner Helm chart for Kubernetes
     digest: 072e30ad866043e4c61079b7113b4ae2b24ea93d51752c3f36e3e545a8c7f6db
@@ -3480,4 +3504,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2021-10-27T12:03:47.660119737Z"
+generated: "2021-12-15T12:46:24.477047314Z"
