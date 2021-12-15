@@ -48,6 +48,7 @@ spec:
           {{- toYaml .Values.resources | nindent 12 }}
         securityContext:
           {{- toYaml .Values.securityContext | nindent 12 }}
+        terminationMessagePath: {{ .Values.terminationMessagePath }}
         volumeMounts:
           - name: host-dev
             mountPath: /dev

@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: 0.1.0
 name: eks-local-disk-provisioner
-version: 0.1.3
+version: 0.1.4
 description: AWS eks-local-disk-provisioner Helm chart for Kubernetes
 home: https://www.ethswarm.org
 icon: https://docs.ethswarm.org/img/swarm-logo-2.svg

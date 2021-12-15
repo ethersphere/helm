@@ -49,3 +49,5 @@ provisionerConfig:
   # Variable will be passed to the command 'parted --script <parted_script>' for every NVME SSD disk.
   # Example: "mklabel gpt mkpart logical 0% 50% mkpart logical 50% 100%"
   parted_script: ""
+
+terminationMessagePath: "/dev/termination-log"
