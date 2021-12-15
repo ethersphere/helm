@@ -50,4 +50,4 @@ provisionerConfig:
   # Example: "mklabel gpt mkpart logical 0% 50% mkpart logical 50% 100%"
   parted_script: ""
 
-terminationMessagePath: ""
+terminationMessagePath: "/dev/termination-log"
