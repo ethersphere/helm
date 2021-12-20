@@ -34,9 +34,9 @@ data:
     {{- else }}
     password: {{ include "bee.password" . }}
     {{- end }}
-    payment-early: {{ .Values.beeConfig.payment_early }}
+    payment-early-percent: {{ .Values.beeConfig.payment_early_percent }}
     payment-threshold: {{ .Values.beeConfig.payment_threshold }}
-    payment-tolerance: {{ .Values.beeConfig.payment_tolerance }}
+    payment-tolerance-percent: {{ .Values.beeConfig.payment_tolerance_percent }}
     postage-stamp-address: {{ .Values.beeConfig.postage_stamp_address }}
     price-oracle-address: {{ .Values.beeConfig.price_oracle_address }}
     p2p-addr: {{ .Values.beeConfig.p2p_addr }}
