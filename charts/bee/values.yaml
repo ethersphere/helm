@@ -53,9 +53,12 @@ singlePodSts:
 ## the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
 ## You can enable and specify start value and NodePort will be $nodePortStart + $ordinal
 ## If wanted port if used by some other service deploy will fail
+## By default AWS internal endpoint will be used to discover public IP
+## You can specify public services as icanhazip.com etc.
 p2pFixedPort:
   enabled: false
   nodePortStart: 31000
+  publicIpUrl: http://169.254.169.254/latest/meta-data/public-ipv4
 
 ## If enabled, creates ingress for HTTP api
 ## Creates one ingress per pod and additionally one common ingress for all pods

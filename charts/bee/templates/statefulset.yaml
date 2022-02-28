@@ -126,7 +126,7 @@ spec:
             - sh
             - -c
             - >
-              PUBLIC_IP=$(wget -T 2 http://169.254.169.254/latest/meta-data/public-ipv4 -q -O -);
+              PUBLIC_IP=$(wget -T 2 {{ .Values.p2pFixedPort.publicIpUrl }} -q -O -);
               export INDEX=$(echo $(hostname) | rev | cut -d'-' -f 1 | rev);
               NAT_PORT=$(( {{ .Values.p2pFixedPort.nodePortStart }} + INDEX ));
               cp -p /tmp/.bee.yaml /home/bee/.bee.yaml;
