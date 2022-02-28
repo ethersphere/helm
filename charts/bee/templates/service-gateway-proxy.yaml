@@ -1,0 +1,30 @@
+{{- if .Values.gatewayProxy.enabled -}}
+
+{{- $root := . -}}
+
+{{- range $i, $e := until (int $root.Values.replicaCount) }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-proxy-{{ include "bee.fullname" $root }}-{{ $i }}
+  namespace: {{ $root.Release.Namespace }}
+  labels:
+    {{- include "bee.labels" $root | nindent 4 }}
+    pod: {{ include "bee.fullname" $root }}-{{ $i }}
+    endpoint: gateway-proxy
+    app: {{ include "bee.name" $root }}
+    release: {{ $root.Release.Name }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: gateway-proxy
+      port: 8633
+      protocol: TCP
+      targetPort: gateway-proxy
+  selector:
+    statefulset.kubernetes.io/pod-name: {{ include "bee.fullname" $root }}-{{ $i }}
+
+{{- end }}
+{{- end -}}

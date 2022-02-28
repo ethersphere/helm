@@ -339,6 +339,11 @@ swarmSettings:
 ## Clef keys are pregenerated examples and can be replaced with other values
 clefSettings:
   enabled: false
+  image:
+    repository: ethersphere/clef
+    tag: 0.10.0
+    # digest: sha256:508a6bc1d3f45acaf98b746d521ee2cb11a895d8334446d2205fe4053b9e3667
+    pullPolicy: IfNotPresent
   clefKeys:
     bee-0: '{"address":"fd50ede4954655b993ed69238c55219da7e81acf","crypto":{"cipher":"aes-128-ctr","ciphertext":"1c0f603b0dffe53294c7ca02c1a2800d81d855970db0df1a84cc11bc1d6cf364","cipherparams":{"iv":"11c9ac512348d7ccfe5ee59d9c9388d3"},"kdf":"scrypt","kdfparams":{"dklen":32,"n":262144,"p":1,"r":8,"salt":"f6d7a0947da105fa5ef70fa298f65409d12967108c0e6260f847dc2b10455b89"},"mac":"fc6585e300ad3cb21c5f648b16b8a59ca33bcf13c58197176ffee4786628eaeb"},"id":"4911f965-b425-4011-895d-a2008f859859","version":3}'
   chainId: 12345
@@ -348,3 +353,45 @@ clefSettings:
   password: clefbeesecret
   ## Use existing password (ignores previous keyPassword)
   # existingPasswordSecret:
+
+
+## If enabled it will start gateway-proxy sidecar container that will be publicly exposed
+## It is used by gateway app
+gatewayProxy:
+  enabled: false
+  image:
+    repository: ethersphere/gateway-proxy
+    tag: 0.4.0
+    # digest: sha256:508a6bc1d3f45acaf98b746d521ee2cb11a895d8334446d2205fe4053b9e3667
+    pullPolicy: IfNotPresent
+  ## If enabled, creates ingress for HTTP
+  ## Creates one ingress per pod
+  ## Total number of created ingress objects is: replicaCount
+  ## Hostname for 'per pod ingresses' is: <chart fullname>-<i>, or <chart fullname>-<i>.<domain> if domain is specified
+  ## tls.secretName won't be specified if tlsSecret is "", tls must be set to true
+  ingress:
+    enabled: false
+    ## Used if cluster version is >= 1.19-0
+    pathType: ImplementationSpecific
+    # ingressClassName: ingress-nginx
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - domain: ""
+        paths: []
+        tlsSecret: ""
+    tls: false
+  # Environment variables for this gateway-proxy container
+  # You can use any of the kubernetes env syntax here
+  envs: []
+  # - name: POSTAGE_DEPTH
+  #   value: 20
+  # - name: POSTAGE_AMOUNT
+  #   value: 50000000
+  # - name: POSTAGE_USAGE_THRESHOLD
+  #   value: 0.874
+  # - name: POSTAGE_USAGE_MAX
+  #   value: 0.9374
+  # - name: LOG_LEVEL
+  #   value: info

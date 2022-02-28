@@ -30,6 +30,20 @@ spec:
     relabelings:
 {{ toYaml .Values.serviceMonitor.relabelings | indent 6 }}
     {{- end }}
+  {{- if and .Values.serviceMonitor.enabled .Values.gatewayProxy.enabled -}}
+  - port: gateway-proxy
+    path: /metrics
+    {{- if .Values.serviceMonitor.scrapeInterval }}
+    interval: {{ .Values.serviceMonitor.scrapeInterval }}
+    {{- end }}
+    {{- if .Values.serviceMonitor.honorLabels }}
+    honorLabels: true
+    {{- end }}
+    {{- if .Values.serviceMonitor.relabelings }}
+    relabelings:
+{{ toYaml .Values.serviceMonitor.relabelings | indent 6 }}
+    {{- end }}
+  {{- end }}
 
   namespaceSelector:
     matchNames:
