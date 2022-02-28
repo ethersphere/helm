@@ -236,8 +236,8 @@ spec:
             {{- end }}
         {{- if .Values.clefSettings.enabled }}
         - name: clef
-          image: ethersphere/clef:0.6.0
-          imagePullPolicy: IfNotPresent
+          image: "{{ include "clef.image" . }}"
+          imagePullPolicy: {{ .Values.clefSettings.image.pullPolicy }}
           {{- if .Values.clefSettings.chainId }}
           env:
             - name: CLEF_CHAINID
@@ -260,6 +260,38 @@ spec:
               subPath: password
               readOnly: true
             {{- end }}
+        {{- end }}
+        {{- if .Values.gatewayProxy.enabled }}
+        - name: gateway-proxy
+          image: "{{ include "gatewayProxy.image" . }}"
+          imagePullPolicy: {{ .Values.gatewayProxy.image.pullPolicy }}
+          env:
+            - name: HOST
+              value: "0.0.0.0"
+            - name: PORT
+              value: "8633"
+            - name: BEE_API_URL 
+              value: "http://localhost:1633"
+            - name: BEE_DEBUG_API_URL
+              value: "http://localhost:1635"
+          {{- with .Values.gatewayProxy.envs }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          command:
+            - node
+            - dist/index.js
+          ports:
+            - containerPort: 8633
+              name: gateway-proxy
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: gateway-proxy
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: gateway-proxy
         {{- end }}
       volumes:
         - name: config-file

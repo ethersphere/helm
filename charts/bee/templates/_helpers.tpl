@@ -179,6 +179,18 @@ Get the swarm key to be retrieved from the secret.
 {{- end -}}
 
 {{/*
+Create clef image name combining repository and tag or digest.
+Digest takes presedance over tag.
+*/}}
+{{- define "clef.image" -}}
+{{- if .Values.clefSettings.image.digest -}}
+{{- printf "%s@%s" .Values.clefSettings.image.repository .Values.clefSettings.image.digest -}}
+{{- else -}}
+{{- printf "%s:%s" .Values.clefSettings.image.repository .Values.clefSettings.image.tag -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Get the clef password secret.
 */}}
 {{- define "bee.clefSecretName" -}}
@@ -230,6 +242,18 @@ Get the clef key to be retrieved from the secret.
 {{- printf "%s" .Values.clefSettings.existingSecretClefKey -}}
 {{- else -}}
 {{- printf "clefKeys" -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Create gatewayProxy image name combining repository and tag or digest.
+Digest takes presedance over tag.
+*/}}
+{{- define "gatewayProxy.image" -}}
+{{- if .Values.gatewayProxy.image.digest -}}
+{{- printf "%s@%s" .Values.gatewayProxy.image.repository .Values.gatewayProxy.image.digest -}}
+{{- else -}}
+{{- printf "%s:%s" .Values.gatewayProxy.image.repository .Values.gatewayProxy.image.tag -}}
 {{- end -}}
 {{- end -}}
 
