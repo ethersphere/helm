@@ -385,8 +385,13 @@ gatewayProxy:
         paths: []
         tlsSecret: ""
     tls: false
-  # Environment variables for this gateway-proxy container
-  # You can use any of the kubernetes env syntax here
+  ## If enabled it will configure bee debug api endpoint BEE_DEBUG_API_URL
+  ## that is needed for autobuy to work
+  ## If enabled set POSTAGE_DEPTH and POSTAGE_AMOUNT
+  autobuy:
+    enabled: false
+  ## Environment variables for this gateway-proxy container
+  ## You can use any of the kubernetes env syntax here
   envs: []
   # - name: POSTAGE_DEPTH
   #   value: 20
