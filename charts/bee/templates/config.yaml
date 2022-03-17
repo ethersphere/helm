@@ -54,6 +54,7 @@ data:
     tracing-endpoint: {{ .Values.beeConfig.tracing_endpoint }}
     tracing-service-name: {{ .Values.beeConfig.tracing_service_name }}
     transaction: {{ .Values.beeConfig.transaction }}
+    use-postage-snapshot: {{ .Values.beeConfig.use_postage_snapshot }}
     verbosity: {{ .Values.beeConfig.verbosity }}
     welcome-message: {{ .Values.beeConfig.welcome_message }}
     {{- if .Values.beeConfig.bootnode_mode }}
