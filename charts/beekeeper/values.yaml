@@ -4,8 +4,8 @@ image:
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
+nameOverride: ''
+fullnameOverride: ''
 
 serviceAccount:
   ## Specifies whether a service account should be created
@@ -20,18 +20,20 @@ serviceAccount:
 nodeSelector: {}
 
 config:
-  command: ["beekeeper", "check"]
-  dirPath: "files"
+  command: ['beekeeper', 'check']
+  dirPath: 'files'
   # environment variables
-  GETH_URL: http://geth-swap.geth-swap.test.internal
-  BZZ_TOKEN_ADDRESS: "0x6aab14fe9cccd64a502d23842d916eb5321c26e7"
-  ETH_ACCOUNT: "0x62cab2b3b55f341f10348720ca18063cdb779ad5"
+  CONFIG_GIT_REPO: ''
+  CONFIG_GIT_BRANCH: main
+  GETH_URL: http://geth-swap.geth-swap.staging.internal
+  BZZ_TOKEN_ADDRESS: '0x6aab14fe9cccd64a502d23842d916eb5321c26e7'
+  ETH_ACCOUNT: '0x62cab2b3b55f341f10348720ca18063cdb779ad5'
   # if singleRun is enabled cron job settings will be omitted
   # job
   singleRun: false
   backoffLimit: 0
   # cron job
-  schedule: "*/1 * * * *"
+  schedule: '*/1 * * * *'
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 3
   concurrencyPolicy: Forbid
@@ -39,4 +41,4 @@ config:
   # for cluster to be up and operational
   initPing:
     enabled: false
-    clusterName: ""
+    clusterName: ''
