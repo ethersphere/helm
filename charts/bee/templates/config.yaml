@@ -27,6 +27,7 @@ data:
     full-node: {{ .Values.beeConfig.full_node }}
     gateway-mode: {{ .Values.beeConfig.gateway_mode }}
     global-pinning-enable: {{ .Values.beeConfig.global_pinning_enable }}
+    mainnet: {{ .Values.beeConfig.mainnet }}
     nat-addr: {{ .Values.beeConfig.nat_addr }}
     network-id: {{ .Values.beeConfig.network_id }}
     {{- if .Values.beeConfig.usePasswordFile }}
