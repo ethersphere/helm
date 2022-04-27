@@ -234,8 +234,6 @@ beeConfig:
   full_node: true
   ## Disable a set of sensitive features in the api
   gateway_mode: false
-  ## Enable global pinning
-  global_pinning_enable: false
   ## Mainnet
   mainnet: true
   ## NAT exposed address
