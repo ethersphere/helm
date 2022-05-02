@@ -57,6 +57,7 @@ data:
     transaction: {{ .Values.beeConfig.transaction }}
     use-postage-snapshot: {{ .Values.beeConfig.use_postage_snapshot }}
     verbosity: {{ .Values.beeConfig.verbosity }}
+    warmup-time: {{ .Values.beeConfig.warmup_time }}
     welcome-message: {{ .Values.beeConfig.welcome_message }}
     {{- if .Values.beeConfig.bootnode_mode }}
     static-nodes:

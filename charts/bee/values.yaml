@@ -296,6 +296,8 @@ beeConfig:
   use_postage_snapshot: false
   ## Log verbosity level 0=silent, 1=error, 2=warn, 3=info, 4=debug, 5=trace
   verbosity: 3
+  ## Warmup time for node (default 20m)
+  warmup_time: 20m
   ## Send a welcome message string during handshakes
   welcome_message: "Welcome to the Swarm, you are Bee-ing connected!"
 
