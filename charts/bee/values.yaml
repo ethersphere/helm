@@ -178,6 +178,11 @@ serviceMonitor:
   #   separator: /
   #   replacement: $1
 
+extraInitContainers: []
+## Extra init containers to be added to the bee pod.
+# - name: extra-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
 
 ## If you need to disable liveness and readiness probes set to false
 probesEnable: true
