@@ -367,6 +367,13 @@ clefSettings:
   password: clefbeesecret
   ## Use existing password (ignores previous keyPassword)
   # existingPasswordSecret:
+  resources: {}
+    # limits:
+    #   cpu: 1
+    #   memory: 1Gi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi 
 
 
 ## If enabled it will start gateway-proxy sidecar container that will be publicly exposed
@@ -414,3 +421,10 @@ gatewayProxy:
   #   value: 0.9374
   # - name: LOG_LEVEL
   #   value: info
+  resources: {}
+    # limits:
+    #   cpu: 1
+    #   memory: 1Gi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi 
