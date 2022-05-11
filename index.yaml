@@ -3674,6 +3674,28 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/nethermind-0.1.0/nethermind-0.1.0.tgz
     version: 0.1.0
+  onboarding-faucet:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2022-05-11T12:20:08.469789211Z"
+    description: Onboarding faucet Helm chart for Kubernetes
+    digest: e2264f7c8bce152182c058f6f8591f6bfda1831775c96ece59d768d585ac9dc0
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - faucet
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: onboarding-faucet
+    sources:
+    - https://github.com/ethersphere/onboarding-faucet
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/onboarding-faucet-0.1.0/onboarding-faucet-0.1.0.tgz
+    version: 0.1.0
   tokenexporter:
   - apiVersion: v2
     appVersion: latest
@@ -3813,4 +3835,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2022-05-04T14:30:29.4363375Z"
+generated: "2022-05-11T12:20:08.470799898Z"
