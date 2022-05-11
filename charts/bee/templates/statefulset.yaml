@@ -253,6 +253,8 @@ spec:
             - containerPort: 8550
               name: api
               protocol: TCP
+          resources:
+            {{- toYaml .Values.clefSettings.resources | nindent 12 }}
           volumeMounts:
             - name: clef
               mountPath: /app/data
@@ -289,6 +291,8 @@ spec:
             - containerPort: 8633
               name: gateway-proxy
               protocol: TCP
+          resources:
+            {{- toYaml .Values.gatewayProxy.resources | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /health
