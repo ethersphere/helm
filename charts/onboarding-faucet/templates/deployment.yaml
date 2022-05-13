@@ -38,8 +38,10 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "onboarding-faucet.fullname" . }}
+            {{- if and .Values.config.PRIVATE_KEY -}}
             - secretRef:
                 name: {{ include "onboarding-faucet.fullname" . }}
+            {{- end -}}
           ports:
             - name: api
               containerPort: {{ .Values.config.PORT }}
