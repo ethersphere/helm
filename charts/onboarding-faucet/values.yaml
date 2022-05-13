@@ -8,7 +8,7 @@ image:
   repository: ethersphere/onboarding-faucet
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart version.
-  tag: latest
+  tag: 0.3.0
 
 imagePullSecrets: []
 nameOverride: ""
