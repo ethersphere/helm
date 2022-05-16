@@ -1,4 +1,4 @@
-{{- if and .Values.serviceMonitor.enabled .Values.beeConfig.debug_api_enable -}}
+{{- if and .Values.serviceMonitor.enabled .Values.beeConfig.debug-api-enable -}}
 
 ---
 apiVersion: monitoring.coreos.com/v1

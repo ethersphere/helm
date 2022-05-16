@@ -171,15 +171,15 @@ spec:
             - {{ . }}
             {{- end }}
           ports:
-            - containerPort: {{ int (split ":" .Values.beeConfig.api_addr )._1 }}
+            - containerPort: {{ int (split ":" .Values.beeConfig.api-addr )._1 }}
               name: api
               protocol: TCP
-            - containerPort: {{ int (split ":" .Values.beeConfig.p2p_addr )._1 }}
+            - containerPort: {{ int (split ":" .Values.beeConfig.p2p-addr )._1 }}
               name: p2p
               protocol: TCP
           {{- if .Values.probesEnable }}
-          {{- if .Values.beeConfig.debug_api_enable }}
-            - containerPort: {{ int (split ":" .Values.beeConfig.debug_api_addr )._1 }}
+          {{- if .Values.beeConfig.debug-api-enable }}
+            - containerPort: {{ int (split ":" .Values.beeConfig.debug-api-addr )._1 }}
               name: debug
               protocol: TCP
           livenessProbe:
@@ -301,10 +301,10 @@ spec:
         - name: config
           configMap:
             name: {{ template "bee.fullname" . }}
-        {{- if .Values.beeConfig.usePasswordFile }}
+        {{- if .Values.beeConfig.existingSecret }}
         - name: bee-secret
           secret:
-            secretName: {{ template "bee.secretName" . }}
+            secretName: {{ .Values.beeConfig.existingSecret }}
             items:
               - key: {{ template "bee.secretPasswordKey" . }}
                 path: password

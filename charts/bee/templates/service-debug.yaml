@@ -1,4 +1,4 @@
-{{- if .Values.beeConfig.debug_api_enable -}}
+{{- if .Values.beeConfig.debug-api-enable -}}
 
 {{- $root := . -}}
 
@@ -20,7 +20,7 @@ spec:
   type: ClusterIP
   ports:
     - name: debug
-      port: {{ int (split ":" $root.Values.beeConfig.debug_api_addr )._1 }}
+      port: {{ int (split ":" $root.Values.beeConfig.debug-api-addr )._1 }}
       protocol: TCP
       targetPort: debug
   selector:

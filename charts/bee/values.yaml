@@ -80,7 +80,7 @@ ingress:
       tlsSecret: ""
   tls: false
 
-## If enabled and beeConfig.debug_api_enable is enabled, creates ingress for debug api
+## If enabled and beeConfig.debug-api-enable is enabled, creates ingress for debug api
 ## Creates one ingress per pod
 ## Total number of created ingress objects is: replicaCount
 ## Hostname for 'per pod ingresses' is: <chart fullname>-debug-<i>, or <chart fullname>-debug-<i>.<domain> if domain is specified
@@ -156,7 +156,7 @@ persistence:
     # existingClaim:
 
 ## Enable this if you're using https://github.com/coreos/prometheus-operator
-## and beeConfig.debug_api_enable is enabled
+## and beeConfig.debug-api-enable is enabled
 serviceMonitor:
   enabled: false
   additionalLabels: {}
@@ -185,7 +185,7 @@ probesEnable: true
 podLabels: {}
 podAnnotations: {}
 ## Add this annotations if you're using https://github.com/prometheus/prometheus
-## and beeConfig.debug_api_enable is enabled
+## and beeConfig.debug-api-enable is enabled
   # prometheus.io/scrape: "true"
   # prometheus.io/port: "1635"
 
@@ -198,108 +198,30 @@ tolerations: []
 beeCommand: ["bee", "start", "--config=.bee.yaml"]
 
 beeConfig:
-  ## allow to advertise private CIDRs to the public network
-  allow_private_cidrs: false
   ## HTTP API listen address
-  api_addr: :1633
-  ## Chain block-time
-  block_time: 15
-  ## Initial nodes to connect to
-  bootnode: ""
-  ## Cause the node to always accept incoming connections
-  bootnode_mode: false
-  ## Enable clef signer
-  clef_signer_enable: false
-  ## Set clef signer endpoint
-  clef_signer_endpoint: ""
-  ## Origins with CORS headers enabled
-  cors_allowed_origins: ""
-  ## Data directory
-  data_dir: /home/bee/.bee
-  ## DB capacity in chunks
-  cache_capacity: 1000000
-  ## Number of open files allowed by database
-  db_open_files_limit: 200
-  ## Size of block cache of the database in bytes
-  db_block_cache_capacity: 33554432
-  ## Size of the database write buffer in bytes
-  db_write_buffer_size: 33554432
-  ## Disables db compactions triggered by seeks
-  db_disable_seeks_compaction: false
+  api-addr: :1633
   ## Debug HTTP API listen address
-  debug_api_addr: :1635
+  debug-api-addr: :1635
   ## Enable debug HTTP API
-  debug_api_enable: false
+  debug-api-enable: false
   ## Set the run mode - light by default
-  full_node: true
-  ## Disable a set of sensitive features in the api
-  gateway_mode: false
-  ## Enable global pinning
-  global_pinning_enable: false
-  ## Mainnet
-  mainnet: true
-  ## NAT exposed address
-  nat_addr: ""
-  ## ID of the Swarm network
-  network_id: 1
+  full-node: true
+  ## ID of the Swarm network - 10 by default
+  network-id: 1
+  ## P2P listen address
+  p2p-addr: :1634
   ## Password for decrypting keys (please change it for production deployments)
   ## If not set, it will be automatically generated
   password: beekeeper
-  ## Path to a file that contains password for decrypting keys is /home/bee/.secret/password
-  usePasswordFile: false
   ## Use existing secret (ignores previous password)
   # existingSecret:
   # existingSecretPasswordKey:
-  ## percentage below the peers payment threshold when we initiate settlement
-  payment_early_percent: 50
-  ## Threshold in BZZ where you expect to get paid from your peers
-  payment_threshold: 100000000
-  ## excess debt above payment threshold in percentages where you disconnect from your peer
-  payment_tolerance_percent: 25
-  ## Postage stamp address
-  postage_stamp_address: ""
-  ## Price oracle address
-  price_oracle_address: ""
-  ## P2P listen address
-  p2p_addr: :1634
-  ## Enable P2P QUIC transport
-  p2p_quic_enable: false
-  ## Enable P2P WebSocket transport
-  p2p_ws_enable: false
-  ## Set resync flag
-  resync: false
-  ## Whether node starts with no listen addresses for p2p
-  standalone: false
-  ## Static overlay addresses to protect on bootnode
-  static_nodes: ""
-  ## Enable SWAP
-  swap_enable: false
-  ## Set swap ethereum blockchain endpoint
-  swap_endpoint: http://localhost:8545
-  ## Set swap factory address
-  swap_factory_address: ""
-  ## Set swap legacy factory addresses
-  swap_legacy_factory_addresses: ""
-  ## Set gas price in wei to use for deployment and funding
-  swap_deployment_gas_price: ""
-  ## Set initial deposit if deploying a new chequebook
-  swap_initial_deposit: 10000000000000000
-  ## Resolver connection string
-  resolver_options: ""
-  ## Enable tracing
-  tracing_enable: false
-  ## Endpoint to send tracing data
-  tracing_endpoint: 127.0.0.1:6831
-  ## Service name identifier for tracing
-  tracing_service_name: bee
-  ## Proof-of-identity transaction hash
-  transaction: ""
-  ## Enable option for using postage snapshot
-  use_postage_snapshot: false
-  ## Log verbosity level 0=silent, 1=error, 2=warn, 3=info, 4=debug, 5=trace
-  verbosity: 3
-  ## Send a welcome message string during handshakes
-  welcome_message: "Welcome to the Swarm, you are Bee-ing connected!"
+  ## Enable SWAP - enabled by default
+  swap-enable: false
+  ## Set swap ethereum blockchain endpoint - ws://localhost:8546 by default
+  swap-endpoint: http://localhost:8545
+  ## Send a welcome message string during handshakes - empty by default
+  welcome-message: "Welcome to the Swarm, you are Bee-ing connected!"
 
 ## If you prefer setting config options using ENV variables you can set beeEnv
 ## Use same option names as in beeConfig it will be translated to ENV variable format: api_addr -> BEE_API_ADDR

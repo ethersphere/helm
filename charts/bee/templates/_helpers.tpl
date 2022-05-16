@@ -102,17 +102,6 @@ Create the name of the service account to use.
 {{- end -}}
 
 {{/*
-Get the password secret.
-*/}}
-{{- define "bee.secretName" -}}
-{{- if .Values.beeConfig.existingSecret -}}
-{{- printf "%s" .Values.beeConfig.existingSecret -}}
-{{- else -}}
-{{- printf "%s" (include "bee.fullname" .) -}}
-{{- end -}}
-{{- end -}}
-
-{{/*
 Get the password key to be retrieved from the secret.
 */}}
 {{- define "bee.secretPasswordKey" -}}
