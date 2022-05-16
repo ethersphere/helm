@@ -37,7 +37,7 @@ spec:
   type: ClusterIP
   ports:
     - name: api
-      port: {{ int (split ":" $root.Values.beeConfig.api-addr )._1 }}
+      port: {{ int (include "bee.config.api_addr" $root) }}
       protocol: TCP
       targetPort: api
   selector:

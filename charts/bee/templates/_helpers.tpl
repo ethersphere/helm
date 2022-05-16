@@ -124,6 +124,26 @@ Return Bee password.
 {{- end -}}
 
 {{/*
+Define config parameters api-addr, debug-api-addr, debug-api-enable, p2p-addr
+*/}}
+{{- define "bee.config.api_addr" -}}
+{{- $full_api_addr := index .Values.beeConfig "api-addr" -}}
+{{- $api_addr := (split ":" $full_api_addr )._1 }}
+{{- printf "%s" $api_addr -}}
+{{- end -}}
+{{- define "bee.config.debug_api_addr" -}}
+{{- $full_debug_api_addr := index .Values.beeConfig "debug-api-addr" -}}
+{{- $debug_api_addr := (split ":" $full_debug_api_addr )._1 }}
+{{- printf "%s" $debug_api_addr -}}
+{{- end -}}
+{{- define "bee.config.p2p_addr" -}}
+{{- $full_p2p_addr := index .Values.beeConfig "p2p-addr" -}}
+{{- $p2p_addr := (split ":" $full_p2p_addr )._1 }}
+{{- printf "%s" $p2p_addr -}}
+{{- end -}}
+
+
+{{/*
 Get the libp2pKeys secret.
 */}}
 {{- define "bee.libp2pKeysSecretName" -}}

@@ -13,6 +13,4 @@ data:
   {{- end }}
     {{- if .Values.beeConfig.existingSecret }}
     password-file: /home/bee/.secret/password
-    {{- else }}
-    password: {{ include "bee.password" . }}
     {{- end }}

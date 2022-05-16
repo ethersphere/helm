@@ -174,15 +174,15 @@ spec:
             - {{ . }}
             {{- end }}
           ports:
-            - containerPort: {{ int (split ":" .Values.beeConfig.api-addr )._1 }}
+            - containerPort: {{ int (include "bee.config.api_addr" .) }}
               name: api
               protocol: TCP
-            - containerPort: {{ int (split ":" .Values.beeConfig.p2p-addr )._1 }}
+            - containerPort: {{ int (include "bee.config.p2p_addr" .) }}
               name: p2p
               protocol: TCP
           {{- if .Values.probesEnable }}
-          {{- if .Values.beeConfig.debug-api-enable }}
-            - containerPort: {{ int (split ":" .Values.beeConfig.debug-api-addr )._1 }}
+          {{- if index .Values.beeConfig "debug-api-enable" }}
+            - containerPort: {{ int (include "bee.config.debug_api_addr" .) }}
               name: debug
               protocol: TCP
           livenessProbe:
