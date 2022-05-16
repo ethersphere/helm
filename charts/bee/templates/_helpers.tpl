@@ -126,20 +126,20 @@ Return Bee password.
 {{/*
 Define config parameters api-addr, debug-api-addr, debug-api-enable, p2p-addr
 */}}
-{{- define "bee.config.api_addr" -}}
+{{- define "bee.config.api_port" -}}
 {{- $full_api_addr := index .Values.beeConfig "api-addr" -}}
-{{- $api_addr := (split ":" $full_api_addr )._1 }}
-{{- printf "%s" $api_addr -}}
+{{- $api_port := (split ":" $full_api_addr )._1 }}
+{{- printf "%s" $api_port -}}
 {{- end -}}
-{{- define "bee.config.debug_api_addr" -}}
+{{- define "bee.config.debug_api_port" -}}
 {{- $full_debug_api_addr := index .Values.beeConfig "debug-api-addr" -}}
-{{- $debug_api_addr := (split ":" $full_debug_api_addr )._1 }}
-{{- printf "%s" $debug_api_addr -}}
+{{- $debug_api_port := (split ":" $full_debug_api_addr )._1 }}
+{{- printf "%s" $debug_api_port -}}
 {{- end -}}
-{{- define "bee.config.p2p_addr" -}}
+{{- define "bee.config.p2p_port" -}}
 {{- $full_p2p_addr := index .Values.beeConfig "p2p-addr" -}}
-{{- $p2p_addr := (split ":" $full_p2p_addr )._1 }}
-{{- printf "%s" $p2p_addr -}}
+{{- $p2p_port := (split ":" $full_p2p_addr )._1 }}
+{{- printf "%s" $p2p_port -}}
 {{- end -}}
 
 

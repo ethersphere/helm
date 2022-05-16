@@ -10,16 +10,16 @@ spec:
   clusterIP: None
   ports:
     - name: api
-      port: {{ int (include "bee.config.api_addr" .) }}
+      port: {{ int (include "bee.config.api_port" .) }}
       protocol: TCP
       targetPort: api
     - name: p2p
-      port: {{ int (include "bee.config.p2p_addr" .) }}
+      port: {{ int (include "bee.config.p2p_port" .) }}
       protocol: TCP
       targetPort: p2p
     {{- if index .Values.beeConfig "debug-api-enable" }}
     - name: debug
-      port: {{ int (include "bee.config.debug_api_addr" .) }}
+      port: {{ int (include "bee.config.debug_api_port" .) }}
       protocol: TCP
       targetPort: debug
     {{- end }}
@@ -45,7 +45,7 @@ spec:
   clusterIP: None
   ports:
     - name: p2p
-      port: {{ int (include "bee.config.p2p_addr" $root) }}
+      port: {{ int (include "bee.config.p2p_port" $root) }}
       protocol: TCP
       targetPort: p2p
   selector:

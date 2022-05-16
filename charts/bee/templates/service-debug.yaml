@@ -20,7 +20,7 @@ spec:
   type: ClusterIP
   ports:
     - name: debug
-      port: {{ int (include "bee.config.debug_api_addr" $root) }}
+      port: {{ int (include "bee.config.debug_api_port" $root) }}
       protocol: TCP
       targetPort: debug
   selector:
