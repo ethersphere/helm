@@ -51,7 +51,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if or .Values.libp2pSettings.enabled .Values.p2pFixedPort.enabled .Values.swarmSettings.enabled .Values.clefSettings.enabled }}
+      {{- if or .Values.libp2pSettings.enabled .Values.p2pFixedPort.enabled .Values.swarmSettings.enabled .Values.clefSettings.enabled .Values.extraInitContainers }}
       initContainers:
         {{- if .Values.libp2pSettings.enabled }}
         - name: init-libp2p
@@ -138,6 +138,9 @@ spec:
             - name: config
               mountPath: /tmp/.bee.yaml
               subPath: .bee.yaml
+        {{- end }}
+        {{- if .Values.extraInitContainers }}
+          {{- toYaml .Values.extraInitContainers | nindent 8 }}
         {{- end }}
       {{- end }}
       containers:
@@ -250,6 +253,8 @@ spec:
             - containerPort: 8550
               name: api
               protocol: TCP
+          resources:
+            {{- toYaml .Values.clefSettings.resources | nindent 12 }}
           volumeMounts:
             - name: clef
               mountPath: /app/data
@@ -286,6 +291,8 @@ spec:
             - containerPort: 8633
               name: gateway-proxy
               protocol: TCP
+          resources:
+            {{- toYaml .Values.gatewayProxy.resources | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /health

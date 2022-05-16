@@ -178,6 +178,11 @@ serviceMonitor:
   #   separator: /
   #   replacement: $1
 
+extraInitContainers: []
+## Extra init containers to be added to the bee pod.
+# - name: extra-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
 
 ## If you need to disable liveness and readiness probes set to false
 probesEnable: true
@@ -284,6 +289,13 @@ clefSettings:
   password: clefbeesecret
   ## Use existing password (ignores previous keyPassword)
   # existingPasswordSecret:
+  resources: {}
+    # limits:
+    #   cpu: 1
+    #   memory: 1Gi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi 
 
 
 ## If enabled it will start gateway-proxy sidecar container that will be publicly exposed
@@ -331,3 +343,10 @@ gatewayProxy:
   #   value: 0.9374
   # - name: LOG_LEVEL
   #   value: info
+  resources: {}
+    # limits:
+    #   cpu: 1
+    #   memory: 1Gi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi 

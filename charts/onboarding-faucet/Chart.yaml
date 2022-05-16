@@ -1,0 +1,17 @@
+apiVersion: v2
+appVersion: latest
+name: onboarding-faucet
+version: 0.1.1
+description: Onboarding faucet Helm chart for Kubernetes
+home: https://www.ethswarm.org
+icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+keywords:
+  - blockchain
+  - ethereum
+  - faucet
+maintainers:
+  - name: vandot
+    email: vandot@ethswarm.org
+sources:
+  - https://github.com/ethersphere/onboarding-faucet
+type: application
