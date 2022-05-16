@@ -295,9 +295,7 @@ clefSettings:
     #   memory: 1Gi
     # requests:
     #   cpu: 100m
-    #   memory: 128Mi 
-
-
+    #   memory: 128Mi
 ## If enabled it will start gateway-proxy sidecar container that will be publicly exposed
 ## It is used by gateway app
 gatewayProxy:
@@ -349,4 +347,4 @@ gatewayProxy:
     #   memory: 1Gi
     # requests:
     #   cpu: 100m
-    #   memory: 128Mi 
+    #   memory: 128Mi
