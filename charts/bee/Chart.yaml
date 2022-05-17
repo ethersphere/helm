@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: latest
+appVersion: 1.6.0
 name: bee
 version: 0.12.0
 kubeVersion: ">=1.19.0-0"

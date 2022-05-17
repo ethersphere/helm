@@ -232,11 +232,10 @@ spec:
             - name: localstore
               mountPath: /home/bee/.bee/localstore
             {{- end }}
-            {{- if .Values.beeConfig.usePasswordFile }}
             - name: bee-secret
-              mountPath: /home/bee/.secret
+              mountPath: /home/bee/.secret/password
+              subPath: password
               readOnly: true
-            {{- end }}
         {{- if .Values.clefSettings.enabled }}
         - name: clef
           image: "{{ include "clef.image" . }}"
@@ -308,14 +307,19 @@ spec:
         - name: config
           configMap:
             name: {{ template "bee.fullname" . }}
-        {{- if .Values.beeConfig.existingSecret }}
         - name: bee-secret
           secret:
+            {{- if .Values.beeConfig.existingSecret }}
             secretName: {{ .Values.beeConfig.existingSecret }}
             items:
               - key: {{ template "bee.secretPasswordKey" . }}
                 path: password
-        {{- end }}
+            {{- else }}
+            secretName: {{ template "bee.fullname" . }}-password
+            items:
+              - key: password
+                path: password
+            {{- end }}
         {{- if .Values.libp2pSettings.enabled }}
         - name: bee-libp2p
           secret:

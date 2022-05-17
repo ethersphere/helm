@@ -11,6 +11,4 @@ data:
   {{- range $k, $v := .Values.beeConfig }}
     {{ $k | replace "_" "-" }}: {{ $v }}
   {{- end }}
-    {{- if .Values.beeConfig.existingSecret }}
     password-file: /home/bee/.secret/password
-    {{- end }}

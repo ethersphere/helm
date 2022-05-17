@@ -4,7 +4,7 @@
 
 image:
   repository: ethersphere/bee
-  tag: 1.0.0
+  tag: 1.6.0
   # digest: sha256:508a6bc1d3f45acaf98b746d521ee2cb11a895d8334446d2205fe4053b9e3667
   pullPolicy: IfNotPresent
 
@@ -205,28 +205,22 @@ beeCommand: ["bee", "start", "--config=.bee.yaml"]
 beeConfig:
   ## HTTP API listen address
   api-addr: :1633
+  ## P2P listen address
+  p2p-addr: :1634
   ## Debug HTTP API listen address
   debug-api-addr: :1635
   ## Enable debug HTTP API
-  debug-api-enable: false
+  debug-api-enable: true
   ## Set the run mode - light by default
   full-node: true
   ## ID of the Swarm network - 10 by default
   network-id: 1
-  ## P2P listen address
-  p2p-addr: :1634
-  ## Password for decrypting keys (please change it for production deployments)
+  ## Password for decrypting keys (please set it for production deployments)
   ## If not set, it will be automatically generated
-  password: beekeeper
+  password:
   ## Use existing secret (ignores previous password)
   # existingSecret:
   # existingSecretPasswordKey:
-  ## Enable SWAP - enabled by default
-  swap-enable: false
-  ## Set swap ethereum blockchain endpoint - ws://localhost:8546 by default
-  swap-endpoint: http://localhost:8545
-  ## Send a welcome message string during handshakes - empty by default
-  welcome-message: "Welcome to the Swarm, you are Bee-ing connected!"
 
 ## If you prefer setting config options using ENV variables you can set beeEnv
 ## Use same option names as in beeConfig it will be translated to ENV variable format: api_addr -> BEE_API_ADDR
