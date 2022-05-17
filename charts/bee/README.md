@@ -50,6 +50,22 @@ $ helm delete my-release
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
+## Upgrading the Chart
+
+```bash
+$ helm upgrade my-release ethersphere/bee --install
+```
+
+### To 0.12.0
+
+Version 0.12.0 adds new secret object, password is moved to an independent secret object and mounted inside container in statefulset.
+
+Before you update please execute the following command to delete all statefullsets, but preserving running bee containers.
+
+```bash
+kubectl delete statefulsets.apps -l app.kubernetes.io/name=bee --cascade=orphan
+```
+
 ## Configuration
 
 The default configuration values for this chart are listed in **values.yaml**.
