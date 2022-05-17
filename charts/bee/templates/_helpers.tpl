@@ -102,22 +102,11 @@ Create the name of the service account to use.
 {{- end -}}
 
 {{/*
-Get the password secret.
-*/}}
-{{- define "bee.secretName" -}}
-{{- if .Values.beeConfig.existingSecret -}}
-{{- printf "%s" .Values.beeConfig.existingSecret -}}
-{{- else -}}
-{{- printf "%s" (include "bee.fullname" .) -}}
-{{- end -}}
-{{- end -}}
-
-{{/*
 Get the password key to be retrieved from the secret.
 */}}
 {{- define "bee.secretPasswordKey" -}}
-{{- if and .Values.beeConfig.existingSecret .Values.beeConfig.existingSecretPasswordKey -}}
-{{- printf "%s" .Values.beeConfig.existingSecretPasswordKey -}}
+{{- if and .Values.existingSecret .Values.existingSecretPasswordKey -}}
+{{- printf "%s" .Values.existingSecretPasswordKey -}}
 {{- else -}}
 {{- printf "password" -}}
 {{- end -}}
@@ -127,12 +116,32 @@ Get the password key to be retrieved from the secret.
 Return Bee password.
 */}}
 {{- define "bee.password" -}}
-{{- if not (empty .Values.beeConfig.password) }}
-    {{- .Values.beeConfig.password -}}
+{{- if not (empty .Values.password) }}
+    {{- .Values.password -}}
 {{- else -}}
     {{- randAlphaNum 10 -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Define config parameters api-addr, debug-api-addr, debug-api-enable, p2p-addr
+*/}}
+{{- define "bee.config.api_port" -}}
+{{- $full_api_addr := index .Values.beeConfig "api-addr" -}}
+{{- $api_port := (split ":" $full_api_addr )._1 }}
+{{- printf "%s" $api_port -}}
+{{- end -}}
+{{- define "bee.config.debug_api_port" -}}
+{{- $full_debug_api_addr := index .Values.beeConfig "debug-api-addr" -}}
+{{- $debug_api_port := (split ":" $full_debug_api_addr )._1 }}
+{{- printf "%s" $debug_api_port -}}
+{{- end -}}
+{{- define "bee.config.p2p_port" -}}
+{{- $full_p2p_addr := index .Values.beeConfig "p2p-addr" -}}
+{{- $p2p_port := (split ":" $full_p2p_addr )._1 }}
+{{- printf "%s" $p2p_port -}}
+{{- end -}}
+
 
 {{/*
 Get the libp2pKeys secret.

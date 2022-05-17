@@ -17,7 +17,7 @@ spec:
   externalTrafficPolicy: Local
   ports:
     - name: p2p
-      port: {{ int (split ":" $root.Values.beeConfig.p2p_addr )._1 }}
+      port: {{ int (include "bee.config.p2p_port" $root) }}
       protocol: TCP
       targetPort: p2p
       {{- if $root.Values.p2pFixedPort.enabled }}

@@ -1,8 +1,8 @@
 apiVersion: v2
-appVersion: latest
+appVersion: 1.6.0
 name: bee
-version: 0.11.9
-kubeVersion: ">=1.15.0-0"
+version: 0.12.0
+kubeVersion: ">=1.19.0-0"
 description: Ethereum Swarm Bee Helm chart for Kubernetes
 home: https://www.ethswarm.org
 icon: https://docs.ethswarm.org/img/swarm-logo-2.svg

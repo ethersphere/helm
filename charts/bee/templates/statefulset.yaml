@@ -174,15 +174,15 @@ spec:
             - {{ . }}
             {{- end }}
           ports:
-            - containerPort: {{ int (split ":" .Values.beeConfig.api_addr )._1 }}
+            - containerPort: {{ int (include "bee.config.api_port" .) }}
               name: api
               protocol: TCP
-            - containerPort: {{ int (split ":" .Values.beeConfig.p2p_addr )._1 }}
+            - containerPort: {{ int (include "bee.config.p2p_port" .) }}
               name: p2p
               protocol: TCP
           {{- if .Values.probesEnable }}
-          {{- if .Values.beeConfig.debug_api_enable }}
-            - containerPort: {{ int (split ":" .Values.beeConfig.debug_api_addr )._1 }}
+          {{- if index .Values.beeConfig "debug-api-enable" }}
+            - containerPort: {{ int (include "bee.config.debug_api_port" .) }}
               name: debug
               protocol: TCP
           livenessProbe:
@@ -232,11 +232,10 @@ spec:
             - name: localstore
               mountPath: /home/bee/.bee/localstore
             {{- end }}
-            {{- if .Values.beeConfig.usePasswordFile }}
             - name: bee-secret
-              mountPath: /home/bee/.secret
+              mountPath: /home/bee/.secret/password
+              subPath: password
               readOnly: true
-            {{- end }}
         {{- if .Values.clefSettings.enabled }}
         - name: clef
           image: "{{ include "clef.image" . }}"
@@ -308,14 +307,19 @@ spec:
         - name: config
           configMap:
             name: {{ template "bee.fullname" . }}
-        {{- if .Values.beeConfig.usePasswordFile }}
         - name: bee-secret
           secret:
-            secretName: {{ template "bee.secretName" . }}
+            {{- if .Values.existingSecret }}
+            secretName: {{ .Values.existingSecret }}
             items:
               - key: {{ template "bee.secretPasswordKey" . }}
                 path: password
-        {{- end }}
+            {{- else }}
+            secretName: {{ template "bee.fullname" . }}-password
+            items:
+              - key: password
+                path: password
+            {{- end }}
         {{- if .Values.libp2pSettings.enabled }}
         - name: bee-libp2p
           secret:
