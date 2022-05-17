@@ -309,8 +309,8 @@ spec:
             name: {{ template "bee.fullname" . }}
         - name: bee-secret
           secret:
-            {{- if .Values.beeConfig.existingSecret }}
-            secretName: {{ .Values.beeConfig.existingSecret }}
+            {{- if .Values.existingSecret }}
+            secretName: {{ .Values.existingSecret }}
             items:
               - key: {{ template "bee.secretPasswordKey" . }}
                 path: password

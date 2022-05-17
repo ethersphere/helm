@@ -215,12 +215,13 @@ beeConfig:
   full-node: true
   ## ID of the Swarm network - 10 by default
   network-id: 1
-  ## Password for decrypting keys (please set it for production deployments)
-  ## If not set, it will be automatically generated
-  password:
-  ## Use existing secret (ignores previous password)
-  # existingSecret:
-  # existingSecretPasswordKey:
+
+## Password for decrypting bee keys (please set it for production deployments)
+## If not set, it will be automatically generated
+password:
+## Use existing secret (ignores previous password)
+# existingSecret:
+# existingSecretPasswordKey:
 
 ## If you prefer setting config options using ENV variables you can set beeEnv
 ## Use same option names as in beeConfig it will be translated to ENV variable format: api_addr -> BEE_API_ADDR
