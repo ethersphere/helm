@@ -18,6 +18,8 @@ imageSetupContract:
   tag: latest
   pullPolicy: Always
 
+geth-setup: true
+
 geth:
   cache: 512
   genesis:
@@ -58,6 +60,12 @@ service:
   type: ClusterIP
   port: 8545
   wsport: 8546
+
+extraInitContainers: []
+## Extra init containers to be added to the bee pod.
+# - name: extra-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
 
 ingress:
   enabled: false
