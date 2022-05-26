@@ -39,9 +39,9 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if or .Values.geth-setup .Values.extraInitContainers }}
+      {{- if or .Values.gethSetup .Values.extraInitContainers }}
       initContainers:
-        {{- if .Values.geth-setup }}
+        {{- if .Values.gethSetup }}
         - name: geth-setup
           image: "{{ include "geth-swap.image" . }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}

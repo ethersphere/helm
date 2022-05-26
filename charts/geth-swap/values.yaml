@@ -18,7 +18,7 @@ imageSetupContract:
   tag: latest
   pullPolicy: Always
 
-geth-setup: true
+gethSetup: true
 
 geth:
   cache: 512
