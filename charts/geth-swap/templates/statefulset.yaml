@@ -77,11 +77,13 @@ spec:
             - name: ws
               containerPort: 8546
               protocol: TCP
+          {{- if .Values.probesEnable }}
           livenessProbe:
             httpGet:
               path: /
               port: rpc
             initialDelaySeconds: 5
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           securityContext:

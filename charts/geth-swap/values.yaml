@@ -19,6 +19,7 @@ imageSetupContract:
   pullPolicy: Always
 
 gethSetup: true
+probesEnable: true
 
 geth:
   cache: 512
