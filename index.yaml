@@ -3,6 +3,36 @@ entries:
   bee:
   - apiVersion: v2
     appVersion: 1.6.0
+    created: "2022-05-27T09:02:43.168941358Z"
+    description: Ethereum Swarm Bee Helm chart for Kubernetes
+    digest: de05baf700f2613172b8185bc89469335f1b792e3135ae096d10eda8747d450f
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - storage
+    - swarm
+    - web3
+    kubeVersion: '>=1.19.0-0'
+    maintainers:
+    - email: devops@ethswarm.org
+      name: devops
+    - email: svetomir@ethswarm.org
+      name: svetomir
+    - email: vandot@ethswarm.org
+      name: vandot
+    - email: aleksandar@ethswarm.org
+      name: aleksandar
+    name: bee
+    sources:
+    - https://github.com/ethersphere/bee
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/bee-0.12.2/bee-0.12.2.tgz
+    version: 0.12.2
+  - apiVersion: v2
+    appVersion: 1.6.0
     created: "2022-05-19T07:45:18.720791789Z"
     description: Ethereum Swarm Bee Helm chart for Kubernetes
     digest: a89d596b55979e87e0b3d553d9257a863787d4889d220304edb35321a8cecb80
@@ -3470,6 +3500,21 @@ entries:
   geth-swap:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-05-27T09:02:43.259919108Z"
+    description: A Helm chart for Kubernetes
+    digest: e769cc324afe7e696091310c2d428c3bdc9a19521dbfebf51a29ce41f69da53b
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    maintainers:
+    - email: ralph@ethswarm.org
+      name: ralph-pichler
+    name: geth-swap
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/geth-swap-0.3.5/geth-swap-0.3.5.tgz
+    version: 0.3.5
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2022-05-26T10:35:19.350654289Z"
     description: A Helm chart for Kubernetes
     digest: 7bc708d90137102a6ef0300e74ff3d066a46082f2cf39ddcc5e4caf1c54a6799
@@ -3984,4 +4029,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2022-05-26T10:35:19.351739403Z"
+generated: "2022-05-27T09:02:43.261088998Z"
