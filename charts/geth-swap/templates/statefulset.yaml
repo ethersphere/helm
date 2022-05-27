@@ -67,26 +67,9 @@ spec:
           image: "{{ include "geth-swap.image" . }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
-            - geth
-            - --http
-            - --http.addr
-            - "0.0.0.0"
-            - --allow-insecure-unlock
-            - --http.api
-            - 'eth,net,personal,web3'
-            - --http.vhosts
-            - "*"
-            - --ws
-            - --ws.addr
-            - "0.0.0.0"
-            - --ws.api
-            - 'eth,net,personal,web3'
-            - --unlock={{ .Values.geth.genesis.validatorAddress }}
-            - --password=/dev/null
-            - --mine
-            - --lightkdf
-            - --syncmode=full
-            - --cache={{ .Values.geth.cache }}
+            {{- range .Values.gethCommand }}
+            - {{ . }}
+            {{- end }}
           ports:
             - name: rpc
               containerPort: 8545

@@ -33,6 +33,8 @@ geth:
     - addr: "62cab2b3b55f341f10348720ca18063cdb779ad5"
       wei: "0xf0000000000000000000000000"
 
+gethCommand: ["geth", "--http", "--http.addr", "'0.0.0.0'", "--allow-insecure-unlock", "--http.api", "'eth,net,personal,web3'", "--http.vhosts", "'*'", "--ws", "--ws.addr", "'0.0.0.0'", "--ws.api", "'eth,net,personal,web3'", "--unlock=62cab2b3b55f341f10348720ca18063cdb779ad5", "--password=/dev/null", "--mine", "--lightkdf", "--syncmode=full", "--cache=512"]
+
 swap:
   gas: "2000000"
   bzzaccounts:
