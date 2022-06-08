@@ -99,5 +99,5 @@ config:
   PORT: "3000"
   HOSTNAME: "0.0.0.0"
   RPC_URL: "https://rpc.gnosischain.com"
-  WS_RPC_URL: "wss://rpc.gnosischain.com/wss"
+  LOG_LEVEL: "info"
   PRIVATE_KEY: ""

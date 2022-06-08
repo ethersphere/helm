@@ -8,5 +8,5 @@ data:
   HOSTNAME: {{ .Values.config.HOSTNAME | quote }}
   PORT: {{ .Values.config.PORT | quote }}
   RPC_URL: {{ .Values.config.RPC_URL | quote }}
-  WS_RPC_URL: {{ .Values.config.WS_RPC_URL | quote }}
+  LOG_LEVEL: {{ .Values.config.LOG_LEVEL | quote }}
   
