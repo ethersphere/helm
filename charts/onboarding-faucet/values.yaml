@@ -96,8 +96,9 @@ strategy:
 
 # environment variables
 config:
-  PORT: "3000"
+  AUTH_TOKEN: "secret"
   HOSTNAME: "0.0.0.0"
-  RPC_URL: "https://rpc.gnosischain.com"
   LOG_LEVEL: "info"
+  RPC_URL: "https://rpc.gnosischain.com"
+  PORT: "3000"
   PRIVATE_KEY: ""

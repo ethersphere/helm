@@ -5,8 +5,10 @@ metadata:
   labels:
     {{- include "onboarding-faucet.labels" . | nindent 4 }}
 data:
+  AUTH_TOKEN: {{ .Values.config.AUTH_TOKEN | quote }}
   HOSTNAME: {{ .Values.config.HOSTNAME | quote }}
+  LOG_LEVEL: {{ .Values.config.LOG_LEVEL | quote }}
   PORT: {{ .Values.config.PORT | quote }}
   RPC_URL: {{ .Values.config.RPC_URL | quote }}
-  LOG_LEVEL: {{ .Values.config.LOG_LEVEL | quote }}
+
   
