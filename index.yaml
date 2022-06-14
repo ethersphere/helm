@@ -3850,6 +3850,27 @@ entries:
   onboarding-faucet:
   - apiVersion: v2
     appVersion: latest
+    created: "2022-06-14T19:24:36.931172149Z"
+    description: Onboarding faucet Helm chart for Kubernetes
+    digest: f36fa2d7c4665f90eab79334fe3b0828c5289701195aeafde382cea1cc0d3969
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - faucet
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: onboarding-faucet
+    sources:
+    - https://github.com/ethersphere/onboarding-faucet
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/onboarding-faucet-0.1.3/onboarding-faucet-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: latest
     created: "2022-06-08T12:23:47.758121942Z"
     description: Onboarding faucet Helm chart for Kubernetes
     digest: a9ece7e0c4e86ea65d4ff90595fa50a839a984dc1f4c492bfbffad128ac8cae8
@@ -4050,4 +4071,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2022-06-08T12:23:47.759699579Z"
+generated: "2022-06-14T19:24:36.932127961Z"
