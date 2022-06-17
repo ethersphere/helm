@@ -53,7 +53,7 @@ spec:
             periodSeconds: 20
           readinessProbe:
             httpGet:
-              path: /health
+              path: /readiness
               port: api
             periodSeconds: 20
           resources:
