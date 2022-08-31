@@ -11,6 +11,10 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+    - port: {{ .Values.service.engine }}
+      targetPort: engine
+      protocol: TCP
+      name: http
     - port: {{ .Values.service.prometheus }}
       targetPort: prometheus
       protocol: TCP

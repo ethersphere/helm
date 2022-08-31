@@ -8,7 +8,7 @@ image:
   repository: nethermind/nethermind
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.10.79"
+  tag: "1.14.0"
   args: [
    "--config",
     "mainnet"]
@@ -62,6 +62,7 @@ securityContext: {}
 container:
   ports:
     http: 8545
+    engine: 8551
     listener: 30303
     discovery: 30303
     prometheus: 9091
@@ -69,6 +70,7 @@ container:
 service:
   type: ClusterIP
   http: 8545
+  engine: 8551
   prometheus: 9091
 
 serviceP2P:
