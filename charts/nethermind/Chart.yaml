@@ -2,7 +2,7 @@ apiVersion: v2
 name: nethermind
 description: A Helm chart for Ethereum Nethermind client
 type: application
-version: 0.1.2
+version: 0.2.0
 icon: https://github.com/NethermindEth/nethermind/raw/master/Nethermind.png
 keywords:
   - ethereum
@@ -11,7 +11,7 @@ home: https://nethermind.io/
 sources:
   - https://github.com/NethermindEth/nethermind
 maintainers:
-  - name: Ivan Vandot
+  - name: vandot
     email: vandot@ethswarm.org
 
 appVersion: latest

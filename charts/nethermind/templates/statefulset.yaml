@@ -47,6 +47,9 @@ spec:
             - name: http
               containerPort: {{ .Values.container.ports.http }}
               protocol: TCP
+            - name: engine
+              containerPort: {{ .Values.container.ports.engine }}
+              protocol: TCP
             - name: prometheus
               containerPort: {{ .Values.container.ports.prometheus }}
               protocol: TCP
