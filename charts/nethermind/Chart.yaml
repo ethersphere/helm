@@ -11,7 +11,7 @@ home: https://nethermind.io/
 sources:
   - https://github.com/NethermindEth/nethermind
 maintainers:
-  - name: Ivan Vandot
+  - name: vandot
     email: vandot@ethswarm.org
 
 appVersion: latest

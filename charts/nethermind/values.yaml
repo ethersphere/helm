@@ -10,7 +10,7 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "1.14.0"
   args: [
-   "--config",
+    "--config",
     "mainnet"]
 
 imagePullSecrets: []
@@ -26,20 +26,20 @@ volumes:
 persistence:
   enabled: true
   annotations: {}
-  accessModes: 
+  accessModes:
     - ReadWriteOnce
-  size: 20Gi # For mainnet must increase
+  size: 20Gi  # For mainnet must increase
 
   ## A manually managed Persistent Volume and Claim
   ## If defined, PVC must be created manually before volume will be bound
   ## The value is evaluated as a template, so, for example, the name can depend on .Release or .Chart
-  ##  
+  ##
   # existingClaim:
 
   ## An existing directory in the node
   ## If defined, host directory must be created manually before volume will be bound
   ## See https://kubernetes.io/docs/concepts/storage/volumes/#hostpath
-  ##  
+  ##
   # hostPath:
   #   path: /nethermind/nethermind_db
   #   type: Directory
