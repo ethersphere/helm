@@ -3811,6 +3811,25 @@ entries:
   nethermind:
   - apiVersion: v2
     appVersion: latest
+    created: "2022-08-31T20:10:19.801842643Z"
+    description: A Helm chart for Ethereum Nethermind client
+    digest: bbd7118427e960ecbb01c6f3ed6a268dd44646f75516f345589a778499832006
+    home: https://nethermind.io/
+    icon: https://github.com/NethermindEth/nethermind/raw/master/Nethermind.png
+    keywords:
+    - ethereum
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: nethermind
+    sources:
+    - https://github.com/NethermindEth/nethermind
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/nethermind-0.2.0/nethermind-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: latest
     created: "2021-08-17T13:22:39.036304532Z"
     description: A Helm chart for Ethereum Nethermind client
     digest: 5940578bb1e6d088ffef45179ebd8906d90e80a8fcc1a72b0244329b57f6a049
@@ -4092,4 +4111,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2022-06-17T13:25:02.301879694Z"
+generated: "2022-08-31T20:10:19.802738554Z"
