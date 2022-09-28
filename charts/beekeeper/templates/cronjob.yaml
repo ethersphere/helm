@@ -16,13 +16,13 @@ spec:
       labels:
         {{- include "beekeeper.selectorLabels" . | nindent 8 }}
     spec:
+      parallelism: {{ .Values.config.parallelism }}
       template:
         spec:
         {{- with .Values.imagePullSecrets }}
           imagePullSecrets:
             {{- toYaml . | nindent 8 }}
         {{- end }}
-          parallelism: {{ .Values.config.parallelism }}
           serviceAccountName: {{ include "beekeeper.serviceAccountName" . }}
           containers:
             - name: {{ .Chart.Name }}
