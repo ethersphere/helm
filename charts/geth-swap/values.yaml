@@ -25,6 +25,7 @@ geth:
   cache: 512
   genesis:
     networkid: 12345
+    gasLimit: 0x47b760
     clique:
       period: 15
       epoch: 30000
