@@ -2611,6 +2611,29 @@ entries:
   beekeeper:
   - apiVersion: v2
     appVersion: latest
+    created: "2022-09-28T09:42:50.592746292Z"
+    description: Ethereum Swarm Beekeeper Helm chart for Kubernetes
+    digest: 916074495f83c4c7ac60352995cde60ac30cd658af25f634a4cb7b96310b78a1
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - storage
+    - swarm
+    - web3
+    maintainers:
+    - email: svetomir@ethswarm.org
+      name: svetomir
+    name: beekeeper
+    sources:
+    - https://github.com/ethersphere/beekeeper
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/beekeeper-0.4.3/beekeeper-0.4.3.tgz
+    version: 0.4.3
+  - apiVersion: v2
+    appVersion: latest
     created: "2022-05-19T07:45:18.836989761Z"
     description: Ethereum Swarm Beekeeper Helm chart for Kubernetes
     digest: cc6c59aa2b48f68103791478aacfa86004cdd4c54889b5d8657831216179b4cf
@@ -4111,4 +4134,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2022-08-31T20:10:19.802738554Z"
+generated: "2022-09-28T09:42:50.59395435Z"
