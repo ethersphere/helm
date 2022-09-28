@@ -16,6 +16,7 @@ spec:
       labels:
         {{- include "beekeeper.selectorLabels" . | nindent 8 }}
     spec:
+      parallelism: {{ .Values.config.parallelism }}
       template:
         spec:
         {{- with .Values.imagePullSecrets }}

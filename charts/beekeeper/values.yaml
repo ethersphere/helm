@@ -21,6 +21,7 @@ nodeSelector: {}
 
 config:
   command: ['beekeeper', 'check']
+  parallelism: 1
   dirPath: 'files'
   # environment variables
   CONFIG_GIT_REPO: ''
