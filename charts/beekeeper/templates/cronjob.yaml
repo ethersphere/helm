@@ -22,6 +22,7 @@ spec:
           imagePullSecrets:
             {{- toYaml . | nindent 8 }}
         {{- end }}
+          parallelism: {{ .Values.config.parallelism }}
           serviceAccountName: {{ include "beekeeper.serviceAccountName" . }}
           containers:
             - name: {{ .Chart.Name }}
