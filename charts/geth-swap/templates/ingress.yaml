@@ -1,6 +1,31 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "geth-swap.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
+{{- if eq .Values.ingress.class "traefik" -}}
+{{- $namespace := .Release.Namespace -}}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ $fullName }}
+  namespace: {{ $namespace }}
+spec:
+  routes:
+  {{- range .Values.ingress.hosts }}
+  {{-  $ingressHost := $fullName -}}
+  {{- if .domain }}
+  {{- $ingressHost = printf "%s.%s" $fullName .domain -}}
+  {{- end }}
+  {{- range .paths }}
+  - kind: Rule
+    match: Host({{ $ingressHost | quote }}) &&  PathPrefix({{ . | quote }})
+    services:
+    - kind: Service
+      name: {{ $fullName }}
+      namespace: {{ $namespace }}
+      port: {{ $svcPort }}
+  {{- end }}
+  {{- end }}
+{{- else -}}
 {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.Version -}}
 apiVersion: networking.k8s.io/v1
 {{- else -}}
@@ -43,3 +68,4 @@ spec:
           {{- end }}
     {{- end }}
   {{- end }}
+{{- end }}
