@@ -8,7 +8,7 @@ image:
   repository: nethermind/nethermind
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.14.0"
+  tag: "1.14.6"
   args: [
     "--config",
     "mainnet"]
@@ -20,6 +20,8 @@ fullnameOverride: ""
 volumes:
   data:
     mountPath: /nethermind/nethermind_db
+  jwt:
+    mountPath: /nethermind/secrets
   config:
     mountPath: /nethermind/configs/custom.cfg
 

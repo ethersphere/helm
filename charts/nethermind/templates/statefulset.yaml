@@ -62,7 +62,12 @@ spec:
           volumeMounts:
             - name: data
               mountPath: {{ .Values.volumes.data.mountPath }}
-            {{- if .Values.config -}}
+            {{- if .Values.jwt }}
+            - name: jwt
+              mountPath: {{ .Values.volumes.jwt.mountPath }}
+              readOnly: true
+            {{- end }}
+            {{- if .Values.config }}
             - name: config
               mountPath: {{ .Values.volumes.config.mountPath }}/custom.cfg
               subPath: custom.cfg
@@ -83,7 +88,12 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-      {{- if .Values.config -}}
+      {{- if .Values.jwt }}
+        - name: jwt
+          secret:
+            secretName: {{ include "nethermind.fullname" . }}-jwt
+      {{- end }}
+      {{- if .Values.config }}
         - name: config
           configMap:
             name: {{ include "nethermind.fullname" . }}-configmap
