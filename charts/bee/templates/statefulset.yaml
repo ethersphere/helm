@@ -64,7 +64,7 @@ spec:
               chown -R 999:999 /home/bee/.bee/keys;
               export KEY=$(cat /tmp/bee/libp2p.map | grep $(hostname): | cut -d' ' -f2);
               if [ -z "${KEY}" ]; then exit 0; fi;
-              printf '%s' "${KEY}" > /home/bee/.bee/keys/libp2p.key;
+              printf '%s' "${KEY}" > /home/bee/.bee/keys/libp2p_v2.key;
               echo 'node initialization done';
           volumeMounts:
             - name: data
