@@ -50,8 +50,11 @@ spec:
           - -ac
           - >
             set -xe;
-            geth account import --password /dev/null /etc/config/validatorKey || true;
-            geth init /etc/config/genesis.json || true;
+            if [ ! -f /root/.ethereum/geth-setup ]; then
+              geth account import --password /dev/null /etc/config/validatorKey || true;
+              geth init /etc/config/genesis.json || true;
+              touch /root/.ethereum/geth-setup
+            fi
           volumeMounts:
             - name: geth-config
               mountPath: /etc/config

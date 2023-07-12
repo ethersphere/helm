@@ -9,7 +9,7 @@ updateStrategy:
 
 image:
   repository: ethereum/client-go
-  tag: latest
+  tag: v1.10.18
   pullPolicy: IfNotPresent
   # digest:
 
