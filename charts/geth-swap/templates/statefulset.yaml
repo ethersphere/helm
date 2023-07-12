@@ -45,13 +45,21 @@ spec:
         - name: geth-setup
           image: "{{ include "geth-swap.image" . }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.persistence.enabled }}
+          env:
+            - name: GETH_PERSISTANCE
+              value: "true"
+          {{- end }}
           command:
           - sh
           - -ac
           - >
             set -xe;
-            geth account import --password /dev/null /etc/config/validatorKey || true;
-            geth init /etc/config/genesis.json || true;
+            if [ -z "${GETH_PERSISTANCE}" ] || [ ! -f /root/.ethereum/geth-setup ]; then
+              geth account import --password /dev/null /etc/config/validatorKey || true;
+              geth init /etc/config/genesis.json || true;
+              touch /root/.ethereum/geth-setup
+            fi
           volumeMounts:
             - name: geth-config
               mountPath: /etc/config
