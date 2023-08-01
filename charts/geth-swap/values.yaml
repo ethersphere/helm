@@ -93,7 +93,7 @@ etherProxy:
     tag: "1.1.0"
     pullPolicy: IfNotPresent
     # digest:
-  
+
   service:
     type: ClusterIP
     port: 9000
