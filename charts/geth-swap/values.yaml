@@ -99,7 +99,7 @@ etherProxy:
     port: 9000
 
   target: "http://localhost:8545"
-  expiry: "2"
+  expiry: "2000"
 
   resources: {}
 
