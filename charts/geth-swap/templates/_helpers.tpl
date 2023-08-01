@@ -92,3 +92,15 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
+
+{{/*
+Create image name combining repository and tag or digest.
+Digest takes presedance over tag.
+*/}}
+{{- define "etherProxy.image" -}}
+{{- if .Values.etherProxy.image.digest -}}
+{{- printf "%s@%s" .Values.etherProxy.image.repository .Values.etherProxy.image.digest -}}
+{{- else -}}
+{{- printf "%s:%s" .Values.etherProxy.image.repository .Values.etherProxy.image.tag -}}
+{{- end -}}
+{{- end -}}
