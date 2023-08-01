@@ -85,17 +85,23 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+etherProxy:
+  enabled: false
+
+  image:
+    repository: vandot/etherproxy
+    tag: "1.1.0"
+    pullPolicy: IfNotPresent
+    # digest:
+  
+  service:
+    type: ClusterIP
+    port: 9000
+
+  target: "http://localhost:8545"
+  expiry: "2"
+
+  resources: {}
 
 persistence:
   ## This enables PVC templates that will create one per pod
@@ -108,6 +114,18 @@ persistence:
   ## If undefined (the default) or set to null, no storageClassName spec is set;
   ## i.e. choosing the default provisioner: gp2 on AWS, standard on GKE, AWS & OpenStack, etc.
   # storageClass: "-"
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
 
 nodeSelector: {}
 

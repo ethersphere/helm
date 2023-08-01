@@ -1,0 +1,17 @@
+{{- if .Values.etherProxy.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: ether-proxy-{{ include "geth-swap.fullname" . }}
+  labels:
+    {{- include "geth-swap.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.etherProxy.service.type }}
+  ports:
+    - port: {{ .Values.etherProxy.service.port }}
+      targetPort: ether-proxy
+      protocol: TCP
+      name: ether-proxy
+  selector:
+    {{- include "geth-swap.selectorLabels" . | nindent 4 }}
+{{- end -}}

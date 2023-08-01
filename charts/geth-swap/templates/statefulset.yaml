@@ -96,6 +96,35 @@ spec:
               mountPath: /etc/config
             - name: data
               mountPath: /root/.ethereum
+        {{- if .Values.etherProxy.enabled }}
+        - name: ether-proxy
+          image: "{{ include "etherProxy.image" . }}"
+          imagePullPolicy: {{ .Values.etherProxy.image.pullPolicy }}
+          env:
+            - name: TARGET
+              value: {{ .Values.etherProxy.target | quote }}
+            - name: PORT
+              value: {{ .Values.etherProxy.service.port | quote }}
+            - name: EXPIRY
+              value: {{ .Values.etherProxy.expiry | quote }}
+          {{- with .Values.etherProxy.envs }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+            - containerPort: {{ .Values.etherProxy.service.port }}
+              name: ether-proxy
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.etherProxy.resources | nindent 12 }}
+          # livenessProbe:
+          #   httpGet:
+          #     path: /health
+          #     port: ether-proxy
+          # readinessProbe:
+          #   httpGet:
+          #     path: /readiness
+          #     port: ether-proxy
+        {{- end }}
       volumes:
         - name: geth-config
           configMap:
