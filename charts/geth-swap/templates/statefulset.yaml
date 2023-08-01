@@ -116,14 +116,14 @@ spec:
               protocol: TCP
           resources:
             {{- toYaml .Values.etherProxy.resources | nindent 12 }}
-          # livenessProbe:
-          #   httpGet:
-          #     path: /health
-          #     port: ether-proxy
-          # readinessProbe:
-          #   httpGet:
-          #     path: /readiness
-          #     port: ether-proxy
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: ether-proxy
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: ether-proxy
         {{- end }}
       volumes:
         - name: geth-config
