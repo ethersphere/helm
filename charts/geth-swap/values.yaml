@@ -90,7 +90,7 @@ etherProxy:
 
   image:
     repository: ethersphere/etherproxy
-    tag: "1.3.0"
+    tag: "1.0.0"
     pullPolicy: IfNotPresent
     # digest:
 

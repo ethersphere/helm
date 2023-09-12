@@ -1,0 +1,17 @@
+apiVersion: v2
+appVersion: latest
+name: etherproxy
+version: 0.1.0
+description: EtherProxy Helm chart for Kubernetes
+home: https://www.ethswarm.org
+icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+keywords:
+  - blockchain
+  - ethereum
+  - proxy
+maintainers:
+  - name: vandot
+    email: vandot@ethswarm.org
+sources:
+  - https://github.com/ethersphere/etherproxy
+type: application
