@@ -3372,6 +3372,28 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/eks-local-disk-provisioner-0.1.0/eks-local-disk-provisioner-0.1.0.tgz
     version: 0.1.0
+  etherproxy:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-09-12T19:46:38.499491472Z"
+    description: EtherProxy Helm chart for Kubernetes
+    digest: 5207d196e49b6639db27289fcae8c3966363f80f24777bac89f027fa5868ee74
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - proxy
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: etherproxy
+    sources:
+    - https://github.com/ethersphere/etherproxy
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/etherproxy-0.1.0/etherproxy-0.1.0.tgz
+    version: 0.1.0
   ethexporter:
   - apiVersion: v2
     appVersion: latest
@@ -3551,6 +3573,21 @@ entries:
     - https://github.com/ethersphere/helm/releases/download/ethproxy-0.1.0/ethproxy-0.1.0.tgz
     version: 0.1.0
   geth-swap:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-09-12T19:46:38.624853115Z"
+    description: A Helm chart for Kubernetes
+    digest: 851f7ab4097c87d367300e4a84ac6a9e46834f8f8ccfe069293ccd1a2ff4f819
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    maintainers:
+    - email: ralph@ethswarm.org
+      name: ralph-pichler
+    name: geth-swap
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/geth-swap-0.4.1/geth-swap-0.4.1.tgz
+    version: 0.4.1
   - apiVersion: v2
     appVersion: 1.16.0
     created: "2023-08-01T11:26:04.570451633Z"
@@ -4258,4 +4295,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2023-08-01T11:26:04.572267833Z"
+generated: "2023-09-12T19:46:38.626159122Z"
