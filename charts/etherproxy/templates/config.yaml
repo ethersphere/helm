@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "etherproxy.fullname" . }}
+  labels:
+    {{- include "etherproxy.labels" . | nindent 4 }}
+data:
+  ETHERPROXY_PORT: {{ .Values.service.port | quote }}
+  ETHERPROXY_TARGET: {{ .Values.config.ETHERPROXY_TARGET | quote }}
+  ETHERPROXY_EXPIRY: {{ .Values.config.ETHERPROXY_EXPIRY | quote }}
