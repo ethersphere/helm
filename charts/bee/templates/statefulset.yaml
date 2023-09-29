@@ -119,7 +119,7 @@ spec:
             - -c
             - >
               if [ -f /home/bee/.bee/keys/swarm.key ]; then echo 'initial overlay already mined'; exit 0; fi;
-              NEIGH=$(wget -T 2 https://api.swarmscan.io/v1/network/neighborhoods/suggestion -q -O - | grep -Eoi '"neighborhood":"([0,1]{10}),?[^\\]' | grep -Eoi '[0,1]{10}');
+              NEIGH=$(wget --header="Accept: text/plain"  -T 2 https://api.swarmscan.io/v1/network/neighborhoods/suggestion -q -O -);
               if ! [[ "${NEIGH}" =~ ^[0,1]{10}$ ]]; then echo 'bad neighborhood value ' "${NEIGH}" ; exit 1; fi;
               if ! [ -f /home/bee/.bee.yaml ]; then cp -p /tmp/.bee.yaml /home/bee/.bee.yaml; fi;
               printf 'target-neighborhood: %s\n' "${NEIGH}" >> /home/bee/.bee.yaml;
