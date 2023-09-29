@@ -1,4 +1,4 @@
 probesEnable: false
 
 beeConfig:
-  swap-endpoint: https://rpc.gnosischain.com/
+  blockchain-rpc-endpoint: https://rpc.gnosischain.com/
