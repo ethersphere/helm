@@ -55,7 +55,7 @@ spec:
       initContainers:
         {{- if .Values.libp2pSettings.enabled }}
         - name: init-libp2p
-          image: ethersphere/busybox:1.33
+          image: ethersphere/busybox:1.36
           command:
             - sh
             - -c
@@ -74,7 +74,7 @@ spec:
         {{- end }}
         {{- if .Values.swarmSettings.enabled }}
         - name: init-swarm
-          image: ethersphere/busybox:1.33
+          image: ethersphere/busybox:1.36
           command:
             - sh
             - -c
@@ -93,7 +93,7 @@ spec:
         {{- end }}
         {{- if .Values.p2pFixedPort.enabled }}
         - name: init-natport
-          image: ethersphere/busybox:1.33
+          image: ethersphere/busybox:1.36
           command:
             - sh
             - -c
@@ -113,14 +113,15 @@ spec:
         {{- end }}
         {{- if .Values.autoNeighborhood.enabled }}
         - name: init-neighborhood
-          image: ethersphere/busybox:1.33
+          image: ethersphere/busybox:1.36
           command:
             - sh
             - -c
             - >
               if [ -f /home/bee/.bee/keys/swarm.key ]; then echo 'initial overlay already mined'; exit 0; fi;
               NEIGH=$(wget --header="Accept: text/plain"  -T 2 https://api.swarmscan.io/v1/network/neighborhoods/suggestion -q -O -);
-              if ! [[ "${NEIGH}" =~ ^[0,1]{10}$ ]]; then echo 'bad neighborhood value ' "${NEIGH}" ; exit 1; fi;
+              printf 'swarmscan suggestion: %s\n' "${NEIGH}";
+              if [[ ! -n "${NEIGH}" ]] [[ ! "${NEIGH}" =~ ^[0,1]+$ ]]; then echo 'bad neighborhood value ' "${NEIGH}" ; exit 1; fi;
               if ! [ -f /home/bee/.bee.yaml ]; then cp -p /tmp/.bee.yaml /home/bee/.bee.yaml; fi;
               printf 'target-neighborhood: %s\n' "${NEIGH}" >> /home/bee/.bee.yaml;
               echo 'node initialization done';
@@ -130,6 +131,8 @@ spec:
             - name: config
               mountPath: /tmp/.bee.yaml
               subPath: .bee.yaml
+            - name: data
+              mountPath: /home/bee/.bee
         {{- end }}
         {{- if .Values.extraInitContainers }}
           {{- toYaml .Values.extraInitContainers | nindent 8 }}
