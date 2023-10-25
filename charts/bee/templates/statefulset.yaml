@@ -56,6 +56,9 @@ spec:
         {{- if .Values.libp2pSettings.enabled }}
         - name: init-libp2p
           image: ethersphere/busybox:1.36
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
           command:
             - sh
             - -c
@@ -75,6 +78,9 @@ spec:
         {{- if .Values.swarmSettings.enabled }}
         - name: init-swarm
           image: ethersphere/busybox:1.36
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
           command:
             - sh
             - -c
@@ -94,6 +100,9 @@ spec:
         {{- if .Values.p2pFixedPort.enabled }}
         - name: init-natport
           image: ethersphere/busybox:1.36
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
           command:
             - sh
             - -c
@@ -114,6 +123,9 @@ spec:
         {{- if .Values.autoNeighborhood.enabled }}
         - name: init-neighborhood
           image: ethersphere/busybox:1.36
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
           command:
             - sh
             - -c
