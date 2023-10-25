@@ -200,6 +200,10 @@ affinity: {}
 
 tolerations: []
 
+## Auto obtain neighborhood to target in binary format for mining the initial overlay
+autoNeighborhood:
+  enabled: false
+
 beeCommand: ["bee", "start", "--config=.bee.yaml"]
 
 beeConfig:
@@ -266,31 +270,6 @@ swarmSettings:
   ## Use existing secret (ignores previous swarmKeys)
   # existingSecret:
 
-## If enabled it will start clef sidecar container that will auto approve every request
-## Clef keys are pregenerated examples and can be replaced with other values
-clefSettings:
-  enabled: false
-  image:
-    repository: ethersphere/clef
-    tag: 0.10.0
-    # digest: sha256:508a6bc1d3f45acaf98b746d521ee2cb11a895d8334446d2205fe4053b9e3667
-    pullPolicy: IfNotPresent
-  clefKeys:
-    bee-0: '{"address":"fd50ede4954655b993ed69238c55219da7e81acf","crypto":{"cipher":"aes-128-ctr","ciphertext":"1c0f603b0dffe53294c7ca02c1a2800d81d855970db0df1a84cc11bc1d6cf364","cipherparams":{"iv":"11c9ac512348d7ccfe5ee59d9c9388d3"},"kdf":"scrypt","kdfparams":{"dklen":32,"n":262144,"p":1,"r":8,"salt":"f6d7a0947da105fa5ef70fa298f65409d12967108c0e6260f847dc2b10455b89"},"mac":"fc6585e300ad3cb21c5f648b16b8a59ca33bcf13c58197176ffee4786628eaeb"},"id":"4911f965-b425-4011-895d-a2008f859859","version":3}'
-  chainId: 12345
-  ## Use existing secret (ignores previous clefKeys)
-  # existingSecret:
-  ## Password for decrypting key (please change it for production deployments)
-  password: clefbeesecret
-  ## Use existing password (ignores previous keyPassword)
-  # existingPasswordSecret:
-  resources: {}
-    # limits:
-    #   cpu: 1
-    #   memory: 1Gi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
 ## If enabled it will start gateway-proxy sidecar container that will be publicly exposed
 ## It is used by gateway app
 gatewayProxy:

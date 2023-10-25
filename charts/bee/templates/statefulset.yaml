@@ -51,11 +51,11 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if or .Values.libp2pSettings.enabled .Values.p2pFixedPort.enabled .Values.swarmSettings.enabled .Values.clefSettings.enabled .Values.extraInitContainers }}
+      {{- if or .Values.libp2pSettings.enabled .Values.p2pFixedPort.enabled .Values.swarmSettings.enabled .Values.extraInitContainers .Values.autoNeighborhood.enabled }}
       initContainers:
         {{- if .Values.libp2pSettings.enabled }}
         - name: init-libp2p
-          image: ethersphere/busybox:1.33
+          image: ethersphere/busybox:1.36
           command:
             - sh
             - -c
@@ -74,7 +74,7 @@ spec:
         {{- end }}
         {{- if .Values.swarmSettings.enabled }}
         - name: init-swarm
-          image: ethersphere/busybox:1.33
+          image: ethersphere/busybox:1.36
           command:
             - sh
             - -c
@@ -91,34 +91,9 @@ spec:
             - name: bee-swarm
               mountPath: /tmp/bee
         {{- end }}
-        {{- if .Values.clefSettings.enabled }}
-        - name: init-clef
-          image: ethersphere/clef:0.6.0
-          command:
-            - sh
-            - -c
-            - >
-              mkdir -p /app/data/keystore;
-              chown -R nobody:nogroup /app/data/keystore;
-              export KEY=$(cat /tmp/bee/clef.map | grep $(hostname): | cut -d' ' -f2);
-              if [ -n "${KEY}" ]; then printf '%s' "${KEY}" > /app/data/keystore/clef.key; fi;
-              /entrypoint.sh init;
-              echo 'clef initialization done';
-          volumeMounts:
-            - name: clef
-              mountPath: /app/data
-            - name: bee-clef
-              mountPath: /tmp/bee
-            {{- if .Values.clefSettings.password }}
-            - name: clef-secret
-              mountPath: /app/data/password
-              subPath: password
-              readOnly: true
-            {{- end }}
-        {{- end }}
         {{- if .Values.p2pFixedPort.enabled }}
         - name: init-natport
-          image: ethersphere/busybox:1.33
+          image: ethersphere/busybox:1.36
           command:
             - sh
             - -c
@@ -135,6 +110,29 @@ spec:
             - name: config
               mountPath: /tmp/.bee.yaml
               subPath: .bee.yaml
+        {{- end }}
+        {{- if .Values.autoNeighborhood.enabled }}
+        - name: init-neighborhood
+          image: ethersphere/busybox:1.36
+          command:
+            - sh
+            - -c
+            - >
+              if [ -f /home/bee/.bee/keys/swarm.key ]; then echo 'initial overlay already mined'; exit 0; fi;
+              NEIGH=$(wget --header="Accept: text/plain"  -T 2 https://api.swarmscan.io/v1/network/neighborhoods/suggestion -q -O -);
+              printf 'swarmscan suggestion: %s\n' "${NEIGH}";
+              if [[ ! -n "${NEIGH}" ]] [[ ! "${NEIGH}" =~ ^[0,1]+$ ]]; then echo 'bad neighborhood value ' "${NEIGH}" ; exit 1; fi;
+              if ! [ -f /home/bee/.bee.yaml ]; then cp -p /tmp/.bee.yaml /home/bee/.bee.yaml; fi;
+              printf 'target-neighborhood: %s\n' "${NEIGH}" >> /home/bee/.bee.yaml;
+              echo 'node initialization done';
+          volumeMounts:
+            - name: config-file
+              mountPath: /home/bee
+            - name: config
+              mountPath: /tmp/.bee.yaml
+              subPath: .bee.yaml
+            - name: data
+              mountPath: /home/bee/.bee
         {{- end }}
         {{- if .Values.extraInitContainers }}
           {{- toYaml .Values.extraInitContainers | nindent 8 }}
@@ -210,7 +208,7 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           volumeMounts:
-            {{- if .Values.p2pFixedPort.enabled }}
+            {{- if or .Values.p2pFixedPort.enabled .Values.autoNeighborhood.enabled }}
             - name: config-file
               mountPath: /home/bee
             {{- else }}
@@ -233,35 +231,6 @@ spec:
               mountPath: /home/bee/.secret/password
               subPath: password
               readOnly: true
-        {{- if .Values.clefSettings.enabled }}
-        - name: clef
-          image: "{{ include "clef.image" . }}"
-          imagePullPolicy: {{ .Values.clefSettings.image.pullPolicy }}
-          {{- if .Values.clefSettings.chainId }}
-          env:
-            - name: CLEF_CHAINID
-              value: {{ .Values.clefSettings.chainId | quote }}
-          {{- end }}
-          command:
-            - /entrypoint.sh
-            - run
-          ports:
-            - containerPort: 8550
-              name: api
-              protocol: TCP
-          resources:
-            {{- toYaml .Values.clefSettings.resources | nindent 12 }}
-          volumeMounts:
-            - name: clef
-              mountPath: /app/data
-              readOnly: false
-            {{- if .Values.clefSettings.password }}
-            - name: clef-secret
-              mountPath: /app/data/password
-              subPath: password
-              readOnly: true
-            {{- end }}
-        {{- end }}
         {{- if .Values.gatewayProxy.enabled }}
         - name: gateway-proxy
           image: "{{ include "gatewayProxy.image" . }}"
@@ -332,24 +301,6 @@ spec:
             items:
               - key: {{ template "bee.swarmKeysSecretKey" . }}
                 path: swarm.map
-        {{- end }}
-        {{- if .Values.clefSettings.enabled }}
-        - name: clef
-          emptyDir: {}
-        - name: bee-clef
-          secret:
-            secretName: {{ template "bee.clefKeysSecretName" . }}
-            items:
-              - key: {{ template "bee.clefKeysSecretKey" . }}
-                path: clef.map
-        {{- if .Values.clefSettings.password }}
-        - name: clef-secret
-          secret:
-            secretName: {{ template "bee.clefSecretName" . }}
-            items:
-              - key: {{ template "bee.clefSecretPasswordKey" . }}
-                path: password
-        {{- end }}
         {{- end }}
   {{- if and .Values.persistence.enabled .Values.persistence.existingClaim }}
         - name: data
