@@ -13,7 +13,11 @@ spec:
       port: {{ int (include "bee.config.api_port" .) }}
       protocol: TCP
       targetPort: api
-    - name: p2p
+    - name: p2p-udp
+      port: {{ int (include "bee.config.p2p_port" .) }}
+      protocol: UDP
+      targetPort: p2p
+    - name: p2p-tcp
       port: {{ int (include "bee.config.p2p_port" .) }}
       protocol: TCP
       targetPort: p2p
@@ -44,9 +48,13 @@ spec:
   type: ClusterIP
   clusterIP: None
   ports:
-    - name: p2p
+    - name: p2p-tcp
       port: {{ int (include "bee.config.p2p_port" $root) }}
       protocol: TCP
+      targetPort: p2p
+    - name: p2p-udp
+      port: {{ int (include "bee.config.p2p_port" $root) }}
+      protocol: UDP
       targetPort: p2p
   selector:
     {{- include "bee.selectorLabels" $root | nindent 4 }}
