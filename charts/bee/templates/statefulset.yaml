@@ -185,8 +185,11 @@ spec:
               name: api
               protocol: TCP
             - containerPort: {{ int (include "bee.config.p2p_port" .) }}
-              name: p2p
+              name: p2p-tcp
               protocol: TCP
+            - containerPort: {{ int (include "bee.config.p2p_port" .) }}
+              name: p2p-udp
+              protocol: UDP
           {{- if .Values.probesEnable }}
           {{- if index .Values.beeConfig "debug-api-enable" }}
             - containerPort: {{ int (include "bee.config.debug_api_port" .) }}
