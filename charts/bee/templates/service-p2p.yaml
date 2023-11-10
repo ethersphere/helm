@@ -19,14 +19,14 @@ spec:
     - name: p2p-tcp
       port: {{ int (include "bee.config.p2p_port" $root) }}
       protocol: TCP
-      targetPort: p2p
+      targetPort: p2p-tcp
       {{- if $root.Values.p2pFixedPort.enabled }}
       nodePort: {{ add $root.Values.p2pFixedPort.nodePortStart $i }}
       {{- end }}
     - name: p2p-udp
       port: {{ int (include "bee.config.p2p_port" $root) }}
       protocol: UDP
-      targetPort: p2p
+      targetPort: p2p-udp
       {{- if $root.Values.p2pFixedPort.enabled }}
       nodePort: {{ add $root.Values.p2pFixedPort.nodePortStart $i }}
       {{- end }}
