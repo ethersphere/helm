@@ -47,6 +47,8 @@ spec:
                 {{- range .Values.config.command }}
                 - {{ . }}
                 {{- end }}
+              resources:
+                {{- toYaml .Values.resources | nindent 16 }}
               volumeMounts:
               - name: config
                 mountPath: /home/beekeeper/.beekeeper

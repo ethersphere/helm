@@ -71,6 +71,8 @@ spec:
             {{- range .Values.config.command }}
             - {{ . }}
             {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
           - name: config
             mountPath: /home/beekeeper/.beekeeper
@@ -78,7 +80,7 @@ spec:
       restartPolicy: Never
       {{- with .Values.nodeSelector }}
       nodeSelector:
-        {{- toYaml . | nindent 12 }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
       - name: config
