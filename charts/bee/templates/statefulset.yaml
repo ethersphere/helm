@@ -135,7 +135,7 @@ spec:
               NEIGH=$(wget --header="Accept: text/plain" https://api.swarmscan.io/v1/network/neighborhoods/suggestion -q -O -);
               printf 'swarmscan suggestion: %s\n' "${NEIGH}";
               if [ ! -n "${NEIGH}" ] || [ $(expr match ${NEIGH} '[0,1]*$') == 0 ]; then echo 'bad neighborhood value ' "${NEIGH}" ; exit 1; fi;
-              printf 'target-neighborhood: %s\n' "${NEIGH}" >> /home/bee/.bee.yaml;
+              printf 'target-neighborhood: "%s"\n' "${NEIGH}" >> /home/bee/.bee.yaml;
               echo 'node initialization done';
           volumeMounts:
             - name: config-file
