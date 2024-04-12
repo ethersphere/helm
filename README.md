@@ -8,6 +8,7 @@ This repo contains Ethersphere Helm Charts:
 * [beekeeper](https://github.com/ethersphere/helm/tree/master/charts/beekeeper)
 * [eks-local-disk-provisioner](https://github.com/ethersphere/helm/tree/master/charts/eks-local-disk-provisioner)
 * [geth-swap](https://github.com/ethersphere/helm/tree/master/charts/geth-swap)
+* [bee-localchain](https://github.com/ethersphere/helm/tree/master/charts/bee-localchain)
 * [tokenexporter](https://github.com/ethersphere/helm/tree/master/charts/tokenexporter)
 * [ethexporter](https://github.com/ethersphere/helm/tree/master/charts/ethexporter)
 * [nethermind](https://github.com/ethersphere/helm/tree/master/charts/nethermind)
