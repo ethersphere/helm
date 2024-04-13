@@ -2,6 +2,36 @@ apiVersion: v1
 entries:
   bee:
   - apiVersion: v2
+    appVersion: 2.0.0
+    created: "2024-04-13T19:15:25.761378835Z"
+    description: Ethereum Swarm Bee Helm chart for Kubernetes
+    digest: 1cdf8eebf0e9d5befa3ed5b93fc38c7be20e2b4c35c70fdc0f0f7866d5880f48
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - storage
+    - swarm
+    - web3
+    kubeVersion: '>=1.19.0-0'
+    maintainers:
+    - email: devops@ethswarm.org
+      name: devops
+    - email: svetomir@ethswarm.org
+      name: svetomir
+    - email: vandot@ethswarm.org
+      name: vandot
+    - email: aleksandar@ethswarm.org
+      name: aleksandar
+    name: bee
+    sources:
+    - https://github.com/ethersphere/bee
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/bee-0.15.0/bee-0.15.0.tgz
+    version: 0.15.0
+  - apiVersion: v2
     appVersion: 1.17.6
     created: "2023-11-10T16:57:26.573787238Z"
     description: Ethereum Swarm Bee Helm chart for Kubernetes
@@ -2788,6 +2818,28 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/bee-0.1.0/bee-0.1.0.tgz
     version: 0.1.0
+  bee-localchain:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-04-13T19:15:25.874085308Z"
+    description: BZZ Token Service Helm chart for Kubernetes
+    digest: 396fb5054fb75a4f2133b66bd15372ebdc562c51dc4967ffb98bc61600810bc0
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - bee
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: bee-localchain
+    sources:
+    - https://github.com/ethersphere/bee-localchain
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/bee-localchain-0.1.0/bee-localchain-0.1.0.tgz
+    version: 0.1.0
   beekeeper:
   - apiVersion: v2
     appVersion: latest
@@ -4468,4 +4520,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2023-12-05T16:42:13.757303942Z"
+generated: "2024-04-13T19:15:25.874486174Z"
