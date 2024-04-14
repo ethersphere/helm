@@ -1,6 +1,6 @@
 # Bee localchain Helm Chart
 
-[Bee localchain](https://github.com/ethersphere/bee-localchain) is a lightweight Prometheus proxy that will output Ethereum wallet balances from a list of addresses you specify.
+[Bee localchain](https://github.com/ethersphere/bee-localchain) is a lightweight single node blockchain, based on hardhat, used for Bee development environments.
 
 ## Prerequisites
 
