@@ -1,8 +1,8 @@
 apiVersion: v2
 appVersion: latest
 name: bee-localchain
-version: 0.1.0
-description: BZZ Token Service Helm chart for Kubernetes
+version: 0.1.1
+description: Bee localchain Helm chart for Kubernetes
 home: https://www.ethswarm.org
 icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
 keywords:
