@@ -28,11 +28,6 @@ spec:
         command:
           - sh
           - -ac
-          - >
-            set -x;
-            while ! curl -m 1 $BACKEND; do sleep 1; done;
-            echo connected to geth >&2;
-            sleep 2;
-            bash deploy.sh
+          - /app/docker/deploy-contracts.sh
       restartPolicy: Never
 {{- end -}}

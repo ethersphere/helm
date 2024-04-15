@@ -14,7 +14,7 @@ image:
   # digest:
 
 imageSetupContract:
-  repository: ethersphere/setup-contracts
+  repository: ethersphere/bee-localchain
   tag: latest
   pullPolicy: Always
 
