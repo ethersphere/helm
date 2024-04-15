@@ -2821,6 +2821,27 @@ entries:
   bee-localchain:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-04-15T11:05:55.428750603Z"
+    description: Bee localchain Helm chart for Kubernetes
+    digest: 3efca1c0bcb07cfa36bc58167e1c67831b04964238cce5c64211cdc737cd0571
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - bee
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: bee-localchain
+    sources:
+    - https://github.com/ethersphere/bee-localchain
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/bee-localchain-0.1.1/bee-localchain-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-04-13T19:15:25.874085308Z"
     description: BZZ Token Service Helm chart for Kubernetes
     digest: 396fb5054fb75a4f2133b66bd15372ebdc562c51dc4967ffb98bc61600810bc0
@@ -3800,6 +3821,21 @@ entries:
   geth-swap:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-04-15T11:05:55.573174333Z"
+    description: A Helm chart for Kubernetes
+    digest: a0c6dec1eb1f4429f7a385a5373e70f59576f6f73b23af8d1c86df6b5752f718
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    maintainers:
+    - email: ralph@ethswarm.org
+      name: ralph-pichler
+    name: geth-swap
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/geth-swap-0.5.0/geth-swap-0.5.0.tgz
+    version: 0.5.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-09-12T19:46:38.624853115Z"
     description: A Helm chart for Kubernetes
     digest: 851f7ab4097c87d367300e4a84ac6a9e46834f8f8ccfe069293ccd1a2ff4f819
@@ -4520,4 +4556,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-13T19:15:25.874486174Z"
+generated: "2024-04-15T11:05:55.573687461Z"
