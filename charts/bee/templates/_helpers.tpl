@@ -124,17 +124,12 @@ Return Bee password.
 {{- end -}}
 
 {{/*
-Define config parameters api-addr, debug-api-addr, debug-api-enable, p2p-addr
+Define config parameters api-addr, p2p-addr
 */}}
 {{- define "bee.config.api_port" -}}
 {{- $full_api_addr := index .Values.beeConfig "api-addr" -}}
 {{- $api_port := (split ":" $full_api_addr )._1 }}
 {{- printf "%s" $api_port -}}
-{{- end -}}
-{{- define "bee.config.debug_api_port" -}}
-{{- $full_debug_api_addr := index .Values.beeConfig "debug-api-addr" -}}
-{{- $debug_api_port := (split ":" $full_debug_api_addr )._1 }}
-{{- printf "%s" $debug_api_port -}}
 {{- end -}}
 {{- define "bee.config.p2p_port" -}}
 {{- $full_p2p_addr := index .Values.beeConfig "p2p-addr" -}}

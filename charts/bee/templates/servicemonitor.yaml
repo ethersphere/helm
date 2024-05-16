@@ -1,4 +1,4 @@
-{{- if and .Values.serviceMonitor.enabled (index .Values.beeConfig "debug-api-enable") -}}
+{{- if .Values.serviceMonitor.enabled -}}
 
 ---
 apiVersion: monitoring.coreos.com/v1
@@ -18,7 +18,7 @@ metadata:
     {{- end }}
 spec:
   endpoints:
-  - port: debug
+  - port: api
     path: /metrics
     {{- if .Values.serviceMonitor.scrapeInterval }}
     interval: {{ .Values.serviceMonitor.scrapeInterval }}

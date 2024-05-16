@@ -21,12 +21,6 @@ spec:
       port: {{ int (include "bee.config.p2p_port" .) }}
       protocol: TCP
       targetPort: p2p
-    {{- if index .Values.beeConfig "debug-api-enable" }}
-    - name: debug
-      port: {{ int (include "bee.config.debug_api_port" .) }}
-      protocol: TCP
-      targetPort: debug
-    {{- end }}
   selector:
     {{- include "bee.selectorLabels" . | nindent 4 }}
   type: {{ .Values.service.type }}

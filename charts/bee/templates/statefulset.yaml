@@ -191,21 +191,6 @@ spec:
               name: p2p-udp
               protocol: UDP
           {{- if .Values.probesEnable }}
-          {{- if index .Values.beeConfig "debug-api-enable" }}
-            - containerPort: {{ int (include "bee.config.debug_api_port" .) }}
-              name: debug
-              protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: debug
-            initialDelaySeconds: 20
-          readinessProbe:
-            httpGet:
-              path: /readiness
-              port: debug
-            initialDelaySeconds: 20
-          {{- else }}
           livenessProbe:
             httpGet:
               path: /
@@ -216,7 +201,6 @@ spec:
               path: /
               port: api
             initialDelaySeconds: 20
-          {{- end }}
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -259,7 +243,7 @@ spec:
               value: "http://localhost:1633"
           {{- if .Values.gatewayProxy.autobuy.enabled }}
             - name: BEE_DEBUG_API_URL
-              value: "http://localhost:1635"
+              value: "http://localhost:1633"
           {{- end }}
           {{- with .Values.gatewayProxy.envs }}
             {{- toYaml . | nindent 12 }}
