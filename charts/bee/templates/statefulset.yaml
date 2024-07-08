@@ -193,12 +193,12 @@ spec:
           {{- if .Values.probesEnable }}
           livenessProbe:
             httpGet:
-              path: /
+              path: /health
               port: api
             initialDelaySeconds: 20
           readinessProbe:
             httpGet:
-              path: /
+              path: /readiness
               port: api
             initialDelaySeconds: 20
           {{- end }}
