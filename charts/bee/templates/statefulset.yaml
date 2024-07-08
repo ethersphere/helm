@@ -241,10 +241,6 @@ spec:
               value: "8633"
             - name: BEE_API_URL 
               value: "http://localhost:1633"
-          {{- if .Values.gatewayProxy.autobuy.enabled }}
-            - name: BEE_DEBUG_API_URL
-              value: "http://localhost:1633"
-          {{- end }}
           {{- with .Values.gatewayProxy.envs }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
