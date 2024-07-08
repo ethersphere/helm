@@ -13,5 +13,5 @@ spec:
     - name: wget
       image: busybox
       command: ['echo']
-      args:  ['{{ include "bee.fullname" . }}:{{ int (include "bee.config.debug_api_port" $root) }}/addresses']
+      args:  ['{{ include "bee.fullname" . }}:{{ int (include "bee.config.api_port" $root) }}/addresses']
   restartPolicy: Never

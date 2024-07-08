@@ -80,25 +80,6 @@ ingress:
       tlsSecret: ""
   tls: false
 
-## If enabled and beeConfig.debug-api-enable is enabled, creates ingress for debug api
-## Creates one ingress per pod
-## Total number of created ingress objects is: replicaCount
-## Hostname for 'per pod ingresses' is: <chart fullname>-debug-<i>, or <chart fullname>-debug-<i>.<domain> if domain is specified
-## tls.secretName won't be specified if tlsSecret is "", tls must be set to true
-ingressDebug:
-  enabled: false
-  ## Used if cluster version is >= 1.19-0
-  pathType: ImplementationSpecific
-  # ingressClassName: ingress-nginx
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - domain: ""
-      paths: []
-      tlsSecret: ""
-  tls: false
-
 replicaCount: 1
 
 updateStrategy:
@@ -156,7 +137,6 @@ persistence:
     # existingClaim:
 
 ## Enable this if you're using https://github.com/coreos/prometheus-operator
-## and beeConfig.debug-api-enable is enabled
 serviceMonitor:
   enabled: false
   additionalLabels: {}
@@ -190,7 +170,6 @@ probesEnable: true
 podLabels: {}
 podAnnotations: {}
 ## Add this annotations if you're using https://github.com/prometheus/prometheus
-## and beeConfig.debug-api-enable is enabled
   # prometheus.io/scrape: "true"
   # prometheus.io/port: "1635"
 
@@ -211,10 +190,6 @@ beeConfig:
   api-addr: :1633
   ## P2P listen address
   p2p-addr: :1634
-  ## Debug HTTP API listen address
-  debug-api-addr: :1635
-  ## Enable debug HTTP API
-  debug-api-enable: true
   ## Set the run mode - light by default
   full-node: true
   ## ID of the Swarm network - 10 by default
@@ -232,7 +207,6 @@ password:
 ## You can specify all options except for usePasswordFile, existingSecret and existingSecretPasswordKey
 beeEnv: []
 #   api_addr: :1633
-#   debug_api_addr: :1635
 #   p2p_addr: :1634
 
 
@@ -276,7 +250,7 @@ gatewayProxy:
   enabled: false
   image:
     repository: ethersphere/gateway-proxy
-    tag: 0.4.0
+    tag: 0.15.0
     # digest: sha256:508a6bc1d3f45acaf98b746d521ee2cb11a895d8334446d2205fe4053b9e3667
     pullPolicy: IfNotPresent
   ## If enabled, creates ingress for HTTP
@@ -297,8 +271,6 @@ gatewayProxy:
         paths: []
         tlsSecret: ""
     tls: false
-  ## If enabled it will configure bee debug api endpoint BEE_DEBUG_API_URL
-  ## that is needed for autobuy to work
   ## If enabled set POSTAGE_DEPTH and POSTAGE_AMOUNT
   autobuy:
     enabled: false
