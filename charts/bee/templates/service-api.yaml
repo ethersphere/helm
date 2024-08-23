@@ -32,6 +32,8 @@ metadata:
   labels:
     {{- include "bee.labels" $root | nindent 4 }}
     pod: {{ $fullName }}-{{ $i }}
+    app: {{ include "bee.name" $root }}
+    release: {{ $root.Release.Name }}
     endpoint: api
 spec:
   type: ClusterIP
