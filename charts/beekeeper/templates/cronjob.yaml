@@ -1,6 +1,10 @@
 {{- if not .Values.config.singleRun -}}
 ---
+{{- if semverCompare ">=1.25-0" .Capabilities.KubeVersion.Version }}
+apiVersion: batch/v1
+{{- else }}
 apiVersion: batch/v1beta1
+{{- end }}
 kind: CronJob
 metadata:
   name: {{ include "beekeeper.fullname" . }}-cronjob
