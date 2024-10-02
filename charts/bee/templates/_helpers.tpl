@@ -81,6 +81,7 @@ Selector labels.
 {{- define "bee.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "bee.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+role: {{ .Values.beeSelector.role }}
 {{- end -}}
 
 {{/*
