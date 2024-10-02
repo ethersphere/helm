@@ -8,6 +8,7 @@ metadata:
     {{- include "beekeeper.labels" . | nindent 4 }}
 spec:
   backoffLimit: {{ .Values.config.backoffLimit }}
+  ttlSecondsAfterFinished: 86400
   template:
     metadata:
       labels:
