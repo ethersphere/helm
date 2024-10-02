@@ -1,22 +1,34 @@
-# Default values for ethexporter.
+# Default values for tokenexporter.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 image:
-  repository: darkobas/ethexporter
+  repository: darkobas/tokenexporter
   tag: latest
   pullPolicy: IfNotPresent
 
-ethexporter:
+tokenexporter:
   gethEndpoint: http://rpc-gnosis-haproxy.default.svc.godfather2.local
   interval: 60
 
 addressesTxt:
   enabled: true
-  existingConfigMap: "balance-addresses"
+  existingConfigMap: "cheque-addresses"  # Name of the existing ConfigMap
     #addresses: |
-    #  etherdelta:0x8d12A197cB00D4747a1fe03395095ce2A5CC6819
     #  bittrex:0xFBb1b73C4f0BDa4f67dcA266ce6Ef42f520fBB98
+    #  etherdelta:0x8d12A197cB00D4747a1fe03395095ce2A5CC6819
+
+tokensJson:
+  enabled: true
+  tokens: |
+    [
+      {
+        "address": "0xdbf3ea6f5bee45c02255b2c26a16f300502f68da",
+        "symbol": "BZZ",
+        "decimal": 16,
+        "type": "default"
+      }
+    ]
 
 replicaCount: 1
 

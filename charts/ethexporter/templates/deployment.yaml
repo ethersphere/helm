@@ -33,6 +33,8 @@ spec:
             value: "{{ .Values.ethexporter.gethEndpoint }}"
           - name: INTERVAL
             value: "{{ .Values.ethexporter.interval }}"
+          - name: PORT
+            value: "{{ .Values.service.port }}"
           ports:
             - name: metrics
               containerPort: {{ int .Values.service.port }}
@@ -51,7 +53,11 @@ spec:
       volumes:
         - name: addresses
           configMap:
-            name: {{ include "ethexporter.fullname" . }}-addresses
+            name: {{- if .Values.addressesTxt.existingConfigMap  }}
+                    {{ .Values.addressesTxt.existingConfigMap }}
+                  {{- else -}}
+                    {{ template "ethexporter.fullname" . }}-addresses
+                  {{- end }}
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:

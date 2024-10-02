@@ -3,34 +3,29 @@
 # Declare variables to be passed into your templates.
 
 image:
-  repository: ethersphere/tokenexporter
+  repository: darkobas/tokenexporter
   tag: latest
   pullPolicy: IfNotPresent
 
 tokenexporter:
-  gethEndpoint: https://rpc.slock.it/mainnet
-  interval: 15
+  gethEndpoint: http://rpc-gnosis-haproxy.default.svc.godfather2.local
+  interval: 60
 
 addressesTxt:
-  enabled: false
-  addresses: |
-    bittrex:0xFBb1b73C4f0BDa4f67dcA266ce6Ef42f520fBB98
-    etherdelta:0x8d12A197cB00D4747a1fe03395095ce2A5CC6819
+  enabled: true
+  existingConfigMap: "balance-addresses"  # Name of the existing ConfigMap
+    #addresses: |
+    #  bittrex:0xFBb1b73C4f0BDa4f67dcA266ce6Ef42f520fBB98
+    #  etherdelta:0x8d12A197cB00D4747a1fe03395095ce2A5CC6819
 
 tokensJson:
-  enabled: false
+  enabled: true
   tokens: |
     [
       {
-        "address": "0x4E84E9e5fb0A972628Cf4568c403167EF1D40431",
-        "symbol": "$FFC",
-        "decimal": 18,
-        "type": "default"
-      },
-      {
-        "address": "0xa024e8057eec474a9b2356833707dd0579e26ef3",
-        "symbol": "$FYX",
-        "decimal": 18,
+        "address": "0xdbf3ea6f5bee45c02255b2c26a16f300502f68da",
+        "symbol": "BZZ",
+        "decimal": 16,
         "type": "default"
       }
     ]
@@ -47,7 +42,7 @@ serviceAccount:
   name:
 
 serviceMonitor:
-  enabled: false
+  enabled: true
   additionalLabels: {}
 
 podSecurityContext: {}
@@ -56,7 +51,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 9891
+  port: 9021
 
 ingress:
   enabled: false
