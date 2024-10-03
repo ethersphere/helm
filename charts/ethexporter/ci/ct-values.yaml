@@ -1,0 +1,11 @@
+serviceMonitor:
+  enabled: false
+
+addressesTxt:
+  enabled: true
+  addresses: |
+    bittrex:0xFBb1b73C4f0BDa4f67dcA266ce6Ef42f520fBB98:github
+    etherdelta:0x8d12A197cB00D4747a1fe03395095ce2A5CC6819:github
+
+ethexporter:
+  gethEndpoint: https://xdai.fairdatasociety.org

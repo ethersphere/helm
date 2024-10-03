@@ -14,9 +14,9 @@ tokenexporter:
 addressesTxt:
   enabled: true
   existingConfigMap: "balance-addresses"  # Name of the existing ConfigMap
-    #addresses: |
-    #  bittrex:0xFBb1b73C4f0BDa4f67dcA266ce6Ef42f520fBB98
-    #  etherdelta:0x8d12A197cB00D4747a1fe03395095ce2A5CC6819
+  # addresses: |
+  #   bittrex:0xFBb1b73C4f0BDa4f67dcA266ce6Ef42f520fBB98
+  #   etherdelta:0x8d12A197cB00D4747a1fe03395095ce2A5CC6819
 
 tokensJson:
   enabled: true

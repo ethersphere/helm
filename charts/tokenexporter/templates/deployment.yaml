@@ -44,31 +44,34 @@ spec:
           {{- if or .Values.addressesTxt.enabled .Values.tokensJson.enabled }}
           volumeMounts:
             {{- if .Values.addressesTxt.enabled }}
-            - name: addresses
+            - name: addresses-volume
               mountPath: /app/addresses.txt
               subPath: addresses.txt
             {{- end }}
             {{- if .Values.tokensJson.enabled }}
-            - name: tokens
+            - name: tokens-volume
               mountPath: /app/tokens-list.json
               subPath: tokens-list.json
             {{- end }}
-          {{- end }}
           command:
             - tokenexporter
+          {{- end }}
       {{- if or .Values.addressesTxt.enabled .Values.tokensJson.enabled }}
       volumes:
         {{- if .Values.addressesTxt.enabled }}
-        - name: addresses
+        - name: addresses-volume
           configMap:
-            name: {{- if .Values.addressesTxt.existingConfigMap }}
-                    {{ .Values.addressesTxt.existingConfigMap }}
-                  {{- else -}}
-                    {{ template "tokenexporter.fullname" . }}-addresses
-                  {{- end }}
+          {{- if not .Values.addressesTxt.addresses  }}
+            name: {{ .Values.addressesTxt.existingConfigMap }}
+          {{- else }}
+            name: {{ include "tokenexporter.fullname" . }}-addresses
+            items:
+            - key: addresses.txt
+              path: addresses.txt
+          {{- end }}
         {{- end }}
         {{- if .Values.tokensJson.enabled }}
-        - name: tokens
+        - name: tokens-volume
           configMap:
             name: {{ include "tokenexporter.fullname" . }}-tokens
         {{- end }}
