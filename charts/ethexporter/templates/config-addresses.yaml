@@ -1,5 +1,5 @@
 {{- if .Values.addressesTxt.enabled }}
-{{- if not .Values.addressesTxt.existingConfigMap }}
+{{- if .Values.addressesTxt.addresses  }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -9,6 +9,7 @@ metadata:
   labels:
     {{- include "ethexporter.labels" . | nindent 4 }}
 data:
-  addresses.txt: {{ .Values.addressesTxt.addresses | quote }}
+  addresses.txt: |
+{{ .Values.addressesTxt.addresses | indent 4 }}
 {{- end }}
 {{- end }}

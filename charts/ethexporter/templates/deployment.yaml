@@ -43,7 +43,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- if .Values.addressesTxt.enabled }}
           volumeMounts:
-            - name: addresses
+            - name: addresses-volume
               mountPath: /app/addresses.txt
               subPath: addresses.txt
           {{- end }}
@@ -51,13 +51,16 @@ spec:
             - ethexporter
       {{- if .Values.addressesTxt.enabled }}
       volumes:
-        - name: addresses
+        - name: addresses-volume
           configMap:
-            name: {{- if .Values.addressesTxt.existingConfigMap  }}
-                    {{ .Values.addressesTxt.existingConfigMap }}
-                  {{- else -}}
-                    {{ template "ethexporter.fullname" . }}-addresses
-                  {{- end }}
+          {{- if not .Values.addressesTxt.addresses  }}
+            name: {{ .Values.addressesTxt.existingConfigMap }}
+          {{- else }}
+            name: {{ include "ethexporter.fullname" . }}-addresses
+            items:
+            - key: addresses.txt
+              path: addresses.txt
+          {{- end }}
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:

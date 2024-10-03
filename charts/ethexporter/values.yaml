@@ -14,9 +14,9 @@ ethexporter:
 addressesTxt:
   enabled: true
   existingConfigMap: "balance-addresses"
-    #addresses: |
-    #  etherdelta:0x8d12A197cB00D4747a1fe03395095ce2A5CC6819
-    #  bittrex:0xFBb1b73C4f0BDa4f67dcA266ce6Ef42f520fBB98
+  # addresses: |
+  #   etherdelta:0x8d12A197cB00D4747a1fe03395095ce2A5CC6819
+  #   bittrex:0xFBb1b73C4f0BDa4f67dcA266ce6Ef42f520fBB98
 
 replicaCount: 1
 
