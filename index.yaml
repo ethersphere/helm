@@ -3,6 +3,34 @@ entries:
   bee:
   - apiVersion: v2
     appVersion: 2.2.0
+    created: "2024-10-03T15:26:30.05343331Z"
+    description: Ethereum Swarm Bee Helm chart for Kubernetes
+    digest: f844c9bf54ceb06a4d659f43049159c884138ec0b9354e4586e82c114a092ebc
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - storage
+    - swarm
+    - web3
+    kubeVersion: '>=1.19.0-0'
+    maintainers:
+    - email: devops@ethswarm.org
+      name: devops
+    - email: svetomir@ethswarm.org
+      name: svetomir
+    - email: darkobas@ethswarm.org
+      name: darkobas2
+    name: bee
+    sources:
+    - https://github.com/ethersphere/bee
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/bee-0.16.5/bee-0.16.5.tgz
+    version: 0.16.5
+  - apiVersion: v2
+    appVersion: 2.2.0
     created: "2024-10-03T09:30:55.611365653Z"
     description: Ethereum Swarm Bee Helm chart for Kubernetes
     digest: faeeb9277ccf29bddc65143bd4b358fc54b37bcfc8d956cea69801ad9bdcf1aa
@@ -3791,6 +3819,28 @@ entries:
   ethexporter:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-10-03T15:26:30.162613406Z"
+    description: ETHexporter Helm chart for Kubernetes
+    digest: 2ee2a63afcea09a706b6f9733782229249c50988fc4fcc1524b01999c99c7ed2
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - prometheus
+    - exporter
+    maintainers:
+    - email: darkobas@ethswarm.org
+      name: darkobas2
+    name: ethexporter
+    sources:
+    - https://github.com/ethersphere/ethexporter
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/ethexporter-0.2.1/ethexporter-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2021-08-17T13:22:38.596391845Z"
     description: ETHexporter Helm chart for Kubernetes
     digest: 1333ecf2e971a8ca5d9fe40441a3fe28c8c93e13e4fb8f3e04d510dbf3c68dd8
@@ -4568,6 +4618,29 @@ entries:
   tokenexporter:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-10-03T15:26:30.246443208Z"
+    description: Tokenexporter Helm chart for Kubernetes
+    digest: e0a0ae1638fe3382f1604c1fe1aad174252970fc2c88aa496141d384fa308771
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - token
+    - prometheus
+    - exporter
+    maintainers:
+    - email: darkobas@ethswarm.org
+      name: darkobas2
+    name: tokenexporter
+    sources:
+    - https://github.com/ethersphere/tokenexporter
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.2.1/tokenexporter-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2021-08-17T13:22:39.152208914Z"
     description: Tokenexporter Helm chart for Kubernetes
     digest: 2e694ee8c200977b0a6a88792f89ce9d3ee2b274cc900b1813be429b27f3639e
@@ -4704,4 +4777,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2024-10-03T09:30:55.611855307Z"
+generated: "2024-10-03T15:26:30.246908312Z"
