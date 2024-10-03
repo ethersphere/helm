@@ -1,4 +1,5 @@
-{{- if .Values.addressesTxt.enabled -}}
+{{- if .Values.addressesTxt.enabled }}
+{{- if not .Values.addressesTxt.existingConfigMap }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -7,6 +8,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "tokenexporter.labels" . | nindent 4 }}
-data: 
+data:
   addresses.txt: {{ .Values.addressesTxt.addresses | quote }}
-{{- end -}}
+{{- end }}
+{{- end }}

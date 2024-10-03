@@ -8,5 +8,5 @@ metadata:
   labels:
     {{- include "tokenexporter.labels" . | nindent 4 }}
 data: 
-  tokens.json: {{ .Values.tokensJson.tokens | quote }}
+  tokens-list.json: {{ .Values.tokensJson.tokens | quote }}
 {{- end -}}

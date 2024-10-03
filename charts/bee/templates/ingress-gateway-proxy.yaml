@@ -3,17 +3,11 @@
 {{- $root := . -}}
 {{- $fullName := include "bee.fullname" $root -}}
 
-# PER POD INGRESS
-{{- range $i, $e := until (int $root.Values.replicaCount) }}
 ---
-{{- if semverCompare ">=1.19-0" $root.Capabilities.KubeVersion.Version }}
 apiVersion: networking.k8s.io/v1
-{{- else -}}
-apiVersion: networking.k8s.io/v1beta1
-{{- end }}
 kind: Ingress
 metadata:
-  name: gateway-proxy-{{ $fullName }}-{{ $i }}
+  name: proxy-{{ $root.Release.Name }}
   namespace: {{ $root.Release.Namespace }}
   labels:
     {{- include "bee.labels" $root | nindent 4 }}
@@ -27,44 +21,86 @@ spec:
   {{- range $root.Values.gatewayProxy.ingress.hosts }}
     - hosts:
       {{- if .domain }}
-        - gateway-proxy-{{ $fullName }}-{{ $i }}.{{ .domain }}
+        - {{ $root.Release.Name }}.{{ .domain }}
       {{- else }}
-        - gateway-proxy-{{ $fullName }}-{{ $i }}
+        - {{ $fullName }}
       {{- end }}
     {{- if .tlsSecret }}
       secretName: {{ .tlsSecret }}
     {{- end }}
   {{- end }}
 {{- end }}
-{{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.Version }}
   ingressClassName: {{ $root.Values.gatewayProxy.ingress.ingressClassName }}
-{{- end }}
   rules:
   {{- range $root.Values.gatewayProxy.ingress.hosts }}
     {{- if .domain }}
-    - host: gateway-proxy-{{ $fullName }}-{{ $i }}.{{ .domain }}
+    - host: {{ $root.Release.Name }}.{{ .domain }}
     {{- else }}
-    - host: gateway-proxy-{{ $fullName }}-{{ $i }}
+    - host: {{ $fullName }}
     {{- end }}
       http:
         paths:
         {{- range .paths }}
           - path: {{ . }}
-          {{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.Version }}
             pathType: {{ $root.Values.gatewayProxy.ingress.pathType }}
-          {{- end }}
             backend:
-            {{- if semverCompare ">=1.19-0" $root.Capabilities.KubeVersion.Version }}
+              service:
+                name: gateway-proxy-{{ $fullName }}
+                port:
+                  name: gateway-proxy
+        {{- end }}
+  {{- end }}
+
+
+{{- range $i, $e := until (int $root.Values.replicaCount) }}
+# PER POD INGRESS
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: proxy-{{ $root.Release.Name }}-{{ $i }}
+  namespace: {{ $root.Release.Namespace }}
+  labels:
+    {{- include "bee.labels" $root | nindent 4 }}
+  {{- with $root.Values.gatewayProxy.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+{{- if $root.Values.gatewayProxy.ingress.tls }}
+  tls:
+  {{- range $root.Values.gatewayProxy.ingress.hosts }}
+    - hosts:
+      {{- if .domain }}
+        - {{ $root.Release.Name }}-{{ $i }}.{{ .domain }}
+      {{- else }}
+        - {{ $fullName }}-{{ $i }}
+      {{- end }}
+    {{- if .tlsSecret }}
+      secretName: {{ .tlsSecret }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+  ingressClassName: {{ $root.Values.gatewayProxy.ingress.ingressClassName }}
+  rules:
+  {{- range $root.Values.gatewayProxy.ingress.hosts }}
+    {{- if .domain }}
+    - host: {{ $root.Release.Name }}-{{ $i }}.{{ .domain }}
+    {{- else }}
+    - host: {{ $fullName }}-{{ $i }}
+    {{- end }}
+      http:
+        paths:
+        {{- range .paths }}
+          - path: {{ . }}
+            pathType: {{ $root.Values.gatewayProxy.ingress.pathType }}
+            backend:
               service:
                 name: gateway-proxy-{{ $fullName }}-{{ $i }}
                 port:
                   name: gateway-proxy
-            {{- else }}
-              serviceName: gateway-proxy-{{ $fullName }}-{{ $i }}
-              servicePort: gateway-proxy
-            {{- end }}
         {{- end }}
   {{- end }}
-{{- end }}
 
+{{- end -}}
 {{- end -}}

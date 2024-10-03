@@ -21,6 +21,7 @@ spec:
     path: /metrics
     {{- if .Values.serviceMonitor.scrapeInterval }}
     interval: {{ .Values.serviceMonitor.scrapeInterval }}
+    scheme: http
     {{- end }}
     {{- if .Values.serviceMonitor.honorLabels }}
     honorLabels: true
