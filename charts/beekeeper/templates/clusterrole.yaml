@@ -43,8 +43,11 @@ rules:
 - apiGroups: [""]
   resources: ["secrets"]
   verbs: ["get", "create", "list", "watch"]
-- apiGroups: ["apps"]
-  resources: ["statefulsets"]
+- apiGroups: ["networking.k8s.io"]
+  resources: ["ingresses","ingressroutes"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["traefik.containo.us"]
+  resources: ["ingresses","ingressroutes"]
   verbs: ["get", "list", "watch"]
 
 ---
