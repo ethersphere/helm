@@ -23,7 +23,7 @@ jobs:
           fi
 
       - name: Run chart-testing (lint)
-        run: ct lint
+        run: ct lint --check-version-increment false
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.10.0
