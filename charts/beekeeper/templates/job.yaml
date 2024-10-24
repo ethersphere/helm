@@ -8,11 +8,13 @@ metadata:
     {{- include "beekeeper.labels" . | nindent 4 }}
 spec:
   backoffLimit: {{ .Values.config.backoffLimit }}
+  ttlSecondsAfterFinished: 86400
   template:
     metadata:
       labels:
         {{- include "beekeeper.selectorLabels" . | nindent 8 }}
     spec:
+      ttlSecondsAfterFinished: 86400
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
