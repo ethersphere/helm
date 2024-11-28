@@ -17,16 +17,17 @@ serviceAccount:
   createRole: false
   createClusterRole: false
 
-resources:
-  {}
-  ## If you do want to specify resources, uncomment the following
-  ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 1
-  #   memory: 1Gi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+## If you want to specify resource requests and limits, remove the curly braces ({}) and define the values as shown below:
+## This ensures proper allocation of CPU and memory resources.
+## Example:
+# resources:
+#   limits:
+#     cpu: "1"       # Maximum CPU usage (e.g., 1 core)
+#     memory: "1Gi"  # Maximum memory usage (e.g., 1 GiB)
+#   requests:
+#     cpu: "100m"    # Minimum guaranteed CPU usage (e.g., 100 millicores)
+#     memory: "128Mi" # Minimum guaranteed memory usage (e.g., 128 MiB)
+resources: {}
 
 nodeSelector: {}
 
