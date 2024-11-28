@@ -39,6 +39,8 @@ spec:
                   value: "true"
                 - name: BEEKEEPER_CONFIG_GIT_REPO
                   value: "{{ .Values.config.CONFIG_GIT_REPO }}"
+                - name: BEEKEEPER_CONFIG_GIT_DIR
+                  value: "{{ .Values.config.CONFIG_GIT_DIR }}"
                 - name: BEEKEEPER_CONFIG_GIT_BRANCH
                   value: "{{ .Values.config.CONFIG_GIT_BRANCH }}"
                 - name: BEEKEEPER_GETH_URL
