@@ -14,7 +14,6 @@ spec:
       labels:
         {{- include "beekeeper.selectorLabels" . | nindent 8 }}
     spec:
-      ttlSecondsAfterFinished: 86400
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
