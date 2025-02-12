@@ -52,5 +52,6 @@ spec:
     matchLabels:
       app: {{ include "bee.name" . }}
       release: {{ .Release.Name }}
+  fallbackScrapeProtocol: "PrometheusText0.0.4"
 
 {{- end }}
