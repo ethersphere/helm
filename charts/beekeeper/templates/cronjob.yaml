@@ -22,6 +22,11 @@ spec:
     spec:
       parallelism: {{ .Values.config.parallelism }}
       template:
+      {{- with .Values.additionalPodLabels }}
+        metadata:
+          labels:
+            {{- toYaml . | nindent 12 }}
+      {{- end }}
         spec:
         {{- with .Values.imagePullSecrets }}
           imagePullSecrets:
