@@ -4,7 +4,7 @@ image:
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
-additionalPodLabels: []
+additionalPodLabels: {}
 nameOverride: ""
 fullnameOverride: ""
 
