@@ -2,6 +2,34 @@ apiVersion: v1
 entries:
   bee:
   - apiVersion: v2
+    appVersion: 2.4.0
+    created: "2025-02-13T11:56:49.060944641Z"
+    description: Ethereum Swarm Bee Helm chart for Kubernetes
+    digest: 9419f04087560fc6bf62ef9bc3dc6f4e89c2d65fdd6d0c17740d5b053e4bfe33
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - storage
+    - swarm
+    - web3
+    kubeVersion: '>=1.19.0-0'
+    maintainers:
+    - email: devops@ethswarm.org
+      name: devops
+    - email: svetomir@ethswarm.org
+      name: svetomir
+    - email: darkobas@ethswarm.org
+      name: darkobas2
+    name: bee
+    sources:
+    - https://github.com/ethersphere/bee
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/bee-0.16.7/bee-0.16.7.tgz
+    version: 0.16.7
+  - apiVersion: v2
     appVersion: 2.2.0
     created: "2024-10-15T14:49:07.666104447Z"
     description: Ethereum Swarm Bee Helm chart for Kubernetes
@@ -3068,6 +3096,29 @@ entries:
   beekeeper:
   - apiVersion: v2
     appVersion: latest
+    created: "2025-02-13T11:56:49.163712897Z"
+    description: Ethereum Swarm Beekeeper Helm chart for Kubernetes
+    digest: 01d9a20a486ce02ebf7f4dd45f8028fe08aed5d83620fa6a00b5ecc629f8c5cc
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - storage
+    - swarm
+    - web3
+    maintainers:
+    - email: darkobas@ethswarm.org
+      name: darkobas2
+    name: beekeeper
+    sources:
+    - https://github.com/ethersphere/beekeeper
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/beekeeper-0.4.9/beekeeper-0.4.9.tgz
+    version: 0.4.9
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-12-05T13:02:37.180195217Z"
     description: Ethereum Swarm Beekeeper Helm chart for Kubernetes
     digest: 7c1bf13a1eac7c87552b9a550e13b6ccfcd27e504f7002c69226a56706e28354
@@ -4897,4 +4948,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2024-12-05T13:02:37.180682485Z"
+generated: "2025-02-13T11:56:49.164351636Z"
