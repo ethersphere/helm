@@ -4626,6 +4626,50 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/geth-swap-0.1.3/geth-swap-0.1.3.tgz
     version: 0.1.3
+  multichain-proxy:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-03-27T11:27:02.900798977Z"
+    description: A Helm chart for Multichain Proxy
+    digest: 3f1741932c0938f98a8152c18a165356658ba1ae9594b85faa353b8f7e489438
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - swarm
+    maintainers:
+    - email: darkobas@ethswarm.org
+      name: darkobas
+    name: multichain-proxy
+    sources:
+    - https://github.com/ethersphere/multichain
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/multichain-proxy-0.1.0/multichain-proxy-0.1.0.tgz
+    version: 0.1.0
+  multichain-ui:
+  - apiVersion: v2
+    created: "2025-03-27T11:27:02.991152774Z"
+    dependencies:
+    - name: common
+      repository: file://charts/common
+      version: 0.7.0
+    description: Chart to build and deploy multichain-ui
+    digest: caeac8c261a5ab7c62031e00f74234d04b43bde755ce24b305c18c1e968664bd
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - swarm
+    maintainers:
+    - email: darkobas@ethswarm.org
+      name: darkobas
+    name: multichain-ui
+    sources:
+    - https://github.com/ethersphere/multichain
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/multichain-ui-0.73.0/multichain-ui-0.73.0.tgz
+    version: 0.73.0
   nethermind:
   - apiVersion: v2
     appVersion: latest
@@ -4971,4 +5015,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2025-02-13T17:04:27.280146584Z"
+generated: "2025-03-27T11:27:02.991526664Z"
