@@ -3,3 +3,14 @@ name: multichain-proxy
 description: A Helm chart for Multichain Proxy
 version: 0.1.0
 appVersion: "1.0.0"
+home: https://www.ethswarm.org
+icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+keywords:
+  - blockchain
+  - swarm
+maintainers:
+  - name: darkobas
+    email: darkobas@ethswarm.org
+sources:
+  - https://github.com/ethersphere/multichain
+

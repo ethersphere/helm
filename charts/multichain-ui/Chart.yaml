@@ -7,3 +7,14 @@ description: Chart to build and deploy multichain-ui
 name: multichain-ui
 type: application
 version: 0.73.0
+home: https://www.ethswarm.org
+icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+keywords:
+  - blockchain
+  - swarm
+maintainers:
+  - name: darkobas
+    email: darkobas@ethswarm.org
+sources:
+  - https://github.com/ethersphere/multichain
+
