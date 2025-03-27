@@ -1,0 +1,9 @@
+apiVersion: v2
+dependencies:
+- name: common
+  repository: file://../common
+  version: 0.7.0
+description: Chart to build and deploy multichain-ui
+name: multichain-ui
+type: application
+version: 0.73.0

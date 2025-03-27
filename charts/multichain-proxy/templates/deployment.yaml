@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: multichain-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: multichain-proxy
+  template:
+    metadata:
+      labels:
+        app: multichain-proxy
+    spec:
+      containers:
+      - name: multichain-proxy
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        ports:
+        - containerPort: 8080
+        env:
+        - name: CORS_ORIGIN
+          value: {{ .Values.env.corsOrigin }}
+        - name: PORT
+          value: {{ .Values.env.port | quote }}
+        - name: PROXY_TARGET
+          value: {{ .Values.env.proxyTarget }}
