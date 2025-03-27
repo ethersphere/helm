@@ -1,7 +1,7 @@
 apiVersion: v2
 dependencies:
 - name: common
-  repository: file://../common
+  repository: file://charts/common
   version: 0.7.0
 description: Chart to build and deploy multichain-ui
 name: multichain-ui
