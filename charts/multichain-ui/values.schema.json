@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+    {
+      "buildImage": "node:latest",
+      "buildScript": "npm install && npm install -g gatsby-cli && gatsby build",
+      "builtAssets": "public/"
+    }
+  ],
+  "required": [],
+  "properties": {
+    "gitCloneUrl": {
+      "$id": "#/properties/gitCloneUrl",
+      "type": "string",
+      "title": "Git Clone URL",
+      "description": "HTTP git clone URL",
+      "default": "https://github.com/gimlet-io/reactjs-test-app.git"
+    },
+    "buildImage": {
+      "$id": "#/properties/buildImage",
+      "type": "string",
+      "title": "Build image",
+      "description": "The image that will be used for the build proccess",
+      "default": "node:latest"
+    },
+    "buildScript": {
+      "$id": "#/properties/buildScript",
+      "type": "string",
+      "title": "Build script",
+      "description": "Commands required for the build to be completed",
+      "default": "# !/usr/bin/env bash\n\nnpm install\nnpm run build"
+    },
+    "builtAssets": {
+      "$id": "#/properties/builtAssets",
+      "type": "string",
+      "title": "Built assets",
+      "description": "The folder containing the build's generated files",
+      "default": "build/"
+    },
+    "ingress": {
+      "$id": "#/properties/ingress",
+      "type": "object",
+      "title": "Incoming traffic",
+      "description": "",
+      "default": {},
+      "examples": [
+        {
+          "tlsEnabled": false,
+          "host": "my-release.mycompany.com"
+        }
+      ],
+      "required": [],
+      "properties": {
+        "host": {
+          "$id": "#/properties/ingress/properties/host",
+          "type": "string",
+          "title": "Host Name",
+          "description": "Where your application will be accessible",
+          "default": "",
+          "examples": [
+            "my-release.mycompany.com"
+          ]
+        },
+        "tlsEnabled": {
+          "$id": "#/properties/ingress/properties/tlsEnabled",
+          "type": "boolean",
+          "title": "HTTPS",
+          "description": "",
+          "default": false,
+          "examples": [
+            false
+          ]
+        }
+      }
+    },
+    "vars": {
+      "$id": "#/properties/vars",
+      "type": "object",
+      "title": "Environment variables",
+      "description": "",
+      "default": {},
+      "examples": [
+        {
+          "VAR_1": "value 1",
+          "VAR_2": "value 2"
+        }
+      ],
+      "required": [],
+      "properties": {},
+      "additionalProperties": true
+    },
+    "sealedSecrets": {
+      "$id": "#/properties/sealedSecrets",
+      "type": "object",
+      "title": "Encrypted secrets",
+      "description": "",
+      "default": {},
+      "examples": [
+        {
+          "VAR_1": "value 1",
+          "VAR_2": "value 2"
+        }
+      ],
+      "required": [],
+      "properties": {},
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

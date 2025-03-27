@@ -1,0 +1,8 @@
+image:
+  repository: ethersphere/multichain-proxy
+  tag: 0.0.2
+
+env:
+  corsOrigin: "app.ethswarm.org"
+  port: "8080"
+  proxyTarget: "http://bee-9:1633"
