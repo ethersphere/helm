@@ -30,12 +30,13 @@ service:
   type: ClusterIP
   port: 8080
 
-# ingress:
-#   host: dummyapp.127.0.0.1.nip.io
-#   ingressClassName: nginx
-#   tlsEnabled: false
-#   annotations:
-#     cert-manager.io/cluster-issuer: letsencrypt-staging
+ingress:
+  # className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  host: "" 
+  tlsEnabled: false
 
 
 resources:
