@@ -1,0 +1,48 @@
+{{- define "common.volumesRef.tpl" }}
+{{- if or (or (or (.Values.volumes) (.Values.sealedFileSecrets)) .Values.fileSecrets) .Values.existingFileSecrets }}
+volumes:
+  {{- range .Values.volumes }}
+  - name: {{ .name }}
+    {{- if .emptyDir }}
+    emptyDir: {}
+    {{- else if .existingConfigMap }}
+    configMap:
+      name: {{ .existingConfigMap }}
+    {{- else if .existingSecret }}
+    secret:
+      secretName: {{ .existingSecret }}
+    {{- else if .fileName }}
+    configMap:
+      name: {{ template "common.robustName" (printf "%s-%s" $.Release.Name .name) }}
+    {{- else if .hostPath }}
+    hostPath:
+      path: {{ .hostPath.path }}
+      {{- if .hostPath.type }}
+      type: {{ .hostPath.type }}
+      {{- end }}
+    {{- else }}
+    persistentVolumeClaim:
+      {{- if .existingClaim }}
+      claimName: {{ .existingClaim }}
+      {{ else }}
+      claimName: {{ printf "%s-%s" $.Release.Name .name }}
+      {{- end }}
+      {{- end }}
+{{- end }}     
+  {{- range .Values.sealedFileSecrets }}
+  - name: {{ .name }}
+    secret:
+      secretName: {{ printf "%s-%s" $.Release.Name .name }}
+  {{- end }}
+  {{- range .Values.fileSecrets }}
+  - name: {{ .name }}
+    secret:
+      secretName: {{ printf "%s-%s" $.Release.Name .name }}
+  {{- end }}
+  {{- range .Values.existingFileSecrets }}
+  - name: {{ .name }}
+    secret:
+      secretName: {{ .name }}
+  {{- end }}
+{{- end }}
+{{- end }}
