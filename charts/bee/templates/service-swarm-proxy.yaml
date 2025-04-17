@@ -1,0 +1,52 @@
+{{- if .Values.swarmProxy.enabled -}}
+
+{{- $root := . -}}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: swarm-proxy-{{ include "bee.fullname" $root }}
+  namespace: {{ $root.Release.Namespace }}
+  labels:
+    {{- include "bee.labels" $root | nindent 4 }}
+    pod: {{ include "bee.fullname" $root }}
+    endpoint: swarm-proxy
+    app: {{ include "bee.name" $root }}
+    release: {{ $root.Release.Name }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: swarm-proxy
+      port: 8633
+      protocol: TCP
+      targetPort: swarm-proxy
+  selector:
+    app.kubernetes.io/instance: {{ include "bee.fullname" $root }}
+
+{{- range $i, $e := until (int $root.Values.replicaCount) }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: swarm-proxy-{{ include "bee.fullname" $root }}-{{ $i }}
+  namespace: {{ $root.Release.Namespace }}
+  labels:
+    {{- include "bee.labels" $root | nindent 4 }}
+    pod: {{ include "bee.fullname" $root }}-{{ $i }}
+    endpoint: swarm-proxy
+    app: {{ include "bee.name" $root }}
+    release: {{ $root.Release.Name }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: swarm-proxy
+      port: 8633
+      protocol: TCP
+      targetPort: swarm-proxy
+  selector:
+    statefulset.kubernetes.io/pod-name: {{ include "bee.fullname" $root }}-{{ $i }}
+
+{{- end }}
+{{- end -}}

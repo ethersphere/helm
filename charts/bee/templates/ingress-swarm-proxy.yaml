@@ -1,0 +1,106 @@
+{{- if and .Values.swarmProxy.enabled .Values.swarmProxy.ingress.enabled -}}
+
+{{- $root := . -}}
+{{- $fullName := include "bee.fullname" $root -}}
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: proxy-{{ $root.Release.Name }}
+  namespace: {{ $root.Release.Namespace }}
+  labels:
+    {{- include "bee.labels" $root | nindent 4 }}
+  {{- with $root.Values.swarmProxy.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+{{- if $root.Values.swarmProxy.ingress.tls }}
+  tls:
+  {{- range $root.Values.swarmProxy.ingress.hosts }}
+    - hosts:
+      {{- if .domain }}
+        - {{ $root.Release.Name }}.{{ .domain }}
+      {{- else }}
+        - {{ $fullName }}
+      {{- end }}
+    {{- if .tlsSecret }}
+      secretName: {{ .tlsSecret }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+  ingressClassName: {{ $root.Values.swarmProxy.ingress.ingressClassName }}
+  rules:
+  {{- range $root.Values.swarmProxy.ingress.hosts }}
+    {{- if .domain }}
+    - host: {{ $root.Release.Name }}.{{ .domain }}
+    {{- else }}
+    - host: {{ $fullName }}
+    {{- end }}
+      http:
+        paths:
+        {{- range .paths }}
+          - path: {{ . }}
+            pathType: {{ $root.Values.swarmProxy.ingress.pathType }}
+            backend:
+              service:
+                name: swarm-proxy-{{ $fullName }}
+                port:
+                  name: swarm-proxy
+        {{- end }}
+  {{- end }}
+
+
+{{- range $i, $e := until (int $root.Values.replicaCount) }}
+# PER POD INGRESS
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: proxy-{{ $root.Release.Name }}-{{ $i }}
+  namespace: {{ $root.Release.Namespace }}
+  labels:
+    {{- include "bee.labels" $root | nindent 4 }}
+  {{- with $root.Values.swarmProxy.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+{{- if $root.Values.swarmProxy.ingress.tls }}
+  tls:
+  {{- range $root.Values.swarmProxy.ingress.hosts }}
+    - hosts:
+      {{- if .domain }}
+        - {{ $root.Release.Name }}-{{ $i }}.{{ .domain }}
+      {{- else }}
+        - {{ $fullName }}-{{ $i }}
+      {{- end }}
+    {{- if .tlsSecret }}
+      secretName: {{ .tlsSecret }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+  ingressClassName: {{ $root.Values.swarmProxy.ingress.ingressClassName }}
+  rules:
+  {{- range $root.Values.swarmProxy.ingress.hosts }}
+    {{- if .domain }}
+    - host: {{ $root.Release.Name }}-{{ $i }}.{{ .domain }}
+    {{- else }}
+    - host: {{ $fullName }}-{{ $i }}
+    {{- end }}
+      http:
+        paths:
+        {{- range .paths }}
+          - path: {{ . }}
+            pathType: {{ $root.Values.swarmProxy.ingress.pathType }}
+            backend:
+              service:
+                name: swarm-proxy-{{ $fullName }}-{{ $i }}
+                port:
+                  name: swarm-proxy
+        {{- end }}
+  {{- end }}
+
+{{- end -}}
+{{- end -}}

@@ -297,3 +297,77 @@ gatewayProxy:
     # requests:
     #   cpu: 100m
     #   memory: 128Mi
+
+## If enabled it will start gateway-proxy sidecar container that will be publicly exposed
+## It is used by gateway app
+swarmProxy:
+  enabled: false
+  image:
+    repository: ethersphere/swarm-proxy
+    tag: 0.16.0
+    # digest: sha256:508a6bc1d3f45acaf98b746d521ee2cb11a895d8334446d2205fe4053b9e3667
+    pullPolicy: IfNotPresent
+  ## If enabled, creates ingress for HTTP
+  ## Creates one ingress per pod
+  ## Total number of created ingress objects is: replicaCount
+  ## Hostname for 'per pod ingresses' is: <chart fullname>-<i>, or <chart fullname>-<i>.<domain> if domain is specified
+  ## tls.secretName won't be specified if tlsSecret is "", tls must be set to true
+  ingress:
+    enabled: false
+    ## Used if cluster version is >= 1.19-0
+    pathType: ImplementationSpecific
+    # ingressClassName: ingress-nginx
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - domain: ""
+        paths: []
+        tlsSecret: ""
+    tls: false
+  ## If enabled set POSTAGE_DEPTH and POSTAGE_AMOUNT
+  autobuy:
+    enabled: false
+  ## Environment variables for this swarm-proxy container
+  ## You can use any of the kubernetes env syntax here
+  envs: []
+  # - name: POSTAGE_DEPTH
+  #   value: 20
+  # - name: POSTAGE_AMOUNT
+  #   value: 50000000
+  # - name: POSTAGE_USAGE_THRESHOLD
+  #   value: 0.874
+  # - name: POSTAGE_USAGE_MAX
+  #   value: 0.9374
+  # - name: LOG_LEVEL
+  #   value: info
+  resources: {}
+    # limits:
+    #   cpu: 1
+    #   memory: 1Gi
+    # requests:
+    #   cpu: 100m
+    #   memory: 1Gi
+
+  database:
+    # -- Database configuration details used if existingSecret is not specified.
+    # These values are IGNORED for secret creation if existingSecret.name is set.
+    user: "default_user"
+    password: "changeme"
+    host: "db.example.com"
+    port: "5432"
+    name: "mydatabase"
+    # ssl:
+      # ca: |
+      #  -----BEGIN CERTIFICATE-----
+      #  MIIC...
+      #  ...
+      #  -----END CERTIFICATE-----
+    # -- Specify an existing Secret to use for database configuration
+    existingSecret:
+      # -- Name of the existing Secret. If set, the chart will NOT create a new secret.
+      name: ""
+      # -- Key within the existing Secret that contains the JSON configuration string.
+      # Required if existingSecret.name is set.
+      key: ""
+    instanceName: "testnet"
