@@ -262,6 +262,45 @@ spec:
               path: /readiness
               port: gateway-proxy
         {{- end }}
+        {{- if .Values.swarmProxy.enabled }}
+        - name: swarm-proxy
+          image: "{{ include "swarmProxy.image" . }}"
+          imagePullPolicy: {{ .Values.swarmProxy.image.pullPolicy }}
+          env:
+            - name: HOST
+              value: "0.0.0.0"
+            - name: INSTANCE_NAME
+              value: {{ .Values.swarmProxy.database.instanceName }}
+            - name: PORT
+              value: "8633"
+            - name: BEE_API_URL
+              value: "http://localhost:1633"
+            - name: DATABASE_CONFIG
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.swarmProxy.database.existingSecret.name | default (include "bee.databaseSecretName" .) }}
+                  key: {{ .Values.swarmProxy.database.existingSecret.key | default (include "bee.databaseSecretKey" .) }}
+          {{- with .Values.swarmProxy.envs }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          command:
+            - node
+            - dist/index.js
+          ports:
+            - containerPort: 8633
+              name: swarm-proxy
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.swarmProxy.resources | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: swarm-proxy
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: swarm-proxy
+        {{- end }}
       volumes:
         - name: config-file
           emptyDir: {}

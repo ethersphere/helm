@@ -196,6 +196,18 @@ Digest takes presedance over tag.
 {{- end -}}
 
 {{/*
+Create swarmProxy image name combining repository and tag or digest.
+Digest takes presedance over tag.
+*/}}
+{{- define "swarmProxy.image" -}}
+{{- if .Values.swarmProxy.image.digest -}}
+{{- printf "%s@%s" .Values.swarmProxy.image.repository .Values.swarmProxy.image.digest -}}
+{{- else -}}
+{{- printf "%s:%s" .Values.swarmProxy.image.repository .Values.swarmProxy.image.tag -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Return the proper Storage Class.
 */}}
 {{- define "bee.storageClass" -}}
@@ -225,5 +237,33 @@ Return the proper Storage Class.
 {{- else }}
 {{- printf "storageClassName: \"%s\"" .Values.persistence.separateLocalstore.storageClass -}}
 {{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Determine the name of the database secret to use.
+Uses the existing secret name if provided, otherwise generates one.
+*/}}
+{{- define "bee.databaseSecretName" -}}
+{{- if .Values.swarmProxy.database.existingSecret.name -}}
+{{- .Values.swarmProxy.database.existingSecret.name -}}
+{{- else -}}
+{{- /* Generate a default name if not using an existing secret */ -}}
+{{- include "bee.fullname" . }}-db-config
+{{- end -}}
+{{- end -}}
+
+{{/*
+Determine the key within the database secret to use.
+Uses the existing secret key if an existing secret name is provided,
+otherwise uses the default key name defined by this chart ('db-config-json').
+*/}}
+{{- define "bee.databaseSecretKey" -}}
+{{- if .Values.swarmProxy.database.existingSecret.name -}}
+{{- /* If using an existing secret, the key MUST be provided */ -}}
+{{- required (printf "If swarmProxy.database.existingSecret.name (%s) is provided, swarmProxy.database.existingSecret.key must also be set" .Values.swarmProxy.database.existingSecret.name) .Values.swarmProxy.database.existingSecret.key -}}
+{{- else -}}
+{{- /* Default key name used when the chart generates the secret */ -}}
+db-config-json
 {{- end -}}
 {{- end -}}

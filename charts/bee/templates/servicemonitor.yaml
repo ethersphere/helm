@@ -44,6 +44,20 @@ spec:
 {{ toYaml .Values.serviceMonitor.relabelings | indent 6 }}
     {{- end }}
   {{- end }}
+  {{- if and .Values.serviceMonitor.enabled .Values.swarmProxy.enabled }}
+  - port: swarm-proxy
+    path: /metrics
+    {{- if .Values.serviceMonitor.scrapeInterval }}
+    interval: {{ .Values.serviceMonitor.scrapeInterval }}
+    {{- end }}
+    {{- if .Values.serviceMonitor.honorLabels }}
+    honorLabels: true
+    {{- end }}
+    {{- if .Values.serviceMonitor.relabelings }}
+    relabelings:
+{{ toYaml .Values.serviceMonitor.relabelings | indent 6 }}
+    {{- end }}
+  {{- end }}
 
   namespaceSelector:
     matchNames:
