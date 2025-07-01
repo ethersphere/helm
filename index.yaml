@@ -4676,6 +4676,29 @@ entries:
     version: 0.1.0
   multichain-ui:
   - apiVersion: v2
+    created: "2025-07-01T20:33:03.77942097Z"
+    dependencies:
+    - name: common
+      repository: file://charts/common
+      version: 0.7.0
+    description: Chart to build and deploy multichain-ui
+    digest: 683683537b0d828dedd65d82adf278c03c7972b2d737eebe48238be82639fc02
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - swarm
+    maintainers:
+    - email: darkobas@ethswarm.org
+      name: darkobas
+    name: multichain-ui
+    sources:
+    - https://github.com/ethersphere/multichain
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/multichain-ui-0.73.1/multichain-ui-0.73.1.tgz
+    version: 0.73.1
+  - apiVersion: v2
     created: "2025-03-27T11:27:02.991152774Z"
     dependencies:
     - name: common
@@ -5043,4 +5066,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-22T21:41:35.238059496Z"
+generated: "2025-07-01T20:33:03.779882404Z"
