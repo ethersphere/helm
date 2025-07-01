@@ -45,8 +45,6 @@ spec:
       volumes:
       - name: static-files
         emptyDir: {}
-      - name: nginx-config-dir
-        emptyDir: {}
       - name: nginx-run
         emptyDir: {}
       - name: nginx-cache
@@ -54,6 +52,10 @@ spec:
       - name: nginx-config-template
         configMap:
           name: {{ include "helm-chart.fullname" . }}-config-template
+      - name: geoip-db
+        emptyDir: {}
+      - name: nginx-conf-d # Writable directory for the entrypoint script
+        emptyDir: {}
       initContainers:
       - name: init-con
         image: {{ .Values.buildImage }}
@@ -74,8 +76,8 @@ spec:
         {{- end }}
         {{- if .Values.buildScript }}
         command:
-        - sh 
-        - -c 
+        - sh
+        - -c
         - |
           git clone {{ .Values.gitCloneUrl }} src &&
           cd src &&
@@ -89,6 +91,12 @@ spec:
         volumeMounts:
         - name: static-files
           mountPath: /usr/share/nginx/html
+      - name: download-geoip-legacy
+        image: busybox:1.36
+        command: ['sh', '-c', 'wget -O /geoip-data/GeoIP.dat.gz https://mailfud.org/geoip-legacy/GeoIP.dat.gz --no-check-certificate && gunzip /geoip-data/GeoIP.dat.gz']
+        volumeMounts:
+        - name: geoip-db
+          mountPath: /geoip-data
       containers:
         - name: {{ template "robustName" .Release.Name }}
           securityContext:
@@ -98,14 +106,21 @@ spec:
           volumeMounts:
           - name: static-files
             mountPath: /usr/share/nginx/html
-          - name: nginx-config-dir
-            mountPath: /etc/nginx/conf.d
           - name: nginx-config-template
-            mountPath: /etc/nginx/templates
+            mountPath: /etc/nginx/nginx.conf
+            subPath: nginx.conf
+          - name: nginx-config-template
+            mountPath: /etc/nginx/templates/default.conf.template
+            subPath: default.conf.template
+          - name: nginx-conf-d # Mount the writable directory
+            mountPath: /etc/nginx/conf.d
           - name: nginx-cache
             mountPath: /var/cache/nginx
           - name: nginx-run
             mountPath: /var/run
+          - name: geoip-db
+            mountPath: /etc/nginx/geoip
+            readOnly: true
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -115,3 +130,4 @@ spec:
             value: "{{ .Values.ingress.host }}"
           - name: NGINX_PORT
             value: "8080"
+

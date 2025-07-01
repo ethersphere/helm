@@ -6,7 +6,7 @@ dependencies:
 description: Chart to build and deploy multichain-ui
 name: multichain-ui
 type: application
-version: 0.73.0
+version: 0.73.1
 home: https://www.ethswarm.org
 icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
 keywords:
