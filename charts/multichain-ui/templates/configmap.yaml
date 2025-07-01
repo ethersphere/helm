@@ -7,6 +7,83 @@ metadata:
   labels:
     {{- include "helm-chart.labels" . | nindent 4 }}
 data:
+  nginx.conf: |
+    # Load the module at the top-level (main) context
+    load_module modules/ngx_http_geoip_module.so;
+    user  nginx;
+    worker_processes  auto;
+    error_log  /var/log/nginx/error.log notice;
+    pid        /run/nginx.pid;
+
+    events {
+        worker_connections  1024;
+    }
+
+    http {
+        include       /etc/nginx/mime.types;
+        default_type  application/octet-stream;
+
+        # Define GeoIP settings in the http context
+        geoip_country /etc/nginx/geoip/GeoIP.dat;
+
+        # Trust internal proxies and use X-Forwarded-For to get the real client IP
+        set_real_ip_from 10.0.0.0/8;
+        real_ip_header X-Forwarded-For;
+
+        # Define the JSON log format
+        log_format json_analytics escape=json '{'
+            '"msec": "$msec", '
+            '"connection": "$connection", '
+            '"connection_requests": "$connection_requests", '
+            '"pid": "$pid", '
+            '"request_id": "$request_id", '
+            '"request_length": "$request_length", '
+            '"remote_addr": "$remote_addr", '
+            '"remote_user": "$remote_user", '
+            '"remote_port": "$remote_port", '
+            '"time_local": "$time_local", '
+            '"time_iso8601": "$time_iso8601", '
+            '"request": "$request", '
+            '"request_uri": "$request_uri", '
+            '"args": "$args", '
+            '"status": "$status", '
+            '"body_bytes_sent": "$body_bytes_sent", '
+            '"bytes_sent": "$bytes_sent", '
+            '"http_referer": "$http_referer", '
+            '"http_user_agent": "$http_user_agent", '
+            '"http_x_forwarded_for": "$http_x_forwarded_for", '
+            '"http_host": "$http_host", '
+            '"server_name": "$server_name", '
+            '"request_time": "$request_time", '
+            '"upstream": "$upstream_addr", '
+            '"upstream_connect_time": "$upstream_connect_time", '
+            '"upstream_header_time": "$upstream_header_time", '
+            '"upstream_response_time": "$upstream_response_time", '
+            '"upstream_response_length": "$upstream_response_length", '
+            '"upstream_cache_status": "$upstream_cache_status", '
+            '"ssl_protocol": "$ssl_protocol", '
+            '"ssl_cipher": "$ssl_cipher", '
+            '"scheme": "$scheme", '
+            '"request_method": "$request_method", '
+            '"server_protocol": "$server_protocol", '
+            '"pipe": "$pipe", '
+            '"gzip_ratio": "$gzip_ratio", '
+            '"http_cf_ray": "$http_cf_ray", '
+            '"geoip_country_code": "$geoip_country_code", '
+            '"geoip_country_name": "$geoip_country_name"'
+            '}';
+
+        # Set the default access log for all servers
+        access_log  /var/log/nginx/access.log  json_analytics;
+
+        sendfile        on;
+        keepalive_timeout  65;
+
+        # Include server block configurations from the standard directory
+        # The entrypoint script will place the processed template here.
+        include /etc/nginx/conf.d/*.conf;
+    }
+
   default.conf.template: |
     server {
         listen ${NGINX_PORT};
@@ -25,3 +102,4 @@ data:
     }
 {{- end }}
 {{- include "nginx.configMapTemplate" . | nindent 0 }}
+
