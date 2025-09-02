@@ -53,7 +53,7 @@ tolerations: []
 affinity: {}
 
 # values to build and deploy static sites
-gitCloneUrl: https://github.com/ethersphere/multichain.git
+gitCloneUrl: https://github.com/ethersphere/beeport.git
 buildImage: "node:lts"
 builtAssets: out/
 buildScript: |

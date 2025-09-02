@@ -1,5 +1,5 @@
 image:
-  repository: ethersphere/multichain-proxy
+  repository: ethersphere/beeport-proxy
   tag: 0.0.2
 
 env:

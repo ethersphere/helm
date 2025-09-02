@@ -1,7 +1,7 @@
 apiVersion: v2
-name: multichain-proxy
-description: A Helm chart for Multichain Proxy
-version: 0.1.0
+name: beeport-proxy
+description: A Helm chart for beeport proxy
+version: 0.1.1
 appVersion: "1.0.0"
 home: https://www.ethswarm.org
 icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
@@ -12,4 +12,4 @@ maintainers:
   - name: darkobas
     email: darkobas@ethswarm.org
 sources:
-  - https://github.com/ethersphere/multichain
+  - https://github.com/ethersphere/beeport

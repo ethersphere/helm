@@ -3,10 +3,10 @@ dependencies:
 - name: common
   repository: file://charts/common
   version: 0.7.0
-description: Chart to build and deploy multichain-ui
-name: multichain-ui
+description: Chart to build and deploy beeport-ui
+name: beeport-ui
 type: application
-version: 0.73.1
+version: 0.73.2
 home: https://www.ethswarm.org
 icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
 keywords:
@@ -16,4 +16,4 @@ maintainers:
   - name: darkobas
     email: darkobas@ethswarm.org
 sources:
-  - https://github.com/ethersphere/multichain
+  - https://github.com/ethersphere/beeport

@@ -3,19 +3,19 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}
   labels:
-    app: multichain-proxy
+    app: beeport-proxy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: multichain-proxy
+      app: beeport-proxy
   template:
     metadata:
       labels:
-        app: multichain-proxy
+        app: beeport-proxy
     spec:
       containers:
-      - name: multichain-proxy
+      - name: beeport-proxy
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         ports:
         - containerPort: 8080
