@@ -93,7 +93,7 @@ spec:
           mountPath: /usr/share/nginx/html
       - name: download-geoip-legacy
         image: busybox:1.36
-        command: ['sh', '-c', 'wget -O /geoip-data/GeoIP.dat.gz https://mailfud.org/geoip-legacy/GeoIP.dat.gz --no-check-certificate && gunzip /geoip-data/GeoIP.dat.gz']
+        command: ['sh', '-c', 'wget -O /geoip-data/GeoIP.dat https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb --no-check-certificate']
         volumeMounts:
         - name: geoip-db
           mountPath: /geoip-data
