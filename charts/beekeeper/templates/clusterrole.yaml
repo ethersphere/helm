@@ -27,7 +27,7 @@ rules:
   verbs: ["get", "list", "watch"]
 - apiGroups: [""]
   resources: ["pods"]
-  verbs: ["get", "list", "watch"]
+  verbs: ["get", "list", "watch", "delete"]
 - apiGroups: ["apps"]
   resources: ["statefulsets"]
   verbs: ["*"]
