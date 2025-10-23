@@ -58,7 +58,7 @@ singlePodSts:
 p2pFixedPort:
   enabled: false
   nodePortStart: 31000
-  publicIpUrl: http://169.254.169.254/latest/meta-data/public-ipv4
+  publicIpUrl: http://ifconfig.me/ip
 
 ## If enabled, creates ingress for HTTP api
 ## Creates one ingress per pod and additionally one common ingress for all pods
