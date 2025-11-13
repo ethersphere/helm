@@ -23,7 +23,7 @@ $ helm install --generate-name ethersphere/bee
 
 ## Introduction
 
-This chart deploys a [Ethereum Swarm Bee](https://github.com/ethersphere/bee) onto a Kubernetes cluster using the Helm package manager. It creates ConfigMap, Deployment and Service Kubernetes objects, while Ingress and ServiceAccount are optional.
+This chart bootstraps a Bee node. It creates ConfigMap, Deployment and Service Kubernetes objects, while Ingress and ServiceAccount are optional.
 
 ## Prerequisites
 

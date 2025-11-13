@@ -30,6 +30,13 @@ spec:
       {{- if $root.Values.p2pFixedPort.enabled }}
       nodePort: {{ add $root.Values.p2pFixedPort.nodePortStart $i }}
       {{- end }}
+    - name: p2p-wss
+      port: {{ int (include "bee.config.p2p-wss_port" $root) }}
+      protocol: TCP
+      targetPort: p2p-wss
+      {{- if $root.Values.p2pWssFixedPort.enabled }}
+      nodePort: {{ add $root.Values.p2pWssFixedPort.nodePortStart $i }}
+      {{- end }}
   selector:
     {{- include "bee.selectorLabels" $root | nindent 4 }}
     statefulset.kubernetes.io/pod-name: {{ include "bee.fullname" $root }}-{{ $i }}

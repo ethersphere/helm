@@ -16,11 +16,15 @@ spec:
     - name: p2p-udp
       port: {{ int (include "bee.config.p2p_port" .) }}
       protocol: UDP
-      targetPort: p2p
+      targetPort: p2p-udp
     - name: p2p-tcp
       port: {{ int (include "bee.config.p2p_port" .) }}
       protocol: TCP
-      targetPort: p2p
+      targetPort: p2p-tcp
+    - name: p2p-wss
+      port: {{ int (include "bee.config.p2p-wss_port" .) }}
+      protocol: TCP
+      targetPort: p2p-wss
   selector:
     {{- include "bee.selectorLabels" . | nindent 4 }}
   type: {{ .Values.service.type }}
