@@ -197,6 +197,19 @@ beeConfig:
   full-node: true
   ## ID of the Swarm network - 10 by default
   network-id: 1
+  autotls-enabled: true
+  p2p-wss-port: "1635"
+
+## If enabled, for NodePort (p2p-wss service)
+## the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
+## You can enable and specify start value and NodePort will be $nodePortStart + $ordinal
+## If wanted port if used by some other service deploy will fail
+## By default AWS internal endpoint will be used to discover public IP
+## You can specify public services as icanhazip.com etc.
+p2pWssFixedPort:
+  enabled: false
+  nodePortStart: 31001
+  publicIpUrl: http://ifconfig.me/ip
 
 ## Password for decrypting bee keys (please set it for production deployments)
 ## If not set, it will be automatically generated
