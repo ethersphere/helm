@@ -193,12 +193,13 @@ beeConfig:
   api-addr: :1633
   ## P2P listen address
   p2p-addr: :1634
+  ## P2P WSS listen address
+  p2p-wss-port: :1635
   ## Set the run mode - light by default
   full-node: true
   ## ID of the Swarm network - 10 by default
   network-id: 1
   autotls-enabled: true
-  p2p-wss-port: "1635"
 
 ## If enabled, for NodePort (p2p-wss service)
 ## the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
@@ -210,6 +211,7 @@ p2pWssFixedPort:
   enabled: false
   nodePortStart: 31001
   publicIpUrl: http://ifconfig.me/ip
+
 
 ## Password for decrypting bee keys (please set it for production deployments)
 ## If not set, it will be automatically generated
