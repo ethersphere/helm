@@ -97,7 +97,7 @@ spec:
             - name: bee-swarm
               mountPath: /tmp/bee
         {{- end }}
-        {{- if .Values.p2pFixedPort.enabled }}
+        {{- if or .Values.p2pFixedPort.enabled .Values.p2pWssFixedPort.enabled }}
         - name: init-natport
           image: ethersphere/busybox:1.36
           securityContext:
@@ -107,11 +107,18 @@ spec:
             - sh
             - -c
             - >
-              PUBLIC_IP=$(wget -T 2 {{ .Values.p2pFixedPort.publicIpUrl }} -q -O -);
+              if ! [ -f /home/bee/.bee.yaml ]; then cp -p /tmp/.bee.yaml /home/bee/.bee.yaml; fi;
               export INDEX=$(echo $(hostname) | rev | cut -d'-' -f 1 | rev);
+              {{- if .Values.p2pFixedPort.enabled }}
+              PUBLIC_IP=$(wget -T 10 {{ .Values.p2pFixedPort.publicIpUrl }} -q -O -);
               NAT_PORT=$(( {{ .Values.p2pFixedPort.nodePortStart }} + INDEX ));
-              cp -p /tmp/.bee.yaml /home/bee/.bee.yaml;
               printf 'nat-addr: %s:%s\n' "${PUBLIC_IP}" "${NAT_PORT}" >> /home/bee/.bee.yaml;
+              {{- end }}
+              {{- if .Values.p2pWssFixedPort.enabled }}
+              PUBLIC_IP=$(wget -T 10 {{ .Values.p2pWssFixedPort.publicIpUrl }} -q -O -);
+              NAT_PORT=$(( {{ .Values.p2pWssFixedPort.nodePortStart }} + INDEX ));
+              printf 'nat-wss-addr: %s:%s\n' "${PUBLIC_IP}" "${NAT_PORT}" >> /home/bee/.bee.yaml;
+              {{- end }}
               echo 'node initialization done';
           volumeMounts:
             - name: config-file
@@ -207,7 +214,7 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           volumeMounts:
-            {{- if or .Values.p2pFixedPort.enabled .Values.autoNeighborhood.enabled }}
+            {{- if or .Values.p2pFixedPort.enabled .Values.p2pWssFixedPort.enabled .Values.autoNeighborhood.enabled }}
             - name: config-file
               mountPath: /home/bee
             {{- else }}
