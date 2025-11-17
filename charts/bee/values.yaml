@@ -194,7 +194,7 @@ beeConfig:
   ## P2P listen address
   p2p-addr: :1634
   ## P2P WSS listen address
-  p2p-wss-port: :1635
+  p2p-wss-addr: :1635
   ## Set the run mode - light by default
   full-node: true
   ## ID of the Swarm network - 10 by default
