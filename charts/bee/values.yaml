@@ -199,7 +199,8 @@ beeConfig:
   full-node: true
   ## ID of the Swarm network - 10 by default
   network-id: 1
-  autotls-enabled: true
+  ## Enable Secure WebSocket P2P connections - disabled by default
+  p2p-wss-enable: false
 
 ## If enabled, for NodePort (p2p-wss service)
 ## the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
