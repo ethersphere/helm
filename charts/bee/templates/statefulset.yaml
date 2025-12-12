@@ -294,8 +294,16 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           command:
-            - node
-            - dist/index.js
+            - sh
+            - -c
+            - |
+              echo "Waiting for Bee API warm-up at ${BEE_API_URL}/status";
+              until curl -s "${BEE_API_URL}/status" | jq -e '.isWarmingUp == false' > /dev/null; do
+                echo "Bee still warming up. Retrying in 10s...";
+                sleep 10;
+              done;
+              echo "Bee is ready. Starting swarm-proxy...";
+              exec node dist/index.js
           ports:
             - containerPort: 8633
               name: swarm-proxy
