@@ -197,9 +197,11 @@ spec:
             - containerPort: {{ int (include "bee.config.p2p_port" .) }}
               name: p2p-udp
               protocol: UDP
+            {{- if index .Values.beeConfig "p2p-wss-enable" }}
             - containerPort: {{ int (include "bee.config.p2p-wss_port" .) }}
               name: p2p-wss
               protocol: TCP
+            {{- end }}
           {{- if .Values.probesEnable }}
           livenessProbe:
             httpGet:

@@ -21,10 +21,12 @@ spec:
       port: {{ int (include "bee.config.p2p_port" .) }}
       protocol: TCP
       targetPort: p2p-tcp
+    {{- if index .Values.beeConfig "p2p-wss-enable" }}
     - name: p2p-wss
       port: {{ int (include "bee.config.p2p-wss_port" .) }}
       protocol: TCP
       targetPort: p2p-wss
+    {{- end }}
   selector:
     {{- include "bee.selectorLabels" . | nindent 4 }}
   type: {{ .Values.service.type }}
