@@ -138,7 +138,7 @@ Define config parameters api-addr, p2p-addr
 {{- printf "%s" $p2p_port -}}
 {{- end -}}
 {{- define "bee.config.p2p-wss_port" -}}
-{{- $full_p2p_wss_addr := index .Values.beeConfig "p2p-wss-addr" -}}
+{{- $full_p2p_wss_addr := index .Values.beeConfig "p2p-wss-addr" | default ":1635" -}}
 {{- $p2p_wss_port := (split ":" $full_p2p_wss_addr )._1 }}
 {{- printf "%s" $p2p_wss_port -}}
 {{- end -}}
