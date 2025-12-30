@@ -6,11 +6,7 @@
 
 # MAIN INGRESS
 ---
-{{- if semverCompare ">=1.19-0" $root.Capabilities.KubeVersion.Version }}
 apiVersion: networking.k8s.io/v1
-{{- else -}}
-apiVersion: networking.k8s.io/v1beta1
-{{- end }}
 kind: Ingress
 metadata:
   name: {{ $fullName }}
@@ -22,9 +18,10 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  ingressClassName: {{ $root.Values.ingress.ingressClassName }}
 {{- if $root.Values.ingress.tls }}
   tls:
-  {{- range $root.Values.ingress.hosts }}  
+  {{- range $root.Values.ingress.hosts }}
     - hosts:
       {{- if .domain }}
         - {{ $fullName }}.{{ .domain }}
@@ -35,9 +32,6 @@ spec:
       secretName: {{ .tlsSecret }}
     {{- end }}
   {{- end }}
-{{- end }}
-{{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.Version }}
-  ingressClassName: {{ $root.Values.ingress.ingressClassName }}
 {{- end }}
   rules:
   {{- range $root.Values.ingress.hosts }}
@@ -50,30 +44,19 @@ spec:
         paths:
         {{- range .paths }}
           - path: {{ . }}
-          {{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.Version }}
             pathType: {{ $root.Values.ingress.pathType }}
-          {{- end }}
             backend:
-            {{- if semverCompare ">=1.19-0" $root.Capabilities.KubeVersion.Version }}
               service:
                 name: {{ $fullName }}
                 port:
                   number: {{ $svcPort }}
-            {{- else }}
-              serviceName: {{ $fullName }}
-              servicePort: {{ $svcPort }}
-            {{- end }}
         {{- end }}
   {{- end }}
 
 # PER POD INGRESS
 {{- range $i, $e := until (int $root.Values.replicaCount) }}
 ---
-{{- if semverCompare ">=1.19-0" $root.Capabilities.KubeVersion.Version }}
 apiVersion: networking.k8s.io/v1
-{{- else -}}
-apiVersion: networking.k8s.io/v1beta1
-{{- end }}
 kind: Ingress
 metadata:
   name: {{ $fullName }}-{{ $i }}
@@ -85,6 +68,7 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  ingressClassName: {{ $root.Values.ingress.ingressClassName }}
 {{- if $root.Values.ingress.tls }}
   tls:
   {{- range $root.Values.ingress.hosts }}
@@ -99,9 +83,6 @@ spec:
     {{- end }}
   {{- end }}
 {{- end }}
-{{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.Version }}
-  ingressClassName: {{ $root.Values.ingress.ingressClassName }}
-{{- end }}
   rules:
   {{- range $root.Values.ingress.hosts }}
     {{- if .domain }}
@@ -113,19 +94,12 @@ spec:
         paths:
         {{- range .paths }}
           - path: {{ . }}
-          {{- if semverCompare ">=1.18-0" $root.Capabilities.KubeVersion.Version }}
             pathType: {{ $root.Values.ingress.pathType }}
-          {{- end }}
             backend:
-            {{- if semverCompare ">=1.19-0" $root.Capabilities.KubeVersion.Version }}
               service:
                 name: {{ $fullName }}-{{ $i }}
                 port:
                   name: api
-            {{- else }}
-              serviceName: {{ $fullName }}-{{ $i }}
-              servicePort: api
-            {{- end }}
         {{- end }}
   {{- end }}
 {{- end }}

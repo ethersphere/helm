@@ -56,6 +56,13 @@ service:
 ingress:
   enabled: false
   annotations: {}
+    # nginx.org/client-max-body-size: "0"
+    # nginx.org/proxy-connect-timeout: "60s"
+    # nginx.org/proxy-read-timeout: "60s"
+  class: "nginx"
+  hosts:
+    - host: chart-example.local
+      paths: []
   tls: []
 
 resources: {}

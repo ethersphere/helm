@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: latest
 name: bzz-token-service
-version: 0.1.1
+version: 0.2.0
 description: BZZ Token Service Helm chart for Kubernetes
 home: https://www.ethswarm.org
 icon: https://docs.ethswarm.org/img/swarm-logo-2.svg

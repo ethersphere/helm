@@ -1,11 +1,7 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "etherproxy.fullname" . -}}
 {{- $svcPort := .Values.service.portAPI -}}
-{{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.Version -}}
 apiVersion: networking.k8s.io/v1
-{{- else -}}
-apiVersion: extensions/v1beta1
-{{- end }}
 kind: Ingress
 metadata:
   name: {{ $fullName }}

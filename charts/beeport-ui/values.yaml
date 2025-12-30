@@ -31,10 +31,12 @@ service:
   port: 8080
 
 ingress:
-  # className: ""
+  ingressClassName: "nginx"
   annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+    # nginx.org/client-max-body-size: "0"
+    # nginx.org/proxy-connect-timeout: "60s"
+    # nginx.org/proxy-read-timeout: "60s"
+    # nginx.org/websocket-services: "beeport-ui"
   host: "app.ethswarm.org"
   tlsEnabled: false
 
