@@ -76,11 +76,13 @@ tests:
     set:
       ingresses:
       - host: chart-example.local
+        ingressClassName: nginx
         annotations:
-          kubernetes.io/ingress.class: nginx
+          nginx.org/client-max-body-size: "0"
       - host: another.local
+        ingressClassName: nginx
         annotations:
-          kubernetes.io/ingress.class: nginx
+          nginx.org/client-max-body-size: "0"
     asserts:
       - hasDocuments:
           count: 2
@@ -88,15 +90,18 @@ tests:
     set:
       ingress:
         host: chart-example.local
+        ingressClassName: nginx
         annotations:
-          kubernetes.io/ingress.class: nginx
+          nginx.org/proxy-read-timeout: "60s"
       ingresses:
         - host: chart-example.local
+          ingressClassName: nginx
           annotations:
-            kubernetes.io/ingress.class: nginx
+            nginx.org/proxy-read-timeout: "60s"
         - host: another.local
+          ingressClassName: nginx
           annotations:
-            kubernetes.io/ingress.class: nginx
+            nginx.org/proxy-read-timeout: "60s"
     asserts:
       - hasDocuments:
           count: 3
@@ -105,12 +110,14 @@ tests:
       ingresses:
         - host: chart-example.local
           tlsEnabled: true
+          ingressClassName: nginx
           annotations:
-            kubernetes.io/ingress.class: nginx
+            nginx.org/redirect-to-https: "true"
         - host: another.local
           tlsEnabled: true
+          ingressClassName: nginx
           annotations:
-            kubernetes.io/ingress.class: nginx
+            nginx.org/redirect-to-https: "true"
     asserts:
       - template: ingress.yaml
         documentIndex: 0

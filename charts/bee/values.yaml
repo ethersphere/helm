@@ -70,10 +70,11 @@ ingress:
   enabled: false
   ## Used if cluster version is >= 1.19-0
   pathType: ImplementationSpecific
-  # ingressClassName: ingress-nginx
+  ingressClassName: nginx
   annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+    # nginx.org/client-max-body-size: "0"
+    # nginx.org/proxy-connect-timeout: "60s"
+    # nginx.org/proxy-read-timeout: "60s"
   hosts:
     - domain: ""
       paths: []
@@ -281,10 +282,11 @@ gatewayProxy:
     enabled: false
     ## Used if cluster version is >= 1.19-0
     pathType: ImplementationSpecific
-    # ingressClassName: ingress-nginx
+    ingressClassName: nginx
     annotations: {}
-      # kubernetes.io/ingress.class: nginx
-      # kubernetes.io/tls-acme: "true"
+      # nginx.org/client-max-body-size: "0"
+      # nginx.org/proxy-connect-timeout: "60s"
+      # nginx.org/proxy-read-timeout: "60s"
     hosts:
       - domain: ""
         paths: []
@@ -332,10 +334,11 @@ swarmProxy:
     enabled: false
     ## Used if cluster version is >= 1.19-0
     pathType: ImplementationSpecific
-    # ingressClassName: ingress-nginx
+    ingressClassName: nginx
     annotations: {}
-      # kubernetes.io/ingress.class: nginx
-      # kubernetes.io/tls-acme: "true"
+      # nginx.org/client-max-body-size: "0"
+      # nginx.org/proxy-connect-timeout: "60s"
+      # nginx.org/proxy-read-timeout: "60s"
     hosts:
       - domain: ""
         paths: []
