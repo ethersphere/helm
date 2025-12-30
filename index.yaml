@@ -3,6 +3,34 @@ entries:
   bee:
   - apiVersion: v2
     appVersion: 2.5.0
+    created: "2025-12-30T16:45:43.384163593Z"
+    description: Ethereum Swarm Bee Helm chart for Kubernetes
+    digest: 9e65f427561d698cf3d4204bff77db5cbc3d12c4f7dfd939b89db4cbab71cb3f
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - storage
+    - swarm
+    - web3
+    kubeVersion: '>=1.19.0-0'
+    maintainers:
+    - email: devops@ethswarm.org
+      name: devops
+    - email: svetomir@ethswarm.org
+      name: svetomir
+    - email: darkobas@ethswarm.org
+      name: darkobas2
+    name: bee
+    sources:
+    - https://github.com/ethersphere/bee
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/bee-0.17.0/bee-0.17.0.tgz
+    version: 0.17.0
+  - apiVersion: v2
+    appVersion: 2.5.0
     created: "2025-12-27T17:29:15.542574125Z"
     description: Ethereum Swarm Bee Helm chart for Kubernetes
     digest: f8cd64821a4722363c91c36f2f7e8369e6aa8f83592781856164f8040fc8365e
@@ -3277,6 +3305,27 @@ entries:
   bee-localchain:
   - apiVersion: v2
     appVersion: latest
+    created: "2025-12-30T16:45:43.510516461Z"
+    description: Bee localchain Helm chart for Kubernetes
+    digest: 88c600e112708256c0a4ae376acacb2988835cfe9a2af9c10569aa7c101d1efa
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - bee
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: bee-localchain
+    sources:
+    - https://github.com/ethersphere/bee-localchain
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/bee-localchain-0.2.0/bee-localchain-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-04-15T11:05:55.428750603Z"
     description: Bee localchain Helm chart for Kubernetes
     digest: 3efca1c0bcb07cfa36bc58167e1c67831b04964238cce5c64211cdc737cd0571
@@ -4118,6 +4167,29 @@ entries:
     version: 0.1.1
   beeport-ui:
   - apiVersion: v2
+    created: "2025-12-30T16:45:43.610103313Z"
+    dependencies:
+    - name: common
+      repository: file://charts/common
+      version: 0.7.0
+    description: Chart to build and deploy beeport-ui
+    digest: 56ae9f6cd27a97c660d44f648240ce9f9833ffd86048e2ea9cfc52e1c5aa24cd
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - swarm
+    maintainers:
+    - email: darkobas@ethswarm.org
+      name: darkobas
+    name: beeport-ui
+    sources:
+    - https://github.com/ethersphere/beeport
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/beeport-ui-0.74.0/beeport-ui-0.74.0.tgz
+    version: 0.74.0
+  - apiVersion: v2
     created: "2025-09-24T11:09:08.322968214Z"
     dependencies:
     - name: common
@@ -4164,6 +4236,27 @@ entries:
     - https://github.com/ethersphere/helm/releases/download/beeport-ui-0.73.2/beeport-ui-0.73.2.tgz
     version: 0.73.2
   bzz-token-service:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2025-12-30T16:45:43.734560528Z"
+    description: BZZ Token Service Helm chart for Kubernetes
+    digest: 6788f3f0e96917ad2c7f4ddc2806cc52004fea95588e53c5caec5935cb444463
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - bzz
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: bzz-token-service
+    sources:
+    - https://github.com/ethersphere/bzz-token-service
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/bzz-token-service-0.2.0/bzz-token-service-0.2.0.tgz
+    version: 0.2.0
   - apiVersion: v2
     appVersion: latest
     created: "2021-08-17T13:22:38.325066106Z"
@@ -4305,6 +4398,27 @@ entries:
   etherproxy:
   - apiVersion: v2
     appVersion: latest
+    created: "2025-12-30T16:45:43.98045989Z"
+    description: EtherProxy Helm chart for Kubernetes
+    digest: a29469d5967d7b63276bb09eebd40a1f9ec801893cc64cc54bc012b625c7ab27
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - proxy
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: etherproxy
+    sources:
+    - https://github.com/ethersphere/etherproxy
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/etherproxy-0.2.0/etherproxy-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: latest
     created: "2023-09-12T19:46:38.499491472Z"
     description: EtherProxy Helm chart for Kubernetes
     digest: 5207d196e49b6639db27289fcae8c3966363f80f24777bac89f027fa5868ee74
@@ -4325,6 +4439,28 @@ entries:
     - https://github.com/ethersphere/helm/releases/download/etherproxy-0.1.0/etherproxy-0.1.0.tgz
     version: 0.1.0
   ethexporter:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2025-12-30T16:45:44.125506669Z"
+    description: ETHexporter Helm chart for Kubernetes
+    digest: dc00b039e0bc191cef33b083ae3d855b3d2ee36e140fc2ab4b0721fde8564ed9
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - prometheus
+    - exporter
+    maintainers:
+    - email: darkobas@ethswarm.org
+      name: darkobas2
+    name: ethexporter
+    sources:
+    - https://github.com/ethersphere/ethexporter
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/ethexporter-0.3.0/ethexporter-0.3.0.tgz
+    version: 0.3.0
   - apiVersion: v2
     appVersion: latest
     created: "2024-10-03T15:26:30.162613406Z"
@@ -4460,6 +4596,28 @@ entries:
   ethproxy:
   - apiVersion: v2
     appVersion: latest
+    created: "2025-12-30T16:45:44.291835864Z"
+    description: ETHproxy Helm chart for Kubernetes
+    digest: 0a43a261ce0fe1a7b09fe773ebf46d5ec7caa41189045b0d2f57b0b5dac0fae3
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - prometheus
+    - proxy
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: ethproxy
+    sources:
+    - https://github.com/ethersphere/ethproxy
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/ethproxy-0.2.0/ethproxy-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: latest
     created: "2021-08-17T13:22:38.738223604Z"
     description: ETHproxy Helm chart for Kubernetes
     digest: b56d6298f5f40a3fa49d5d8a7e27f84cf3808ae6277c9b102f1a407a848bb03e
@@ -4525,6 +4683,21 @@ entries:
     - https://github.com/ethersphere/helm/releases/download/ethproxy-0.1.0/ethproxy-0.1.0.tgz
     version: 0.1.0
   geth-swap:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2025-12-30T16:45:44.421940688Z"
+    description: A Helm chart for Kubernetes
+    digest: 0797594034098686a9d6bcdfc41ba782f6f5e161ce11487b76e1c820a4abd982
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    maintainers:
+    - email: ralph@ethswarm.org
+      name: ralph-pichler
+    name: geth-swap
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/geth-swap-0.6.0/geth-swap-0.6.0.tgz
+    version: 0.6.0
   - apiVersion: v2
     appVersion: 1.16.0
     created: "2024-04-15T11:05:55.573174333Z"
@@ -5087,6 +5260,27 @@ entries:
   onboarding-faucet:
   - apiVersion: v2
     appVersion: latest
+    created: "2025-12-30T16:45:44.551009581Z"
+    description: Onboarding faucet Helm chart for Kubernetes
+    digest: aeabd8d4692fef72bd466eaa690cca96d27bfdb362de77c6102e059338fef747
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - faucet
+    maintainers:
+    - email: vandot@ethswarm.org
+      name: vandot
+    name: onboarding-faucet
+    sources:
+    - https://github.com/ethersphere/onboarding-faucet
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/onboarding-faucet-0.2.0/onboarding-faucet-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: latest
     created: "2022-06-17T13:25:02.300655685Z"
     description: Onboarding faucet Helm chart for Kubernetes
     digest: 33f328b76770d764b5749094a6e267ce543308522bb1d1bc6520f567d18da797
@@ -5191,6 +5385,29 @@ entries:
     - https://github.com/ethersphere/helm/releases/download/onboarding-faucet-0.1.0/onboarding-faucet-0.1.0.tgz
     version: 0.1.0
   tokenexporter:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2025-12-30T16:45:44.652250985Z"
+    description: Tokenexporter Helm chart for Kubernetes
+    digest: 190da0f8a0ff585de5f91b5b4ab6efc729f06a44289f8fcb0d0e3236b5b0d342
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - token
+    - prometheus
+    - exporter
+    maintainers:
+    - email: darkobas@ethswarm.org
+      name: darkobas2
+    name: tokenexporter
+    sources:
+    - https://github.com/ethersphere/tokenexporter
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.3.0/tokenexporter-0.3.0.tgz
+    version: 0.3.0
   - apiVersion: v2
     appVersion: latest
     created: "2024-10-03T15:26:30.246443208Z"
@@ -5352,4 +5569,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2025-12-27T17:29:15.543025895Z"
+generated: "2025-12-30T16:45:44.653392261Z"
