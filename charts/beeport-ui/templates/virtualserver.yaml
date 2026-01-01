@@ -32,9 +32,6 @@ spec:
   - name: {{ .name }}
     service: {{ .service }}
     port: {{ .port }}
-    {{- if .namespace }}
-    namespace: {{ .namespace }}
-    {{- end }}
     {{- if .loadBalancingMethod }}
     lb-method: {{ .loadBalancingMethod }}
     {{- end }}
