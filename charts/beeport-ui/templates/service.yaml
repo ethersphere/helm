@@ -25,7 +25,7 @@ spec:
   selector:
     {{- include "helm-chart.selectorLabels" . | nindent 4 }}
 
-{{- if .Values.externalService }}
+{{- if and .Values.externalService (not .Values.virtualserver.enabled) }}
 ---
 apiVersion: v1
 kind: Service
@@ -36,7 +36,7 @@ metadata:
     {{- include "helm-chart.labels" . | nindent 4 }}
 spec:
   type: ExternalName
-  externalName: {{ .Values.externalService.name }}
+  externalName: {{ .Values.externalService.externalName | default .Values.externalService.name }}
   ports:
     - port: {{ .Values.externalService.port }}
       {{- if .Values.externalService.targetPort }}

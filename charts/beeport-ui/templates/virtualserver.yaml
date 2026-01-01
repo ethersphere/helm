@@ -1,0 +1,61 @@
+{{- if .Values.virtualserver }}
+{{- if .Values.virtualserver.enabled }}
+---
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: {{ template "robustName" .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "helm-chart.labels" . | nindent 4 }}
+  annotations:
+    {{- if .Values.virtualserver.annotations }}
+    {{- toYaml .Values.virtualserver.annotations | nindent 4 }}
+    {{- end }}
+spec:
+  host: {{ .Values.virtualserver.host }}
+  {{- if .Values.virtualserver.tls }}
+  tls:
+    secret: {{ .Values.virtualserver.tls.secret }}
+    redirect:
+      enable: {{ .Values.virtualserver.tls.redirect | default true }}
+  {{- end }}
+  
+  {{- if .Values.virtualserver.upstreams }}
+  upstreams:
+  {{- range .Values.virtualserver.upstreams }}
+  - name: {{ .name }}
+    service: {{ .service }}
+    port: {{ .port }}
+    {{- if .namespace }}
+    namespace: {{ .namespace }}
+    {{- end }}
+    {{- if .loadBalancingMethod }}
+    lb-method: {{ .loadBalancingMethod }}
+    {{- end }}
+    {{- if .maxConns }}
+    max-conns: {{ .maxConns }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+
+  routes:
+  {{- range .Values.virtualserver.routes }}
+  - path: {{ .path }}
+    {{- if .upstream }}
+    action:
+      pass: {{ .upstream }}
+    {{- end }}
+    {{- if .policies }}
+    policies:
+    {{- range .policies }}
+    - name: {{ . }}
+    {{- end }}
+    {{- end }}
+    {{- if .locationSnippets }}
+    location-snippets: |
+{{ .locationSnippets | indent 6 }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}

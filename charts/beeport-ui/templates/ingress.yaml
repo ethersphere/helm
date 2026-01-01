@@ -55,7 +55,9 @@ spec:
 {{- end }}
 
 {{- with .Values.ingress }}
+  {{- if ne .enabled false }}
   {{- template "onechart.ingress" (dict "root" $ "ingress" .) }}
+  {{- end }}
 {{- end }}
 
 {{- range .Values.ingresses }}
