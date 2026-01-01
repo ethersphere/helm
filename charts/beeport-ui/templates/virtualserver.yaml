@@ -20,7 +20,12 @@ spec:
     redirect:
       enable: {{ .Values.virtualserver.tls.redirect | default true }}
   {{- end }}
-  
+
+  {{- if .Values.virtualserver.serverSnippets }}
+  server-snippets: |
+{{ .Values.virtualserver.serverSnippets | indent 4 }}
+  {{- end }}
+
   {{- if .Values.virtualserver.upstreams }}
   upstreams:
   {{- range .Values.virtualserver.upstreams }}
