@@ -62,8 +62,10 @@ metadata:
   namespace: {{ $root.Release.Namespace }}
   labels:
     {{- include "bee.labels" $root | nindent 4 }}
-  {{- with $root.Values.swarmProxy.ingress.annotations }}
   annotations:
+    nginx.org/websocket-services: "swarm-proxy-{{ $fullName }}-{{ $i }}"
+    nginx.org/connection-upgrade: "true"
+  {{- with $root.Values.swarmProxy.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:

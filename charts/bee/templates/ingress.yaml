@@ -63,8 +63,10 @@ metadata:
   namespace: {{ $root.Release.Namespace }}
   labels:
     {{- include "bee.labels" $root | nindent 4 }}
-  {{- with $root.Values.ingress.annotations }}
   annotations:
+    nginx.org/websocket-services: "{{ $fullName }}-{{ $i }}"
+    nginx.org/connection-upgrade: "true"
+  {{- with $root.Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
