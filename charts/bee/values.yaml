@@ -199,7 +199,7 @@ beeConfig:
   ## ID of the Swarm network - 10 by default
   network-id: 1
   ## Enable Secure WebSocket P2P connections - disabled by default
-  p2p-wss-enable: false
+  # p2p-wss-enable: false
   ## P2P WSS listen address (only used when p2p-wss-enable: true)
   # p2p-wss-addr: :1635
 
