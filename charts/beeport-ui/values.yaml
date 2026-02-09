@@ -40,6 +40,17 @@ ingress:
   host: "app.ethswarm.org"
   tlsEnabled: false
 
+# Certificate configuration for cert-manager
+certificate:
+  enabled: false
+  # name: beeport-cert
+  # secretName: tls-beeport
+  # issuerRef:
+  #   kind: ClusterIssuer
+  #   name: letsencrypt-prod
+  # dnsNames:
+  #   - beeport.ethswarm.org
+
 resources:
   requests:
     cpu: 200m
