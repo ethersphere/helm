@@ -13,6 +13,8 @@ spec:
   issuerRef:
     kind: {{ .Values.certificate.issuerRef.kind | default "ClusterIssuer" }}
     name: {{ .Values.certificate.issuerRef.name }}
+  privateKey:
+    rotationPolicy: Always
   dnsNames:
   {{- range .Values.certificate.dnsNames }}
   - {{ . }}
