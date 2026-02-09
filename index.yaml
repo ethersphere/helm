@@ -4223,6 +4223,29 @@ entries:
     version: 0.1.1
   beeport-ui:
   - apiVersion: v2
+    created: "2026-02-09T10:23:41.02176424Z"
+    dependencies:
+    - name: common
+      repository: file://charts/common
+      version: 0.7.0
+    description: Chart to build and deploy beeport-ui
+    digest: ee6c73a405b594d1cecb02d561f2df957246ddc0d5fc2f2fd0a3c9185f97407d
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - swarm
+    maintainers:
+    - email: darkobas@ethswarm.org
+      name: darkobas
+    name: beeport-ui
+    sources:
+    - https://github.com/ethersphere/beeport
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/beeport-ui-0.76.1/beeport-ui-0.76.1.tgz
+    version: 0.76.1
+  - apiVersion: v2
     created: "2026-01-01T15:32:01.494354502Z"
     dependencies:
     - name: common
@@ -5709,4 +5732,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2026-01-06T12:20:55.281598863Z"
+generated: "2026-02-09T10:23:41.022236029Z"
