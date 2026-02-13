@@ -110,14 +110,22 @@ spec:
               if ! [ -f /home/bee/.bee.yaml ]; then cp -p /tmp/.bee.yaml /home/bee/.bee.yaml; fi;
               export INDEX=$(echo $(hostname) | rev | cut -d'-' -f 1 | rev);
               {{- if .Values.p2pFixedPort.enabled }}
-              PUBLIC_IP=$(wget -T 10 {{ .Values.p2pFixedPort.publicIpUrl }} -q -O -);
-              NAT_PORT=$(( {{ .Values.p2pFixedPort.nodePortStart }} + INDEX ));
-              printf 'nat-addr: %s:%s\n' "${PUBLIC_IP}" "${NAT_PORT}" >> /home/bee/.bee.yaml;
+              for url in {{ .Values.p2pFixedPort.publicIpUrls | join " " }}; do
+                PUBLIC_IP=$(wget -T 10 $url -q -O -) && [ -n "$PUBLIC_IP" ] && break
+              done;
+              if [ -n "${PUBLIC_IP}" ]; then
+                NAT_PORT=$(( {{ .Values.p2pFixedPort.nodePortStart }} + INDEX ));
+                printf 'nat-addr: %s:%s\n' "${PUBLIC_IP}" "${NAT_PORT}" >> /home/bee/.bee.yaml;
+              fi;
               {{- end }}
               {{- if .Values.p2pWssFixedPort.enabled }}
-              PUBLIC_IP=$(wget -T 10 {{ .Values.p2pWssFixedPort.publicIpUrl }} -q -O -);
-              NAT_PORT=$(( {{ .Values.p2pWssFixedPort.nodePortStart }} + INDEX ));
-              printf 'nat-wss-addr: %s:%s\n' "${PUBLIC_IP}" "${NAT_PORT}" >> /home/bee/.bee.yaml;
+              for url in {{ .Values.p2pWssFixedPort.publicIpUrls | join " " }}; do
+                PUBLIC_IP=$(wget -T 10 $url -q -O -) && [ -n "$PUBLIC_IP" ] && break
+              done;
+              if [ -n "${PUBLIC_IP}" ]; then
+                NAT_PORT=$(( {{ .Values.p2pWssFixedPort.nodePortStart }} + INDEX ));
+                printf 'nat-wss-addr: %s:%s\n' "${PUBLIC_IP}" "${NAT_PORT}" >> /home/bee/.bee.yaml;
+              fi;
               {{- end }}
               echo 'node initialization done';
           volumeMounts:

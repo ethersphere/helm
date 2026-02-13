@@ -58,7 +58,10 @@ singlePodSts:
 p2pFixedPort:
   enabled: false
   nodePortStart: 31000
-  publicIpUrl: http://ifconfig.me/ip
+  publicIpUrls:
+    - http://ifconfig.me/ip
+    - http://icanhazip.com
+    - http://ifconfig.co/ip
 
 ## If enabled, creates ingress for HTTP api
 ## Creates one ingress per pod and additionally one common ingress for all pods
@@ -212,7 +215,10 @@ beeConfig:
 p2pWssFixedPort:
   enabled: false
   nodePortStart: 31001
-  publicIpUrl: http://ifconfig.me/ip
+  publicIpUrls:
+    - http://ifconfig.me/ip
+    - http://icanhazip.com
+    - http://ifconfig.co/ip
 
 
 ## Password for decrypting bee keys (please set it for production deployments)
