@@ -21,6 +21,7 @@ spec:
         {{- include "beekeeper.selectorLabels" . | nindent 8 }}
     spec:
       parallelism: {{ .Values.config.parallelism }}
+      backoffLimit: {{ .Values.config.backoffLimit }}
       template:
       {{- with .Values.additionalPodLabels }}
         metadata:
