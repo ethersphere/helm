@@ -1,0 +1,17 @@
+apiVersion: v2
+appVersion: "1.0.0"
+name: bee-overlay-exporter
+version: 0.1.0
+description: Bee overlay/neighborhood enrichment exporter - reads each bee's /addresses and emits bee_overlay_info metric labeled with neighborhood prefixes
+home: https://www.ethswarm.org
+icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+keywords:
+  - swarm
+  - bee
+  - prometheus
+  - exporter
+  - neighborhood
+maintainers:
+  - name: darkobas
+    email: devops@ethswarm.org
+type: application

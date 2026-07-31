@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "bee-overlay-exporter.fullname" . }}
+  labels:
+    {{- include "bee-overlay-exporter.labels" . | nindent 4 }}
+data:
+  exporter.py: |
+{{ .Files.Get "files/exporter.py" | indent 4 }}
+  requirements.txt: |
+{{ .Files.Get "files/requirements.txt" | indent 4 }}

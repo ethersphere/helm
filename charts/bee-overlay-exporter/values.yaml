@@ -1,0 +1,42 @@
+replicaCount: 1
+
+image:
+  repository: python
+  tag: "3.12-slim"
+  pullPolicy: IfNotPresent
+
+exporter:
+  namespaces: "bee,bee-sla"
+  labelSelector: "app.kubernetes.io/name=bee"
+  beeApiPort: 1633
+  pollInterval: 300
+  metricsPort: 9102
+  requestTimeout: 5
+
+service:
+  type: ClusterIP
+  port: 9102
+
+serviceMonitor:
+  enabled: true
+  interval: 60s
+  additionalLabels: {}
+
+rbac:
+  create: true
+
+serviceAccount:
+  create: true
+  name: ""
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "bee-overlay-exporter.fullname" . }}
+  labels:
+    {{- include "bee-overlay-exporter.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "bee-overlay-exporter.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+      labels:
+        {{- include "bee-overlay-exporter.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "bee-overlay-exporter.serviceAccountName" . }}
+      initContainers:
+        - name: install-deps
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["pip", "install", "--target=/app/deps", "-r", "/app/requirements.txt"]
+          volumeMounts:
+            - name: config
+              mountPath: /app/requirements.txt
+              subPath: requirements.txt
+            - name: deps
+              mountPath: /app/deps
+      containers:
+        - name: exporter
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["python3", "-u", "/app/exporter.py"]
+          env:
+            - name: PYTHONPATH
+              value: "/app/deps"
+            - name: NAMESPACES
+              value: {{ .Values.exporter.namespaces | quote }}
+            - name: LABEL_SELECTOR
+              value: {{ .Values.exporter.labelSelector | quote }}
+            - name: BEE_API_PORT
+              value: {{ .Values.exporter.beeApiPort | quote }}
+            - name: POLL_INTERVAL
+              value: {{ .Values.exporter.pollInterval | quote }}
+            - name: METRICS_PORT
+              value: {{ .Values.exporter.metricsPort | quote }}
+            - name: REQUEST_TIMEOUT
+              value: {{ .Values.exporter.requestTimeout | quote }}
+          ports:
+            - name: metrics
+              containerPort: {{ .Values.exporter.metricsPort }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: config
+              mountPath: /app/exporter.py
+              subPath: exporter.py
+            - name: deps
+              mountPath: /app/deps
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "bee-overlay-exporter.fullname" . }}
+        - name: deps
+          emptyDir: {}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

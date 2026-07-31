@@ -1,0 +1,38 @@
+{{- if .Values.serviceMonitor.enabled -}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "bee-overlay-exporter.fullname" . }}
+  labels:
+    {{- include "bee-overlay-exporter.labels" . | nindent 4 }}
+    {{- with .Values.serviceMonitor.additionalLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  endpoints:
+    - port: metrics
+      path: /metrics
+      honorLabels: true
+      metricRelabelings:
+        - sourceLabels: [bee_pod]
+          targetLabel: pod
+          regex: (.+)
+          replacement: $1
+          action: replace
+        - sourceLabels: [bee_namespace]
+          targetLabel: namespace
+          regex: (.+)
+          replacement: $1
+          action: replace
+        - action: labeldrop
+          regex: bee_(pod|namespace)
+      {{- if .Values.serviceMonitor.interval }}
+      interval: {{ .Values.serviceMonitor.interval }}
+      {{- end }}
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+  selector:
+    matchLabels:
+      {{- include "bee-overlay-exporter.selectorLabels" . | nindent 6 }}
+{{- end }}
