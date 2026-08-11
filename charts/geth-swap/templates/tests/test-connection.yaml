@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "geth-swap.fullname" . }}:{{ .Values.service.port }}']
+      args: ['geth-swap:{{ .Values.service.port }}']
   restartPolicy: Never
