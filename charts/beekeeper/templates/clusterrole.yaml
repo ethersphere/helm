@@ -46,7 +46,7 @@ rules:
 - apiGroups: ["networking.k8s.io"]
   resources: ["ingresses","ingressroutes"]
   verbs: ["get", "list", "watch"]
-- apiGroups: ["traefik.containo.us"]
+- apiGroups: ["traefik.containo.us", "traefik.io"]
   resources: ["ingresses","ingressroutes"]
   verbs: ["get", "list", "watch"]
 
