@@ -18,7 +18,7 @@ podAnnotations: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: 
+securityContext:
   # capabilities:
   #   drop:
   #   - ALL
@@ -38,7 +38,7 @@ service:
 #     cert-manager.io/cluster-issuer: letsencrypt-staging
 
 
-resources: 
+resources:
   requests:
     cpu: 200m
     memory: 200Mi

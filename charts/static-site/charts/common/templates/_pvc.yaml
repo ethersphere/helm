@@ -1,0 +1,26 @@
+{{- define "common.pvc.tpl" -}}
+{{- range .Values.volumes }}
+{{- if not (or .existingClaim .hostPath .fileName .emptyDir .existingConfigMap) }}
+{{- $robustName := include "common.robustName" $.Release.Name }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ printf "%s-%s" $robustName .name }}
+  namespace: {{ $.Release.Namespace }}
+  {{- if .pvcAnnotations }}
+  annotations:
+    {{- toYaml .pvcAnnotations | nindent 4 }}
+  {{- end }} 
+spec:
+  accessModes:
+    - {{ .accessMode | default "ReadWriteOnce" }}
+  {{- if .storageClass }}
+  storageClassName: {{ .storageClass }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .size | default "1Gi" }}
+{{- end }}
+{{- end }}
+{{- end -}}
