@@ -1,0 +1,20 @@
+# Values used by chart-testing for the install test.
+#
+# The chart's defaults clone gimlet-io/reactjs-test-app and run a full
+# `npm install && npm run build`. That needs the npm registry, takes minutes,
+# and the upstream demo repo belongs to an org that was archived in 2025 - so
+# `ct install` against the defaults crash-loops the init container and can
+# never go green.
+#
+# Clone this repository instead (always reachable from the runner) and emit a
+# trivial asset. Exercises the same code path the chart actually ships:
+# git clone -> build script -> copy builtAssets into /usr/share/nginx/html.
+#
+# buildImage stays at the chart's default node:latest - it already has git and
+# sh, and the CI runner demonstrably pulls it, so this introduces no new image
+# dependency.
+gitCloneUrl: https://github.com/ethersphere/helm.git
+buildImage: node:latest
+buildScript: |
+  mkdir -p build && printf 'ok\n' > build/index.html
+builtAssets: build/
