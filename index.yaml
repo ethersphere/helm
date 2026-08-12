@@ -3450,7 +3450,53 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/bee-localchain-0.1.0/bee-localchain-0.1.0.tgz
     version: 0.1.0
+  bee-overlay-exporter:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-08-12T08:15:33.783406899Z"
+    description: Bee overlay/neighborhood enrichment exporter - reads each bee's /addresses
+      and emits bee_overlay_info metric labeled with neighborhood prefixes
+    digest: 4fabc67fdc84261731406f445181b282b9e1c2c241c57fcbf7a94548da513350
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - swarm
+    - bee
+    - prometheus
+    - exporter
+    - neighborhood
+    maintainers:
+    - email: devops@ethswarm.org
+      name: darkobas
+    name: bee-overlay-exporter
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/bee-overlay-exporter-0.1.0/bee-overlay-exporter-0.1.0.tgz
+    version: 0.1.0
   beekeeper:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2026-08-12T08:15:33.904850232Z"
+    description: Ethereum Swarm Beekeeper Helm chart for Kubernetes
+    digest: e54f7becf953da273db5f57a825020056225ce1c4aa866c4a9513f49fc84e39e
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - blockchain
+    - ethereum
+    - storage
+    - swarm
+    - web3
+    maintainers:
+    - email: darkobas@ethswarm.org
+      name: darkobas2
+    name: beekeeper
+    sources:
+    - https://github.com/ethersphere/beekeeper
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/beekeeper-0.4.13/beekeeper-0.4.13.tgz
+    version: 0.4.13
   - apiVersion: v2
     appVersion: latest
     created: "2026-05-14T18:43:30.874980709Z"
@@ -4907,6 +4953,21 @@ entries:
   geth-swap:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2026-08-12T08:15:34.037080363Z"
+    description: A Helm chart for Kubernetes
+    digest: 171bb79b463b59fc5d8cdf53674851e8441a61f157bab647ca898d7314cfa582
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    maintainers:
+    - email: ralph@ethswarm.org
+      name: ralph-pichler
+    name: geth-swap
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/geth-swap-0.6.2/geth-swap-0.6.2.tgz
+    version: 0.6.2
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2026-01-06T12:20:55.281107232Z"
     description: A Helm chart for Kubernetes
     digest: bfa400629138f783ec92c2af06d74eb023883e0b8dabad64922ef21a89ce850a
@@ -5621,6 +5682,25 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/onboarding-faucet-0.1.0/onboarding-faucet-0.1.0.tgz
     version: 0.1.0
+  static-site:
+  - apiVersion: v2
+    created: "2026-08-12T08:15:34.180784459Z"
+    dependencies:
+    - name: common
+      repository: file://charts/common
+      version: 0.7.0
+    description: Chart to build and deploy static sites
+    digest: 0e17f479478976683b8feddb983cf56e3b54522d761c7c7179620106227e825b
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    maintainers:
+    - email: devops@ethswarm.org
+      name: darkobas
+    name: static-site
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/static-site-0.73.1/static-site-0.73.1.tgz
+    version: 0.73.1
   tokenexporter:
   - apiVersion: v2
     appVersion: latest
@@ -5806,4 +5886,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2026-05-14T18:43:30.875509659Z"
+generated: "2026-08-12T08:15:34.181199674Z"
