@@ -4953,6 +4953,21 @@ entries:
   geth-swap:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2026-08-12T08:26:56.429927753Z"
+    description: A Helm chart for Kubernetes
+    digest: 6df15bd39bccb4d9b4a065acdbed2c62b4393dab2fad910002a06db3bf9947f5
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    maintainers:
+    - email: ralph@ethswarm.org
+      name: ralph-pichler
+    name: geth-swap
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/geth-swap-0.6.3/geth-swap-0.6.3.tgz
+    version: 0.6.3
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2026-08-12T08:15:34.037080363Z"
     description: A Helm chart for Kubernetes
     digest: 171bb79b463b59fc5d8cdf53674851e8441a61f157bab647ca898d7314cfa582
@@ -5886,4 +5901,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2026-08-12T08:15:34.181199674Z"
+generated: "2026-08-12T08:26:56.43042953Z"
