@@ -41,6 +41,13 @@ spec:
               value: "{{ .Values.config.BZZ_TOKEN_ADDRESS }}"
             - name: BEEKEEPER_ETH_ACCOUNT
               value: "{{ .Values.config.ETH_ACCOUNT }}"
+            {{- with .Values.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          {{- with .Values.envFrom }}
+          envFrom:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           command:
             - sh
             - -c
@@ -72,6 +79,13 @@ spec:
               value: "{{ .Values.config.BZZ_TOKEN_ADDRESS }}"
             - name: BEEKEEPER_ETH_ACCOUNT
               value: "{{ .Values.config.ETH_ACCOUNT }}"
+            {{- with .Values.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          {{- with .Values.envFrom }}
+          envFrom:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           command:
             {{- range .Values.config.command }}
             - {{ . }}
