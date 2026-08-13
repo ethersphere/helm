@@ -31,6 +31,30 @@ resources: {}
 
 nodeSelector: {}
 
+## Additional environment variables for the beekeeper container.
+## Use this to supply secrets rather than putting them in config.command,
+## where they end up readable in the Job/CronJob spec.
+##
+## Beekeeper reads any flag from the environment as BEEKEEPER_<FLAG>, with
+## dashes replaced by underscores, so --wallet-key can be provided as
+## BEEKEEPER_WALLET_KEY instead of being passed on the command line.
+##
+## Example:
+# extraEnv:
+#   - name: BEEKEEPER_WALLET_KEY
+#     valueFrom:
+#       secretKeyRef:
+#         name: beekeeper-wallet-key
+#         key: walletKey
+extraEnv: []
+
+## Populate environment variables from Secrets or ConfigMaps.
+## Example:
+# envFrom:
+#   - secretRef:
+#       name: beekeeper-wallet-key
+envFrom: []
+
 config:
   command: ["beekeeper", "check"]
   parallelism: 1
