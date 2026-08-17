@@ -64,10 +64,11 @@ spec:
             - -c
             - >
               mkdir -p /home/bee/.bee/keys;
-              chown -R 999:999 /home/bee/.bee/keys;
               export KEY=$(cat /tmp/bee/libp2p.map | grep $(hostname): | cut -d' ' -f2);
-              if [ -z "${KEY}" ]; then exit 0; fi;
+              if [ -z "${KEY}" ]; then chown -R 999:999 /home/bee/.bee/keys; exit 0; fi;
               printf '%s' "${KEY}" > /home/bee/.bee/keys/libp2p_v2.key;
+              chmod 600 /home/bee/.bee/keys/libp2p_v2.key;
+              chown -R 999:999 /home/bee/.bee/keys;
               echo 'node initialization done';
           volumeMounts:
             - name: data
@@ -86,10 +87,11 @@ spec:
             - -c
             - >
               mkdir -p /home/bee/.bee/keys;
-              chown -R 999:999 /home/bee/.bee/keys;
               export KEY=$(cat /tmp/bee/swarm.map | grep $(hostname): | cut -d' ' -f2);
-              if [ -z "${KEY}" ]; then exit 0; fi;
+              if [ -z "${KEY}" ]; then chown -R 999:999 /home/bee/.bee/keys; exit 0; fi;
               printf '%s' "${KEY}" > /home/bee/.bee/keys/swarm.key;
+              chmod 600 /home/bee/.bee/keys/swarm.key;
+              chown -R 999:999 /home/bee/.bee/keys;
               echo 'node initialization done';
           volumeMounts:
             - name: data
@@ -329,6 +331,10 @@ spec:
             name: {{ template "bee.fullname" . }}
         - name: bee-secret
           secret:
+            ## 0440: owner root, group-readable via podSecurityContext.fsGroup (999).
+            ## Without this, Kubernetes defaults to 0644 and the wallet password is
+            ## world-readable by every container in the pod.
+            defaultMode: 0440
             {{- if .Values.existingSecret }}
             secretName: {{ .Values.existingSecret }}
             items:
@@ -343,6 +349,7 @@ spec:
         {{- if .Values.libp2pSettings.enabled }}
         - name: bee-libp2p
           secret:
+            defaultMode: 0440
             secretName: {{ template "bee.libp2pKeysSecretName" . }}
             items:
               - key: {{ template "bee.libp2pKeysSecretKey" . }}
@@ -351,6 +358,7 @@ spec:
         {{- if .Values.swarmSettings.enabled }}
         - name: bee-swarm
           secret:
+            defaultMode: 0440
             secretName: {{ template "bee.swarmKeysSecretName" . }}
             items:
               - key: {{ template "bee.swarmKeysSecretKey" . }}
