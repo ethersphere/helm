@@ -36,10 +36,35 @@ Create image name combining repository and tag or digest.
 Digest takes presedance over tag.
 */}}
 {{- define "bee.image" -}}
+{{- if .Values.beeRunner.enabled -}}
+{{- printf "%s:%s" .Values.beeRunner.image.repository (toString .Values.beeRunner.image.tag) -}}
+{{- else -}}
 {{- if .Values.image.digest -}}
 {{- printf "%s@%s" .Values.image.repository .Values.image.digest -}}
 {{- else -}}
 {{- printf "%s:%s" .Values.image.repository .Values.image.tag -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+bee-runner registries: the configured list, or the public defaults for the channel.
+*/}}
+{{- define "bee.runner.registries" -}}
+{{- if .Values.beeRunner.registries -}}
+{{- join "," .Values.beeRunner.registries -}}
+{{- else -}}
+{{- $manifests := dict "stable" "606003fd0630a101bd472317225934f5911cafd362e63b1fd2bd8bc20d43b5d0" "rc" "671b68801602fe67abca598e6eed0b55b0d0e7a75a8ba26d21dcdc2bef1620dd" "dev" "5c7b8cdf59839cb7736db3e30bda3cc4bacaa76535b3ec96783a5a0a9f5dd11a" -}}
+{{- $ch := .Values.beeRunner.channel -}}
+{{- $list := list -}}
+{{- if has $ch (list "stable" "rc") -}}
+{{- $list = append $list (printf "https://api.gateway.ethswarm.org/bzz/%s.bee-releases.swarm.eth" $ch) -}}
+{{- end -}}
+{{- with index $manifests $ch -}}
+{{- $list = append $list (printf "https://api.gateway.ethswarm.org/bzz/%s" .) -}}
+{{- end -}}
+{{- $list = append $list "https://registry.ethswarm.org" -}}
+{{- join "," $list -}}
 {{- end -}}
 {{- end -}}
 
