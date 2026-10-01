@@ -63,7 +63,10 @@ bee-runner registries: the configured list, or the public defaults for the chann
 {{- with index $manifests $ch -}}
 {{- $list = append $list (printf "https://api.gateway.ethswarm.org/bzz/%s" .) -}}
 {{- end -}}
+{{- if eq $ch "stable" -}}
+{{- /* registry.ethswarm.org follows the stable feed only. */ -}}
 {{- $list = append $list "https://registry.ethswarm.org" -}}
+{{- end -}}
 {{- join "," $list -}}
 {{- end -}}
 {{- end -}}

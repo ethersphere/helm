@@ -208,13 +208,13 @@ beeRunner:
   channel: stable
   ## Registry base URLs, tried in order. Empty: a public gateway with the
   ## channel's ENS name, the same gateway with the channel's feed manifest
-  ## (works without ENS), then registry.ethswarm.org.
+  ## (works without ENS), then, for stable only, registry.ethswarm.org.
   registries: []
   ## A release that ran this long is known good and becomes the rollback target.
   healthyAfter: 10m
   ## Roll back after this many starts in a row that each ran less than healthyAfter.
   maxCrashStarts: 3
-  ## Time for one start: asking the registries plus downloading bee (~75 MB).
+  ## Time for one start: asking the registries plus downloading bee (~60 MB).
   timeout: 5m
   ## Time each registry gets before the next one is tried.
   registryTimeout: 30s
