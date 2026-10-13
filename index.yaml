@@ -3480,6 +3480,29 @@ entries:
     version: 0.1.0
   bee-overlay-exporter:
   - apiVersion: v2
+    appVersion: 1.1.0
+    created: "2026-10-13T08:27:49.364670888Z"
+    description: Bee overlay/neighborhood enrichment exporter - reads each bee's /addresses
+      and /wallet and emits bee_overlay_info (overlay, ethereum, neighborhood prefixes)
+      and wallet balances
+    digest: 6f1659c2ebef981e682bbb152b67f3760cadd2c5511f6a690c9e29f82a620835
+    home: https://www.ethswarm.org
+    icon: https://docs.ethswarm.org/img/swarm-logo-2.svg
+    keywords:
+    - swarm
+    - bee
+    - prometheus
+    - exporter
+    - neighborhood
+    maintainers:
+    - email: devops@ethswarm.org
+      name: darkobas
+    name: bee-overlay-exporter
+    type: application
+    urls:
+    - https://github.com/ethersphere/helm/releases/download/bee-overlay-exporter-0.2.0/bee-overlay-exporter-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     appVersion: 1.0.0
     created: "2026-08-12T08:15:33.783406899Z"
     description: Bee overlay/neighborhood enrichment exporter - reads each bee's /addresses
@@ -5952,4 +5975,4 @@ entries:
     urls:
     - https://github.com/ethersphere/helm/releases/download/tokenexporter-0.1.0/tokenexporter-0.1.0.tgz
     version: 0.1.0
-generated: "2026-08-17T21:06:09.635543665Z"
+generated: "2026-10-13T08:27:49.365088739Z"
