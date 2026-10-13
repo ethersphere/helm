@@ -44,6 +44,8 @@ spec:
               value: {{ .Values.exporter.beeApiPort | quote }}
             - name: POLL_INTERVAL
               value: {{ .Values.exporter.pollInterval | quote }}
+            - name: WALLET_INTERVAL
+              value: {{ .Values.exporter.walletInterval | quote }}
             - name: METRICS_PORT
               value: {{ .Values.exporter.metricsPort | quote }}
             - name: REQUEST_TIMEOUT

@@ -7,9 +7,13 @@ aggregations become possible in PromQL.
 Behavior:
   1. Lists pods via the in-cluster k8s API with label selector
      app.kubernetes.io/name=bee across the configured namespaces.
-  2. For each bee pod, HTTP GETs pod_ip:1633/addresses to read the overlay.
-  3. Emits `bee_overlay_info{pod,namespace,overlay,neighborhood_d8,
+  2. For each bee pod, HTTP GETs pod_ip:1633/addresses to read the overlay
+     and ethereum address.
+  3. Emits `bee_overlay_info{pod,namespace,overlay,ethereum,neighborhood_d8,
      neighborhood_d9,neighborhood_d11}` = 1.
+  4. Every WALLET_INTERVAL seconds, GETs pod_ip:1633/wallet and emits
+     `bee_wallet_native_balance` (xDAI) and `bee_wallet_bzz_balance` (xBZZ).
+     /wallet makes the bee query its RPC, hence the longer interval.
 
 Join example (bee_pod/bee_namespace avoid clashing with scrape-target labels):
   max by (neighborhood_d9) (
@@ -44,13 +48,35 @@ POLL_INTERVAL = int(os.getenv("POLL_INTERVAL", "300"))
 METRICS_PORT = int(os.getenv("METRICS_PORT", "9102"))
 REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", "5"))
 CLUSTER_LABEL = os.getenv("CLUSTER_LABEL", "")
+WALLET_INTERVAL = int(os.getenv("WALLET_INTERVAL", "900"))
+
+WEI_PER_XDAI = 10**18
+PLUR_PER_BZZ = 10**16
 
 registry = CollectorRegistry()
 
 overlay_info = Gauge(
     "bee_overlay_info",
     "Constant 1 gauge labeled with each bee's overlay and neighborhood prefixes",
-    ["bee_pod", "bee_namespace", "overlay", "neighborhood_d8", "neighborhood_d9", "neighborhood_d11"],
+    ["bee_pod", "bee_namespace", "overlay", "ethereum", "neighborhood_d8", "neighborhood_d9", "neighborhood_d11"],
+    registry=registry,
+)
+
+wallet_native = Gauge(
+    "bee_wallet_native_balance",
+    "Bee wallet native token balance (xDAI) from /wallet",
+    ["bee_pod", "bee_namespace", "ethereum"],
+    registry=registry,
+)
+wallet_bzz = Gauge(
+    "bee_wallet_bzz_balance",
+    "Bee wallet BZZ balance (xBZZ) from /wallet",
+    ["bee_pod", "bee_namespace", "ethereum"],
+    registry=registry,
+)
+wallet_pods_ok = Gauge(
+    "bee_overlay_exporter_wallet_pods_ok",
+    "Number of bee pods whose /wallet was fetched successfully in the last wallet cycle",
     registry=registry,
 )
 
@@ -98,24 +124,28 @@ def neighborhood_prefix(overlay_hex: str, depth: int) -> str:
     return "0b" + bin(top)[2:].zfill(depth)
 
 
-def fetch_overlay(pod_ip: str) -> str | None:
+def fetch_json(pod_ip: str, path: str) -> dict | None:
     try:
         r = requests.get(
-            f"http://{pod_ip}:{BEE_API_PORT}/addresses", timeout=REQUEST_TIMEOUT
+            f"http://{pod_ip}:{BEE_API_PORT}/{path}", timeout=REQUEST_TIMEOUT
         )
         r.raise_for_status()
-        return r.json().get("overlay")
-    except requests.RequestException as e:
-        log.debug("overlay fetch failed for %s: %s", pod_ip, e)
+        return r.json()
+    except (requests.RequestException, ValueError) as e:
+        log.debug("%s fetch failed for %s: %s", path, pod_ip, e)
         return None
 
 
-def scrape(core: client.CoreV1Api):
+def scrape(core: client.CoreV1Api, with_wallet: bool):
     start = time.time()
     overlay_info.clear()
+    if with_wallet:
+        wallet_native.clear()
+        wallet_bzz.clear()
 
     total = 0
     ok = 0
+    wallet_ok = 0
 
     for ns in NAMESPACES:
         try:
@@ -133,7 +163,9 @@ def scrape(core: client.CoreV1Api):
             if phase != "Running" or not pod_ip:
                 continue
 
-            overlay = fetch_overlay(pod_ip)
+            addrs = fetch_json(pod_ip, "addresses") or {}
+            overlay = addrs.get("overlay")
+            ethereum = (addrs.get("ethereum") or "").lower()
             if not overlay:
                 continue
 
@@ -146,22 +178,42 @@ def scrape(core: client.CoreV1Api):
                 continue
 
             overlay_info.labels(
-                bee_pod=name, bee_namespace=ns, overlay=overlay,
+                bee_pod=name, bee_namespace=ns, overlay=overlay, ethereum=ethereum,
                 neighborhood_d8=nd8, neighborhood_d9=nd9, neighborhood_d11=nd11,
             ).set(1)
             ok += 1
 
+            if not with_wallet:
+                continue
+            wallet = fetch_json(pod_ip, "wallet")
+            if not wallet:
+                continue
+            try:
+                native = int(wallet["nativeTokenBalance"]) / WEI_PER_XDAI
+                bzz = int(wallet["bzzBalance"]) / PLUR_PER_BZZ
+            except (KeyError, TypeError, ValueError) as e:
+                log.warning("bad /wallet for %s: %s", name, e)
+                continue
+            wallet_native.labels(bee_pod=name, bee_namespace=ns, ethereum=ethereum).set(native)
+            wallet_bzz.labels(bee_pod=name, bee_namespace=ns, ethereum=ethereum).set(bzz)
+            wallet_ok += 1
+
+    if with_wallet:
+        wallet_pods_ok.set(wallet_ok)
     scrape_pods_total.set(total)
     scrape_pods_ok.set(ok)
     scrape_duration.set(time.time() - start)
     last_scrape_time.set(time.time())
-    log.info("scrape complete: %d/%d bees resolved in %.1fs", ok, total, time.time() - start)
+    log.info(
+        "scrape complete: %d/%d bees resolved%s in %.1fs",
+        ok, total, f", {wallet_ok} wallets" if with_wallet else "", time.time() - start,
+    )
 
 
 def main():
     log.info(
-        "bee-overlay-exporter starting port=%d namespaces=%s interval=%ds",
-        METRICS_PORT, NAMESPACES, POLL_INTERVAL,
+        "bee-overlay-exporter starting port=%d namespaces=%s interval=%ds wallet_interval=%ds",
+        METRICS_PORT, NAMESPACES, POLL_INTERVAL, WALLET_INTERVAL,
     )
     core = load_k8s()
     start_http_server(METRICS_PORT, registry=registry)
@@ -176,14 +228,16 @@ def main():
     signal.signal(signal.SIGTERM, on_signal)
     signal.signal(signal.SIGINT, on_signal)
 
-    scrape(core)
+    last_wallet = 0.0
     while running:
+        with_wallet = time.time() - last_wallet >= WALLET_INTERVAL
+        try:
+            scrape(core, with_wallet)
+            if with_wallet:
+                last_wallet = time.time()
+        except Exception as e:
+            log.exception("scrape failed: %s", e)
         time.sleep(POLL_INTERVAL)
-        if running:
-            try:
-                scrape(core)
-            except Exception as e:
-                log.exception("scrape failed: %s", e)
 
     sys.exit(0)
 

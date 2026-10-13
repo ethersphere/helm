@@ -10,6 +10,8 @@ exporter:
   labelSelector: "app.kubernetes.io/name=bee"
   beeApiPort: 1633
   pollInterval: 300
+  # /wallet makes each bee hit its RPC; keep this well above pollInterval
+  walletInterval: 900
   metricsPort: 9102
   requestTimeout: 5
 
