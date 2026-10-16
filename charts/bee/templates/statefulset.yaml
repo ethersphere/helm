@@ -193,10 +193,34 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- end }}
+          {{- if .Values.beeRunner.enabled }}
+          {{- $r := .Values.beeRunner }}
+          command:
+            - bee-runner
+            - -registry={{ include "bee.runner.registries" . }}
+            - -channel={{ $r.channel }}
+            - -healthy-after={{ $r.healthyAfter }}
+            - -max-crash-starts={{ $r.maxCrashStarts }}
+            - -timeout={{ $r.timeout }}
+            - -registry-timeout={{ $r.registryTimeout }}
+            {{- range $r.extraArgs }}
+            - {{ . }}
+            {{- end }}
+            - --
+            {{- range $i, $a := .Values.beeCommand }}
+            {{- if not (and (eq $i 0) (eq $a "bee")) }}
+            - {{ $a }}
+            {{- end }}
+            {{- end }}
+            {{- if $r.updateRestart }}
+            - --update-restart
+            {{- end }}
+          {{- else }}
           command:
             {{- range .Values.beeCommand }}
             - {{ . }}
             {{- end }}
+          {{- end }}
           ports:
             - containerPort: {{ int (include "bee.config.api_port" .) }}
               name: api

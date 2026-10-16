@@ -192,6 +192,40 @@ autoNeighborhood:
 
 beeCommand: ["bee", "start", "--config=.bee.yaml"]
 
+## bee-runner: instead of the bee in the image, run the bee release published to
+## a signed release channel. On every start the runner fetches the channel's
+## release, checks its signature and sha256, and execs it. It keeps verified
+## binaries in /home/bee/.bee/bin on the data volume, which is also where it
+## remembers what it may not downgrade from. image.tag no longer decides the
+## bee version; the channel does. See
+## https://github.com/ethersphere/swarm-oci-registry
+## With persistence.separateLocalstore or separateStatestore, keep those
+## volumes and the data volume together: replacing only the data volume
+## forgets what bee may not downgrade from, while the database it protects stays.
+beeRunner:
+  enabled: false
+  image:
+    repository: ghcr.io/ethersphere/bee-runner
+    tag: "0.5.3"
+  ## stable, rc or dev
+  channel: stable
+  ## Registry base URLs, tried in order. Empty: a public gateway with the
+  ## channel's ENS name, the same gateway with the channel's feed manifest
+  ## (works without ENS), then, for stable only, registry.ethswarm.org.
+  registries: []
+  ## A release that ran this long is known good and becomes the rollback target.
+  healthyAfter: 10m
+  ## Roll back after this many starts in a row that each ran less than healthyAfter.
+  maxCrashStarts: 3
+  ## Time for one start: asking the registries plus downloading bee (~60 MB).
+  timeout: 5m
+  ## Time each registry gets before the next one is tried.
+  registryTimeout: 30s
+  ## Let bee exit in its rollout slot when a newer release is published, so the
+  ## runner starts it. Needs a bee with the update-restart option.
+  updateRestart: false
+  extraArgs: []
+
 beeConfig:
   ## HTTP API listen address
   api-addr: :1633
