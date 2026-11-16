@@ -8,6 +8,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    # Only this environment (default branch only) holds RELEASE_APP_KEY.
+    environment: release-ci
     permissions:
       # The checkout token pushes the chart index to gh-pages.
       contents: write
@@ -27,14 +29,14 @@ jobs:
         with:
           version: v3.6.3
 
-      # Chart tags and releases are created as the bee-runner app (tag creation is
+      # Chart tags and releases are created as the ethersphere-release app (tag creation is
       # restricted by a ruleset), not with a personal token.
       - name: Generate GitHub App token
         id: app-token
         uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
-          app-id: ${{ secrets.BEE_RUNNER_APP_ID }}
-          private-key: ${{ secrets.BEE_RUNNER_KEY }}
+          app-id: ${{ vars.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_KEY }}
           # Least privilege: creates the chart tags and releases.
           permission-contents: write
 
