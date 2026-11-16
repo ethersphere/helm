@@ -8,9 +8,12 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      # The checkout token pushes the chart index to gh-pages.
+      contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
 
@@ -20,11 +23,22 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Install Helm
-        uses: azure/setup-helm@v4
+        uses: azure/setup-helm@1a275c3b69536ee54be43f2070a358922e12c8d4 # v4
         with:
           version: v3.6.3
 
+      # Chart tags and releases are created as the bee-runner app (tag creation is
+      # restricted by a ruleset), not with a personal token.
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          app-id: ${{ secrets.BEE_RUNNER_APP_ID }}
+          private-key: ${{ secrets.BEE_RUNNER_KEY }}
+          # Least privilege: creates the chart tags and releases.
+          permission-contents: write
+
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.6.0
+        uses: helm/chart-releaser-action@a917fd15b20e8b64b94d9158ad54cd6345335584 # v1.6.0
         env:
-          CR_TOKEN: "${{ secrets.CR_TOKEN }}"
+          CR_TOKEN: "${{ steps.app-token.outputs.token }}"
