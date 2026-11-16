@@ -29,7 +29,7 @@ jobs:
         with:
           version: v3.6.3
 
-      # Chart tags and releases are created as the ethersphere-release app (tag creation is
+      # Chart tags and releases are created as the bee-releaser app (tag creation is
       # restricted by a ruleset), not with a personal token.
       - name: Generate GitHub App token
         id: app-token
