@@ -88,6 +88,18 @@ Alternatively, a YAML file that specifies the values for the parameters can be p
 $ helm install --name my-release -f values.yaml ethersphere/bee
 ```
 
+### Running bee through bee-runner
+
+With `beeRunner.enabled: true`, the container runs [bee-runner](https://github.com/ethersphere/swarm-oci-registry) instead of the bee in the image. Each time it starts, the runner gets the latest release of its channel (`stable`, `rc` or `dev`). It checks the release signature and the binary's sha256. Then it execs that bee with the usual `beeCommand` arguments. The bee version now comes from the channel, not from `image.tag`.
+
+Verified binaries are kept in `/home/bee/.bee/bin`, on the data volume. If a new release keeps crashing, the runner goes back to the last release that ran well. It will not go below a release marked no-rollback.
+
+With `beeRunner.updateRestart: true`, bee also exits by itself in its own slot of a new release's rollout window. It does this at a safe point for storage incentives. Then Kubernetes starts the runner again. This needs a bee that has the `update-restart` option.
+
+```bash
+$ helm install my-release ethersphere/bee --set beeRunner.enabled=true
+```
+
 ## Helmsman Usage
 
 ### Prerequisites
