@@ -1,1 +1,4 @@
-* @ethersphere/devops
+* @ethersphere/devops @gacevicljubisa @darkobas2 @crtahlin
+
+# Workflows, release configuration and packaging
+/.github/ @ethersphere/release-reviewers
